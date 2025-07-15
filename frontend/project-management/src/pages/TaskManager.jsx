@@ -1,10 +1,12 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Header from '../components/Header/Header'
 import TaskControls from '../components/Task/TaskControls'
 import TaskForm from '../components/Task/TaskForm'
 import TaskStats from '../components/Task/TaskStats'
 import TaskList from '../components/Task/TaskList'
 import useTasks from '../hooks/useTasks'
+import { toast } from 'react-toastify'
+import api from '../services/api'
 
 // Componente Principal TaskManager
 const TaskManager = () => {
@@ -22,18 +24,63 @@ const TaskManager = () => {
     dueDate: ''
   })
 
-  const { tasks, addTask, updateTask, deleteTask } = useTasks()
+  const { tasks, addTask, updateTask, deleteTask, setAllTasks } = useTasks();
 
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode)
   }
 
-  const handleAddTask = () => {
-    if (newTask.title.trim()) {
-      addTask(newTask)
-      resetForm()
+  const fetchTasks = async () => {
+    try {
+      const queryParam = filter !== "all" ? `?status=${filter}` : "";
+      const response = await api.get(`/task/list${queryParam}`);
+      setAllTasks(response.data); // substitui toda a lista
+    } catch (error) {
+      console.error("Erro ao carregar tarefas:", error);
+      toast.error("Falha ao carregar tarefas.");
     }
-  }
+  };
+
+   // Chamada à API para o READ
+   useEffect(() => {
+    fetchTasks();
+  }, []);
+  
+
+  // const handleAddTask = () => {
+  //   if (newTask.title.trim()) {
+  //     addTask(newTask)
+  //     resetForm()
+  //   }
+  // }
+  // Chamada à API para o CREATE
+  const handleAddTask = async () => {
+    if (!newTask.title.trim()) return;
+  
+    const payload = {
+      ...newTask,
+      userId: 'ext-123456' // Troque por ID real ou dinâmico
+    };
+  
+    try {
+      const response = await api.post('/task', payload);
+    const createdTask = response.data;
+
+    addTask(createdTask);
+    fetchTasks();
+  
+      if (!createdTask) throw new Error('Erro ao criar tarefa')
+  
+      // Você pode adicionar manualmente no estado ou refazer o fetch das tasks
+      addTask(createdTask); // Ou refaça a lista chamando a API
+      resetForm();
+      toast.success('Tarefa criada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao criar tarefa:', error);
+      toast.error('Falha ao criar tarefa. Tente novamente.');
+    }
+  };
+  
 
   const handleEditTask = (task) => {
     setEditingTask(task)
@@ -46,12 +93,34 @@ const TaskManager = () => {
     })
   }
 
-  const handleSaveEdit = () => {
-    if (editingTask && newTask.title.trim()) {
-      updateTask(editingTask.id, newTask)
-      resetForm()
+  // const handleSaveEdit = () => {
+  //   if (editingTask && newTask.title.trim()) {
+  //     updateTask(editingTask.id, newTask)
+  //     resetForm()
+  //   }
+  // }
+  const handleSaveEdit = async () => {
+    if (!editingTask || !newTask.title.trim()) return;
+  
+    const payload = {
+      ...newTask,
+      userId: editingTask.userId || 'ext-123456'
+    };
+  
+    try {
+      const response = await api.put(`/task/${editingTask.id}`, payload);
+  
+      const updated = response.data;
+      updateTask(updated.id, updated);
+      resetForm();
+      toast.success('Tarefa editada com sucesso!');
+    } catch (error) {
+      console.error('Erro ao atualizar tarefa:', error);
+      toast.error('Falha ao editar tarefa. Tente novamente.');
     }
-  }
+  };
+  
+  
 
   const handleDeleteTask = (id) => {
     deleteTask(id)
@@ -69,6 +138,7 @@ const TaskManager = () => {
     })
   }
 
+  //Definindo a chamada à API 
   const handleFormSubmit = () => {
     if (editingTask) {
       handleSaveEdit()

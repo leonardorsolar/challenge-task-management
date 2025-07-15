@@ -1,6 +1,5 @@
 import { Router } from "express";
-import userRouter from "../../../../modules/user/presentation/routes/user.routes";
-import authRoutes from "../../../../modules/auth/presentation/routes/authRoutes";
+import taskRouter from "../../../../modules/task/presentation/routes/task.routes";
 
 const v1Router = Router();
 
@@ -10,7 +9,6 @@ v1Router.get("/", (req, res) => {
 
 //Register routes
 // api/v1/message
-v1Router.use("/users", userRouter);
-v1Router.use("/auth", authRoutes);
+v1Router.use("/task", taskRouter);
 
 export default v1Router;
