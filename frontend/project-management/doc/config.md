@@ -60,3 +60,33 @@ nome-do-projeto/
 ├── package.json
 ├── vite.config.js
 ```
+
+5. **Configurar tailwindcss :**
+
+```bash
+https://tailwindcss.com/docs/installation/using-vite
+```
+
+6. **instalar lucide-react:**
+
+Para instalar o pacote `lucide-react` (ícones no estilo outline SVG para React), use o seguinte comando no terminal dentro do seu projeto React:
+
+```bash
+npm install lucide-react
+```
+
+Ou, se estiver usando Yarn:
+
+```bash
+yarn add lucide-react
+```
+
+---
+
+### ✅ Após instalar, você pode usar assim:
+
+```jsx
+import { Plus, Trash2 } from "lucide-react";
+```
+
+Esses ícones são componentes SVG com suporte a `size`, `color`, `strokeWidth`, etc.
