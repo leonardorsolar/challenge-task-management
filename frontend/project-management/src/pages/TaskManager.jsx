@@ -7,6 +7,7 @@ import TaskList from '../components/Task/TaskList'
 import useTasks from '../hooks/useTasks'
 import { toast } from 'react-toastify'
 import api from '../services/api'
+import ConfirmDeleteModal from '../components/Modal/ConfirmDeleteModal'
 
 // Componente Principal TaskManager
 const TaskManager = () => {
@@ -34,6 +35,7 @@ const TaskManager = () => {
     try {
       const queryParam = filter !== "all" ? `?status=${filter}` : "";
       const response = await api.get(`/task/list${queryParam}`);
+      console.log(response.data)
       setAllTasks(response.data); // substitui toda a lista
     } catch (error) {
       console.error("Erro ao carregar tarefas:", error);
@@ -119,12 +121,33 @@ const TaskManager = () => {
       toast.error('Falha ao editar tarefa. Tente novamente.');
     }
   };
-  
-  
 
-  const handleDeleteTask = (id) => {
-    deleteTask(id)
+  const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
+const [taskToDelete, setTaskToDelete] = useState(null)
+
+
+  const confirmDelete = (id) => {
+    setTaskToDelete(id)
+    setIsDeleteModalOpen(true)
   }
+  
+  const handleConfirmDelete = async () => {
+    try {
+      const response = await api.delete(`/task/${taskToDelete}`)
+  
+      if (response.status !== 204) throw new Error("Erro ao deletar")
+  
+      deleteTask(taskToDelete)
+      toast.warning("Tarefa deletada com sucesso!")
+    } catch (error) {
+      console.error("Erro ao deletar tarefa:", error)
+      toast.error("Erro ao deletar tarefa.")
+    } finally {
+      setIsDeleteModalOpen(false)
+      setTaskToDelete(null)
+    }
+  }
+  
 
   const resetForm = () => {
     setEditingTask(null)
@@ -190,9 +213,15 @@ const TaskManager = () => {
           searchTerm={searchTerm}
           filter={filter}
           onEditTask={handleEditTask}
-          onDeleteTask={handleDeleteTask}
+          onDeleteTask={confirmDelete}
           isDarkMode={isDarkMode}
         />
+        <ConfirmDeleteModal
+  isOpen={isDeleteModalOpen}
+  onClose={() => setIsDeleteModalOpen(false)}
+  onConfirm={handleConfirmDelete}
+  isDarkMode={isDarkMode}
+/>
       </main>
     </div>
   )

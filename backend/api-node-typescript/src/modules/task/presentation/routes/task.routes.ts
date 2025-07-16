@@ -10,6 +10,8 @@ import { ListTasksUseCase } from "../../application/usecases/ListTasksUseCase";
 import { UpdateTaskUseCase } from "../../application/usecases/UpdateTaskStatusUseCase";
 import UpdateTaskStatusController from "../controllers/UpdateTaskStatusController";
 import UpdateTaskController from "../controllers/UpdateTaskStatusController";
+import { DeleteTaskUseCase } from "../../application/usecases/DeleteTaskUseCase";
+import DeleteTaskController from "../controllers/DeleteTaskController";
 
 const taskRouter = Router();
 const connection = new SqliteConnectionAdapter();
@@ -22,7 +24,8 @@ const createTaskController = new CreateTaskController(createTaskUseCase);
 const listTasksController = new ListTasksController(new ListTasksUseCase(taskRepository));
 const updateTaskUseCase = new UpdateTaskUseCase(taskRepository);
 const updateTaskController = new UpdateTaskController(updateTaskUseCase);
-//const deleteTaskController = new DeleteTaskController(new DeleteTaskUseCase(taskRepository));
+const deleteTaskUseCase = new DeleteTaskUseCase(taskRepository);
+const deleteTaskController = new DeleteTaskController(deleteTaskUseCase);
 
 // rotas
 
@@ -42,7 +45,9 @@ taskRouter.get("/list", (req, res): Promise<any> => {
 taskRouter.put("/:id", (req, res): Promise<any> => {
   return updateTaskController.handle(req, res);
 });
-//taskRouter.put("/:id", (req, res) => updateStatusController.handle(req, res));
-//taskRouter.delete("/:id", (req, res) => deleteTaskController.handle(req, res));
+
+taskRouter.delete("/:id", (req, res) => {
+  return deleteTaskController.handle(req, res);
+});
 
 export default taskRouter;

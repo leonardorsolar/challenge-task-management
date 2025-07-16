@@ -1,4 +1,6 @@
+import { format } from "date-fns";
+import { ptBR } from "date-fns/locale";
+
 export const formatDate = (dateString) => {
-  if (!dateString) return "";
-  return new Date(dateString).toLocaleDateString("pt-BR");
+  return format(new Date(dateString), "dd/MM/yyyy", { locale: ptBR });
 };

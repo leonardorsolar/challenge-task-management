@@ -1,5 +1,6 @@
 import React from 'react'
 import { Edit2, Trash2, User, Calendar, CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react'
+import { formatDate } from '../../utils/formatDate'
 
 const TaskCard = ({ task, onEdit, onDelete, isDarkMode }) => {
   const getStatusColor = (status) => {
@@ -54,16 +55,17 @@ const TaskCard = ({ task, onEdit, onDelete, isDarkMode }) => {
     }
   }
 
-  const formatDate = (dateString) => {
-    if (!dateString) return ''
-    const date = new Date(dateString)
-    return date.toLocaleDateString('pt-BR')
-  }
+  // const formatDate = (dateString) => {
+  //   if (!dateString) return ''
+  //   const date = new Date(dateString)
+  //   return date.toLocaleDateString('pt-BR')
+  // }
 
   const bgCard = isDarkMode ? 'bg-gray-800' : 'bg-white'
-  const textPrimary = isDarkMode ? 'text-white' : 'text-gray-900'
+  //const textPrimary = isDarkMode ? 'text-white' : 'text-gray-900'
   const textSecondary = isDarkMode ? 'text-gray-300' : 'text-gray-600'
   const borderColor = isDarkMode ? 'border-gray-700' : 'border-gray-200'
+  
 
   return (
     <div
@@ -93,11 +95,11 @@ const TaskCard = ({ task, onEdit, onDelete, isDarkMode }) => {
   </div>
 
   {/* Vencimento */}
-  {task.dueDate && (
+  {task.created_at && (
     <div className="flex items-center gap-1">
       <Calendar size={14} className={textSecondary} />
       <span className={textSecondary}>
-        Vencimento: {formatDate(task.dueDate)}
+        Vencimento: {formatDate(task.created_at)}
       </span>
     </div>
   )}
