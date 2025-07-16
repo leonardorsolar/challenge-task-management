@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Sun, Moon, CheckCircle } from 'lucide-react'
 
 const Header = ({ isDarkMode, onToggleTheme }) => {
+  const [userName, setUserName] = useState('')
   const bgCard = isDarkMode ? 'bg-gray-800' : 'bg-white'
   const borderColor = isDarkMode ? 'border-gray-700' : 'border-gray-200'
 
   const textSecondary = isDarkMode ? 'text-gray-300' : 'text-gray-600'
+
+  useEffect(() => {
+    fetch('http://localhost:8000/users/1')
+      .then(response => response.json())
+      .then(data => setUserName(data.name))
+      .catch(err => console.error('Erro ao buscar usuário:', err))
+  }, [])
+
 
   return (
     <header className={`${bgCard} shadow-sm border-b ${borderColor}`}>
@@ -19,6 +28,11 @@ const Header = ({ isDarkMode, onToggleTheme }) => {
                       <CheckCircle size={32} className={`mx-auto mt-4 ${textSecondary} opacity-50`} />
                     </div>
             <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
+            {userName && (
+              <span className="ml-4 px-2 py-1 bg-blue-100 text-blue-800 rounded">
+                {userName}
+              </span>
+            )}
           </div>
           
           <button

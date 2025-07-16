@@ -1,0 +1,152 @@
+openapi: 3.0.0
+info:
+  title: API de Gestão de Tarefas e Usuários
+  version: 1.0.0
+  description: API que permite gerenciar tarefas e usuários
+
+servers:
+  - url: http://localhost:3000/api/v1
+    description: Servidor Node.js (Tarefas)
+  - url: http://localhost:8000
+    description: Servidor FastAPI (Usuários)
+
+paths:
+  /task:
+    post:
+      summary: Criar uma nova tarefa
+      tags: [Tarefas]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                status:
+                  type: string
+                  enum: [pending, in_progress, completed]
+                priority:
+                  type: string
+                  enum: [low, medium, high]
+      responses:
+        '201':
+          description: Tarefa criada com sucesso
+
+  /task/list:
+    get:
+      summary: Listar todas as tarefas
+      tags: [Tarefas]
+      responses:
+        '200':
+          description: Lista de tarefas
+
+  /task/{id}:
+    put:
+      summary: Atualizar status de uma tarefa
+      tags: [Tarefas]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  enum: [pending, in_progress, completed]
+      responses:
+        '200':
+          description: Tarefa atualizada com sucesso
+
+    delete:
+      summary: Excluir uma tarefa
+      tags: [Tarefas]
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: Tarefa removida com sucesso
+
+  /users/:
+    get:
+      summary: Listar todos os usuários
+      tags: [Usuários]
+      responses:
+        '200':
+          description: Lista de usuários
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+
+    post:
+      summary: Criar um novo usuário
+      tags: [Usuários]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserCreate'
+      responses:
+        '201':
+          description: Usuário criado com sucesso
+
+  /users/{user_id}:
+    get:
+      summary: Obter usuário por ID
+      tags: [Usuários]
+      parameters:
+        - in: path
+          name: user_id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Usuário encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
+        '404':
+          description: Usuário não encontrado
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        email:
+          type: string
+
+    UserCreate:
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+
