@@ -10,7 +10,58 @@ Esta aplicação é uma plataforma interna para gestão de tarefas, que permite 
 - **Backend FastApi:** API RESTful dedicada à exposição de um do usuário.
 - **Frontend:** Interface web responsiva que consome a API para interação com o usuário.
 
+Tempo de produção 10 horas:
+
+![Alt text](./doc/image/commits.png "a title")
+
 ---
+
+![Alt text](./doc/image/api.png "a title")
+
+# ✅ Tutorial de Execução do Projeto
+
+## 🔁 1. Clonar o repositório
+
+```bash
+git clone https://github.com/leonardorsolar/challenge-task-management.git
+cd challenge-task-management
+```
+
+---
+
+## 🐍 2. Rodar o Backend (Python - FastAPI)
+
+```bash
+cd backend/api-fastapi
+python3 -m venv venv
+source venv/bin/activate   # Windows: venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+---
+
+## ⚙️ 3. Rodar o Backend (Node.js - TypeScript)
+
+```bash
+cd backend/api-node-typescript
+npm install
+npm run dev
+```
+
+### 👉 Dica: Instalar e usar Node.js 20 (se ainda não tiver)
+
+---
+
+## 💻 4. Rodar o Frontend (React.js com Vite)
+
+```bash
+cd frontend/project-management
+npm install
+npm run dev
+```
+
+Acesse em: [http://localhost:5173](http://localhost:5173)
 
 ### 1.1 Estrutura do Projeto Backend
 
@@ -126,6 +177,8 @@ Ela descreve os endpoints:
 ---
 
 ## 3. Frontend
+
+![Alt text](./doc/image/front.png "a title")
 
 ### 3.1 Funcionalidades Implementadas
 
