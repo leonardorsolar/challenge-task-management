@@ -245,37 +245,22 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 - Backend Node separado em camadas (Arquitetura Clean Architecture):
 
-* **index.ts:** Ponto de entrada principal da aplicação, responsável por iniciar o servidor e injetar as dependências.
-
-* **modules/task/application:** Camada de aplicação que orquestra os casos de uso.
-
-* **modules/task/application/usecases:** Contém os casos de uso, que representam as regras específicas de negócio.
-
-* **modules/task/domain:** Camada de domínio que representa a lógica central da aplicação.
-
-* **modules/task/domain/entities:** Entidades do negócio, incluindo modelo e comportamento.
-
-* **modules/task/domain/repositories:** Interfaces que definem os contratos para persistência de dados.
-
-* **modules/task/infrastructure:** Camada de infraestrutura com implementações concretas das interfaces do domínio.
-
-* **modules/task/infrastructure/repositories:** Implementações dos repositórios definidos no domínio.
-
-* **modules/task/presentation:** Camada de apresentação, interface entre a aplicação e o mundo externo.
-
-* **modules/task/presentation/controllers:** Controladores que recebem requisições e invocam os casos de uso.
-
-* **modules/task/presentation/routes:** Arquivos que definem as rotas da API.
-
-* **modules/task/test:** Testes unitários e de integração para o módulo de tarefas.
-
-* **shared/core:** Código compartilhado que contém tipos base, utilitários e objetos para tratamento de erros e resultados (como AppError, Either, Result).
-
-* **shared/infrastructure:** Infraestrutura compartilhada, incluindo conexão com banco de dados e configurações.
-
-* **shared/infrastructure/database:** Configuração e gerenciamento da conexão com o banco de dados.
-
-* **shared/infrastructure/http:** Configuração do servidor HTTP, middleware e rotas globais.
+  - **index.ts:** Ponto de entrada principal da aplicação, responsável por iniciar o servidor e injetar as dependências.
+  - **modules/task/application:** Camada de aplicação que orquestra os casos de uso.
+  - **modules/task/application/usecases:** Contém os casos de uso, que representam as regras específicas de negócio.
+  - **modules/task/domain:** Camada de domínio que representa a lógica central da aplicação.
+  - **modules/task/domain/entities:** Entidades do negócio, incluindo modelo e comportamento.
+  - **modules/task/domain/repositories:** Interfaces que definem os contratos para persistência de dados.
+  - **modules/task/infrastructure:** Camada de infraestrutura com implementações concretas das interfaces do domínio.
+  - **modules/task/infrastructure/repositories:** Implementações dos repositórios definidos no domínio.
+  - **modules/task/presentation:** Camada de apresentação, interface entre a aplicação e o mundo externo.
+  - **modules/task/presentation/controllers:** Controladores que recebem requisições e invocam os casos de uso.
+  - **modules/task/presentation/routes:** Arquivos que definem as rotas da API.
+  - **modules/task/test:** Testes unitários e de integração para o módulo de tarefas.
+  - **shared/core:** Código compartilhado que contém tipos base, utilitários e objetos para tratamento de erros e resultados (como AppError, Either, Result).
+  - **shared/infrastructure:** Infraestrutura compartilhada, incluindo conexão com banco de dados e configurações.
+  - **shared/infrastructure/database:** Configuração e gerenciamento da conexão com o banco de dados.
+  - **shared/infrastructure/http:** Configuração do servidor HTTP, middleware e rotas globais.
 
 - Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
 - Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
