@@ -1,0 +1,21 @@
+@startuml
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+Person(user, "Usuário Interno", "Funcionário que acessa a plataforma via navegador")
+
+System_Boundary(taskPlatform, "Plataforma de Gestão de Tarefas") {
+  
+  Container(frontend, "Frontend React", "React.js", "Interface web responsiva para gestão de tarefas")
+  Container(taskApi, "API de Tarefas", "Node.js + Express", "Gerencia tarefas: criar, listar, filtrar, atualizar, excluir")
+  Container(userApi, "API de Usuário", "FastAPI (Python)", "Expõe e manipula dados do usuário")
+  ContainerDb(db, "Banco de Dados SQLite", "SQLite", "Armazena dados de tarefas e usuários")
+
+  Rel(frontend, taskApi, "Requisições REST (JSON)")
+  Rel(frontend, userApi, "Requisições REST (JSON)")
+  Rel(taskApi, db, "ORM / Queries SQLite")
+  Rel(userApi, db, "ORM SQLAlchemy / SQLite")
+}
+
+Rel(user, frontend, "Usa via navegador")
+
+@enduml

@@ -1,0 +1,21 @@
+@startuml component-fastapi
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(fastapi, "API de Usuário (FastAPI)") {
+
+  Component(main, "main.py", "FastAPI", "Ponto de entrada da aplicação. Inicializa a API.")
+  Component(routers, "Routers", "FastAPI", "Define os endpoints da aplicação (ex: /user)")
+  Component(services, "User Service", "Python", "Regras de negócio para manipulação de usuários")
+  Component(models, "Models e Schemas", "Pydantic / SQLAlchemy", "Define o modelo de dados e os schemas de validação")
+  Component(database, "Database Session", "SQLAlchemy + SQLite", "Gerencia a conexão com o banco de dados")
+  Component(config, "Configuração", "Python", "Carrega variáveis de ambiente e configurações globais")
+
+  Rel(main, routers, "Importa e registra")
+  Rel(routers, services, "Chama serviços de negócio")
+  Rel(services, models, "Utiliza modelos e schemas")
+  Rel(services, database, "Realiza operações de leitura/escrita")
+  Rel(main, config, "Lê configurações")
+  Rel(services, config, "Pode acessar configurações")
+}
+
+@enduml

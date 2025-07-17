@@ -1,0 +1,25 @@
+@startuml component-node
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+' Sistema e container principal
+Container_Boundary(apiNode, "API de Tarefas (Node.js + Express)") {
+
+  Component(controller, "Controllers", "Express.js", "Recebem requisições HTTP e repassam para os casos de uso")
+  Component(routes, "Routes", "Express.js", "Define os endpoints REST da aplicação")
+  Component(usecases, "Use Cases", "Node.js", "Contém a lógica de aplicação: criar, listar, atualizar, excluir tarefas")
+  Component(domain, "Domain", "TypeScript", "Entidade Task e interface ITaskRepository")
+  Component(repositoryImpl, "TaskRepository", "SQLite / TypeORM (ou equivalente)", "Implementação da persistência de tarefas")
+  Component(shared, "Shared Core", "TypeScript", "Erros, tipos, utilitários (AppError, Result, Either)")
+  Component(db, "Database Adapter", "SQLite", "Camada de acesso ao banco de dados")
+  
+  ' Relacionamentos internos
+  Rel(controller, usecases, "Usa")
+  Rel(usecases, domain, "Manipula entidades e depende de ITaskRepository")
+  Rel(domain, repositoryImpl, "É implementado por")
+  Rel(repositoryImpl, db, "Executa operações SQL")
+  Rel(controller, routes, "É chamado via")
+  Rel(routes, controller, "Encaminha requisições")
+  Rel(usecases, shared, "Usa AppError, Result, etc")
+}
+
+@enduml

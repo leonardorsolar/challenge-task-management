@@ -1,0 +1,27 @@
+@startuml component-frontend
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+Container_Boundary(frontend, "Frontend React (Vite)") {
+
+  Component(app, "App.jsx", "React", "Componente raiz da aplicação")
+  Component(pages, "Pages", "React Router", "Componentes de página acessados via rotas")
+  Component(components, "Components", "React", "Componentes reutilizáveis de UI")
+  Component(services, "Services", "Axios/Fetch", "Responsável por chamadas à API")
+  Component(hooks, "Custom Hooks", "React", "Hooks personalizados para lógica reutilizável")
+  Component(styles, "Styles", "CSS/SCSS/Tailwind", "Estilos globais e temáticos")
+  Component(util, "Utils", "JavaScript", "Funções utilitárias gerais")
+  Component(assets, "Assets", "Imagens, ícones, fontes", "Recursos estáticos usados pela UI")
+  Component(test, "Testes", "Vitest/Jest", "Testes unitários e de integração")
+
+  ' Relacionamentos principais
+  Rel(app, pages, "Renderiza páginas via rotas")
+  Rel(pages, components, "Utiliza componentes visuais")
+  Rel(pages, services, "Faz chamadas à API")
+  Rel(pages, hooks, "Usa hooks personalizados")
+  Rel(pages, styles, "Aplica estilos")
+  Rel(components, assets, "Renderiza imagens/ícones")
+  Rel(services, util, "Usa funções auxiliares")
+  Rel(test, app, "Testa fluxo principal")
+}
+
+@enduml

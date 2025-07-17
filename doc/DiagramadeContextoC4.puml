@@ -1,0 +1,19 @@
+@startuml context
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+' Definição do ator externo
+Person(user, "Usuário Interno", "Funcionário que usa a plataforma para gerenciar tarefas")
+
+System_Boundary(taskPlatform, "Plataforma de Gestão de Tarefas") {
+    
+    System(frontend, "Frontend React", "Interface web onde o usuário interage com o sistema")
+    System(apiNode, "API de Tarefas (Node.js)", "Gerencia as tarefas: criar, listar, filtrar, atualizar, excluir")
+    System(apiFastapi, "API de Usuários (FastAPI)", "Exibe e edita dados do usuário")
+}
+
+' Relacionamentos
+Rel(user, frontend, "Acessa via navegador")
+Rel(frontend, apiNode, "Faz chamadas REST (JSON)")
+Rel(frontend, apiFastapi, "Consulta dados do usuário via REST (JSON)")
+
+@enduml

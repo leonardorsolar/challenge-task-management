@@ -16,7 +16,12 @@ Tempo de produção 10 horas:
 
 ---
 
-![Alt text](./doc/image/api.png "a title")
+Diagrama de Contêiner – Backend Node (Model C4)
+![alt text](./doc/image/DiagramadeContêineresC4.png)
+
+Dica:Instale a extensão PlantUML.
+Acesse o arquivo doc/DiagramadeConteineresC4.puml.
+Clique em “Preview” ou Alt + D para renderizar.
 
 # ✅ Tutorial de Execução do Projeto
 
@@ -63,29 +68,22 @@ npm run dev
 
 Acesse em: [http://localhost:5173](http://localhost:5173)
 
-### 1.1 Estrutura do Projeto Backend
+### 1.1 Estrutura Geral dos Arquivos
 
 ```
 project-management/
 ├── backend/
-│   ├── controllers/
-│   ├── models/
-│   ├── routes/
-│   ├── services/
-│   └── app.js (ou main.py, index.js)
+│   ├── api-fastapi/
+│   └── api-node-typescript/
 ├── docs/
+│   ├── image
 │   ├── openapi.json
-│   └── swagger.yaml (ou arquivo JSON)
+│   ├── DiagramadeComponentesC4FastApi.puml
+│   ├── DiagramadeComponentesC4Node.puml
+│   ├── DiagramadeComponentesC4React.puml
+│   ├── DiagramadeContextoC4.puml
+│   └── swagger.yaml
 ├── frontend/
-│   ├── modules/
-│   │   ├── application/
-│   │   ├── domain/
-│   │   ├── infrastructure/
-│   │   ├── presentation/
-│   │   └── teste/
-│   ├── shared/
-│   └── index.ts
-├── package.json (ou requirements.txt)
 └── README.md
 ```
 
@@ -141,6 +139,9 @@ shared/                         # Código e recursos compartilhados
                 # Ambiente virtual Python
 ```
 
+Diagrama de Componentes – Backend Node (Model C4)
+![alt text](/doc/image/DiagramadeComponentesC4Node.png)
+
 ### 2.3.2 Estrutura do Projeto Backend (FastAPI) e Responsabilidades
 
 ```
@@ -163,6 +164,9 @@ requirements.txt        # Dependências do projeto
 venv/                   # Ambiente virtual Python
 ```
 
+Diagrama de Componentes – Backend FastAPI (Model C4)
+![alt text](./doc/image/DiagramadeComponentesC4FastApi.png)
+
 ### 2.4 Documentação da API
 
 Foi utilizado o padrão **OpenAPI (Swagger)** para documentar a API. A documentação está disponível na raiz do projeto `/doc`
@@ -173,6 +177,8 @@ Ela descreve os endpoints:
 - `GET /tasks` — Listar tarefas (com filtro opcional por status)
 - `PATCH /tasks/:id/status` — Atualizar status da tarefa
 - `DELETE /tasks/:id` — Excluir tarefa
+
+![Alt text](./doc/image/api.png "a title")
 
 ---
 
@@ -191,7 +197,7 @@ Ela descreve os endpoints:
 
 ### 3.2 Tecnologias Utilizadas
 
-- **React.js** com Vite (ou outra stack que você tenha usado).
+- **React.js** com Vite
 - Biblioteca de componentes e ícones (exemplo: lucide-react).
 - Axios para chamadas HTTP.
 - esting-library/jest-dom
@@ -215,6 +221,9 @@ frontend/
 └── README.md
 ```
 
+Diagrama de Componentes – Frontend React (Model C4)
+![alt text](./doc/image/DiagramadeComponentesC4React.png)
+
 ---
 
 ## 4. Arquitetura e Decisões Técnicas
@@ -228,11 +237,45 @@ frontend/
 
 ### 4.2 Organização do Código e Separação de Responsabilidades
 
-- Backend separado em camadas:
+- Backend FastApi separado em camadas:
 
   - Controllers: lidar com requisições HTTP.
   - Services: regras de negócio.
   - Models: entidades e acesso a dados.
+
+- Backend Node separado em camadas (Arquitetura Clean Architecture):
+
+* **index.ts:** Ponto de entrada principal da aplicação, responsável por iniciar o servidor e injetar as dependências.
+
+* **modules/task/application:** Camada de aplicação que orquestra os casos de uso.
+
+* **modules/task/application/usecases:** Contém os casos de uso, que representam as regras específicas de negócio.
+
+* **modules/task/domain:** Camada de domínio que representa a lógica central da aplicação.
+
+* **modules/task/domain/entities:** Entidades do negócio, incluindo modelo e comportamento.
+
+* **modules/task/domain/repositories:** Interfaces que definem os contratos para persistência de dados.
+
+* **modules/task/infrastructure:** Camada de infraestrutura com implementações concretas das interfaces do domínio.
+
+* **modules/task/infrastructure/repositories:** Implementações dos repositórios definidos no domínio.
+
+* **modules/task/presentation:** Camada de apresentação, interface entre a aplicação e o mundo externo.
+
+* **modules/task/presentation/controllers:** Controladores que recebem requisições e invocam os casos de uso.
+
+* **modules/task/presentation/routes:** Arquivos que definem as rotas da API.
+
+* **modules/task/test:** Testes unitários e de integração para o módulo de tarefas.
+
+* **shared/core:** Código compartilhado que contém tipos base, utilitários e objetos para tratamento de erros e resultados (como AppError, Either, Result).
+
+* **shared/infrastructure:** Infraestrutura compartilhada, incluindo conexão com banco de dados e configurações.
+
+* **shared/infrastructure/database:** Configuração e gerenciamento da conexão com o banco de dados.
+
+* **shared/infrastructure/http:** Configuração do servidor HTTP, middleware e rotas globais.
 
 - Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
 - Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
