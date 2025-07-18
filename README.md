@@ -148,8 +148,6 @@ Para garantir segurança desde a fase de requisitos até a entrega, adotar as se
 
 #### 2.7 Metodologia de desenvolvimento (\*BP)
 
----
-
 Utilizaremos uma abordagem híbrida baseada em Scrum e Extreme Programming (XP):
 
 Scrum para organização do projeto em sprints semanais, com reuniões diárias (daily) e review ao final de cada sprint.
@@ -356,7 +354,7 @@ Acessos ao arquivo:
 
 ---
 
-## Solcitações de informações extras
+### Solicitações de informações extras
 
 ## 9. Arquitetura e Decisões Técnicas
 
@@ -431,7 +429,7 @@ Acessos ao arquivo:
 
 ---
 
-## ✅ 10. Simulação de Distribuição de Tarefas na Equipe
+## 10. Simulação de Distribuição de Tarefas na Equipe
 
 | Desenvolvedor                   | Responsabilidades Técnicas                                                                                                                                                                                                                                                                                                                                         | Entregas Principais                                                                                                                             |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -458,16 +456,12 @@ Acessos ao arquivo:
 
 ---
 
-Claro! Aqui está a seção **"Garantia de Qualidade (QA)"** reescrita de forma mais objetiva e direta:
-
----
-
-## 🛠️ Qualidade de Software
+## Qualidade de Software
 
 - **QA (Quality Assurance)**: Revisões de código, Auditorias de processo, revisões técnicas.
 - **QC (Quality Control)**: Testes funcionais, de usabilidade e de desempenho.
 
-### ✅ Garantia de Qualidade (QA)
+### Garantia de Qualidade (QA)
 
 - **Testes Unitários**: Jest (Node.js) e Pytest (Python).
 - **Testes de Integração**: Entre controllers, services e repositórios.
@@ -475,7 +469,7 @@ Claro! Aqui está a seção **"Garantia de Qualidade (QA)"** reescrita de forma 
 - **CI/CD**: Execução automática de testes e builds via GitHub Actions.
 - **Sonar Cloud**: Análise de código (bugs, vulnerabilidades de segurança, "code smells")
 
-#### 🔎 Checklist de Pull Requests (PRs)
+#### Checklist de Pull Requests (PRs)
 
 - Testes automatizados incluídos e aprovados.
 - Documentação (Swagger) atualizada.
