@@ -14,69 +14,100 @@ paths:
   /task:
     post:
       summary: Criar uma nova tarefa
-      tags: [Tarefas]
+      tags:
+        - Tarefas
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              required:
+                - title
+                - status
+                - priority
               properties:
                 title:
                   type: string
+                  example: "Comprar leite"
                 description:
                   type: string
+                  example: "Ir ao supermercado comprar leite integral"
                 status:
                   type: string
                   enum: [pending, in_progress, completed]
+                  example: pending
                 priority:
                   type: string
                   enum: [low, medium, high]
+                  example: medium
       responses:
         '201':
           description: Tarefa criada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
 
   /task/list:
     get:
       summary: Listar todas as tarefas
-      tags: [Tarefas]
+      tags:
+        - Tarefas
       responses:
         '200':
           description: Lista de tarefas
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Task'
 
   /task/{id}:
     put:
       summary: Atualizar status de uma tarefa
-      tags: [Tarefas]
+      tags:
+        - Tarefas
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
+          description: ID da tarefa a ser atualizada
       requestBody:
         required: true
         content:
           application/json:
             schema:
               type: object
+              required:
+                - status
               properties:
                 status:
                   type: string
                   enum: [pending, in_progress, completed]
+                  example: completed
       responses:
         '200':
           description: Tarefa atualizada com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Task'
 
     delete:
       summary: Excluir uma tarefa
-      tags: [Tarefas]
+      tags:
+        - Tarefas
       parameters:
         - in: path
           name: id
           required: true
           schema:
             type: string
+          description: ID da tarefa a ser removida
       responses:
         '204':
           description: Tarefa removida com sucesso
@@ -84,7 +115,8 @@ paths:
   /users/:
     get:
       summary: Listar todos os usuários
-      tags: [Usuários]
+      tags:
+        - Usuários
       responses:
         '200':
           description: Lista de usuários
@@ -97,7 +129,8 @@ paths:
 
     post:
       summary: Criar um novo usuário
-      tags: [Usuários]
+      tags:
+        - Usuários
       requestBody:
         required: true
         content:
@@ -107,17 +140,23 @@ paths:
       responses:
         '201':
           description: Usuário criado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/User'
 
   /users/{user_id}:
     get:
       summary: Obter usuário por ID
-      tags: [Usuários]
+      tags:
+        - Usuários
       parameters:
         - in: path
           name: user_id
           required: true
           schema:
             type: integer
+          description: ID do usuário a ser obtido
       responses:
         '200':
           description: Usuário encontrado
@@ -130,23 +169,60 @@ paths:
 
 components:
   schemas:
+    Task:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "abc123"
+        title:
+          type: string
+          example: "Comprar leite"
+        description:
+          type: string
+          example: "Ir ao supermercado comprar leite integral"
+        status:
+          type: string
+          enum: [pending, in_progress, completed]
+          example: pending
+        priority:
+          type: string
+          enum: [low, medium, high]
+          example: medium
+        createdAt:
+          type: string
+          format: date-time
+          example: "2025-07-18T15:00:00Z"
+
     User:
       type: object
       properties:
         id:
           type: integer
+          example: 1
         name:
           type: string
+          example: "João Silva"
         email:
           type: string
+          format: email
+          example: "joao.silva@email.com"
 
     UserCreate:
       type: object
+      required:
+        - name
+        - email
+        - password
       properties:
         name:
           type: string
+          example: "João Silva"
         email:
           type: string
+          format: email
+          example: "joao.silva@email.com"
         password:
           type: string
-
+          format: password
+          example: "senhaSegura123"

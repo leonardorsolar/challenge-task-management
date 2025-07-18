@@ -367,6 +367,7 @@ No navegador:
 ---
 
 No terminal:
-curl -i http://localhost:8000/
-curl -i http://localhost:5173/
-curl -i http://localhost:3000/
+
+- curl -i http://localhost:8000/
+- curl -i http://localhost:5173/
+- curl -i http://localhost:3000/
