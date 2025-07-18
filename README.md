@@ -93,6 +93,18 @@ Dica:
 
 **Priorizar requisitos usando técnicas como MoSCoW**
 
+#### Critérios de Aceitação por Funcionalidade: (\*BP)
+
+| ID   | História de Usuário                  | Critérios de Aceitação                                                                                                 |
+| ---- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| US01 | Criar tarefas para organizar meu dia | - O usuário deve preencher título e status<br>- A tarefa deve ser salva com sucesso<br>- Exibir confirmação de criação |
+| US02 | Visualizar a lista de tarefas        | - Ao acessar o sistema, as tarefas do usuário logado devem ser listadas<br>- Exibir título, status e data de criação   |
+| US03 | Filtrar tarefas por status           | - O usuário pode selecionar um status (pending, in_progress, completed)<br>- A lista deve ser atualizada dinamicamente |
+| US04 | Alterar o status das tarefas         | - O usuário pode escolher outro status para a tarefa<br>- O novo status deve ser salvo e refletido na UI               |
+| US05 | Excluir tarefas que não precisa mais | - O usuário pode clicar em "Excluir"<br>- Um alerta de confirmação é exibido<br>- A tarefa é removida da lista         |
+| US06 | Listar usuários (admin)              | - A API `/users` deve retornar todos os usuários cadastrados<br>- A resposta deve conter ID, nome e e-mail             |
+| US07 | Autenticar para acessar tarefas      | - O usuário insere e-mail e senha<br>- Se corretos, recebe um token de acesso<br>- Redireciona para a tela de tarefas  |
+
 ### 2.5 Identificar stakeholders (\*BP)
 
 Quem são os usuários do sistema?
@@ -106,11 +118,7 @@ Quem são os usuários do sistema?
 - Documente os cenários e resultados esperados.
 - Criar testes de carga e performance.
 
-![alt text](/doc/image/planodetestes.png)
-
-Claro! Aqui está a versão **resumida, compacta e objetiva** das práticas de segurança, ideal para incluir no seu documento de requisitos sem perder clareza:
-
----
+## ![alt text](/doc/image/planodetestes.png)
 
 ### **2.7 Segurança**
 
@@ -137,18 +145,6 @@ Para garantir segurança desde a fase de requisitos até a entrega, adotar as se
 - CI com testes automatizados e varredura de segurança.
 - Branches protegidos e revisão obrigatória.
 - Evitar versionar segredos (usar `.env` e secret scanning).
-
-#### Critérios de Aceitação por Funcionalidade: (\*BP)
-
-| ID   | História de Usuário                  | Critérios de Aceitação                                                                                                 |
-| ---- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
-| US01 | Criar tarefas para organizar meu dia | - O usuário deve preencher título e status<br>- A tarefa deve ser salva com sucesso<br>- Exibir confirmação de criação |
-| US02 | Visualizar a lista de tarefas        | - Ao acessar o sistema, as tarefas do usuário logado devem ser listadas<br>- Exibir título, status e data de criação   |
-| US03 | Filtrar tarefas por status           | - O usuário pode selecionar um status (pending, in_progress, completed)<br>- A lista deve ser atualizada dinamicamente |
-| US04 | Alterar o status das tarefas         | - O usuário pode escolher outro status para a tarefa<br>- O novo status deve ser salvo e refletido na UI               |
-| US05 | Excluir tarefas que não precisa mais | - O usuário pode clicar em "Excluir"<br>- Um alerta de confirmação é exibido<br>- A tarefa é removida da lista         |
-| US06 | Listar usuários (admin)              | - A API `/users` deve retornar todos os usuários cadastrados<br>- A resposta deve conter ID, nome e e-mail             |
-| US07 | Autenticar para acessar tarefas      | - O usuário insere e-mail e senha<br>- Se corretos, recebe um token de acesso<br>- Redireciona para a tela de tarefas  |
 
 #### 2.7 Metodologia de desenvolvimento (\*BP)
 
@@ -300,6 +296,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 - Diagrama de Código
 - Diagrama de Classes (UML)
 - Diagrama Entidade-Relacionamento (DER)
+- Diagrama de implantação
 
 Acessos aos arquivos:
 
@@ -359,7 +356,7 @@ Acessos ao arquivo:
 
 ---
 
-# Solcitações de informações extras
+## Solcitações de informações extras
 
 ## 9. Arquitetura e Decisões Técnicas
 
@@ -434,13 +431,6 @@ Acessos ao arquivo:
 
 ---
 
-## 10. Simulação de Distribuição de Tarefas na Equipe
-
-| Desenvolvedor | Responsabilidades | Entregas Principais |
-| -------------- | ------------------------------------------------------------Claro! Abaixo está a versão ajustada da **Simulação de Distribuição de Tarefas na Equipe**, com o **Dev A atuando como Tech Lead**, responsável por revisões de _pull requests_, garantindo qualidade de código, integração contínua e suporte geral.
-
----
-
 ## ✅ 10. Simulação de Distribuição de Tarefas na Equipe
 
 | Desenvolvedor                   | Responsabilidades Técnicas                                                                                                                                                                                                                                                                                                                                         | Entregas Principais                                                                                                                             |
@@ -450,6 +440,8 @@ Acessos ao arquivo:
 | **Dev C (Frontend)**            | - Interface em **React**<br>- Consumo de APIs<br>- Interface responsiva com foco em usabilidade<br>- Validações no frontend<br>- Testes e2e com Playwright (com apoio do Dev A)                                                                                                                                                                                    | Funcionalidades completas de CRUD de tarefas com filtros, layout responsivo, testes básicos automatizados                                       |
 
 ---
+
+**Obs.:** A adoção de uma arquitetura modular e desacoplada, baseada em princípios do Domain-Driven Design (DDD), facilita a escalabilidade da equipe, permitindo a inclusão de novos desenvolvedores de forma segura e com uma divisão de tarefas mais eficiente.
 
 ## Tech Lead – Dev A
 
@@ -462,29 +454,37 @@ Acessos ao arquivo:
 - Garantia de cobertura mínima de testes (ex: 80%)
 - Suporte aos devs em dúvidas técnicas ou conflitos de merge
 - Garantia de que a documentação está atualizada
+- Treinamentos
 
 ---
 
-## Garantia de Qualidade (QA)
+Claro! Aqui está a seção **"Garantia de Qualidade (QA)"** reescrita de forma mais objetiva e direta:
 
-- **Testes Unitários**: Node.js (Jest) e Python (Pytest)
-- **Testes de Integração**: Verificação entre camadas (controller-service-repositório)
-- **Testes E2E**: Com Playwright no frontend, simulando uso real
-- **CI/CD**: Automatização de testes e builds via GitHub Actions
-- **Checklist de PRs**:
+---
 
-  - Testes incluídos e passando
-  - Swagger atualizado
-  - Padrões de código respeitados
-  - Revisado pelo Dev A
+## 🛠️ Qualidade de Software
 
-**Obs.:** A adoção de uma arquitetura modular e desacoplada, baseada em princípios do Domain-Driven Design (DDD), facilita a escalabilidade da equipe, permitindo a inclusão de novos desenvolvedores de forma segura e com uma divisão de tarefas mais eficiente.
+- **QA (Quality Assurance)**: Revisões de código, Auditorias de processo, revisões técnicas.
+- **QC (Quality Control)**: Testes funcionais, de usabilidade e de desempenho.
+
+### ✅ Garantia de Qualidade (QA)
+
+- **Testes Unitários**: Jest (Node.js) e Pytest (Python).
+- **Testes de Integração**: Entre controllers, services e repositórios.
+- **Testes End-to-End (E2E)**: Playwright no frontend simulando uso real.
+- **CI/CD**: Execução automática de testes e builds via GitHub Actions.
+- **Sonar Cloud**: Análise de código (bugs, vulnerabilidades de segurança, "code smells")
+
+#### 🔎 Checklist de Pull Requests (PRs)
+
+- Testes automatizados incluídos e aprovados.
+- Documentação (Swagger) atualizada.
+- Padrões de código aplicados (lint, formatação).
+- Revisão obrigatória pelo **Dev A (Tech Lead)**.
 
 ### 10.1 Sugestões para Manter Qualidade e Coordenação da Equipe
 
 Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recomenda-se a adoção das seguintes práticas:
-
----
 
 #### Gestão de Código e Integração
 
@@ -501,8 +501,6 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
   - Execução de testes (unitários, integração, e2e)
   - Análise de cobertura de testes
   - Validação de lint e build
-
----
 
 #### Planejamento e Gerenciamento
 
@@ -545,8 +543,10 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
 #### Monitoramento e Qualidade Contínua
 
 - Avaliação contínua da **cobertura de testes** (mínimo recomendável: 80%)
-- Monitoramento de performance e erros em produção (se aplicável)
+- Monitoramento de resultados: Monitoramento de performance e erros em produção
 - Feedbacks recorrentes entre os membros para melhoria contínua
+- Coleta de métricas
+- Feedback para melhorar processos e produtos continuamente.
 
 ---
 
@@ -554,7 +554,7 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
 
 - Backend: Escrever testes unitários, testes de integração dos usecases, repositórios e dos endpoints.
 - Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
-- Cobertura mínima de 70% recomendada.
+- Cobertura mínima de 80% recomendada.
   .
 
 ---
@@ -574,9 +574,6 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
 
 ## 13. Implementação (Codificação)
 
-```markdown
-## Boas Práticas
-
 - Seguir princípios SOLID e boas práticas de POO.
 - Escrever código modular e reutilizável.
 - Utilizar controle de versão (Git, Git Flow).
@@ -584,13 +581,10 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
 - Evitar código duplicado (DRY - Don’t Repeat Yourself).
 - Seguir convenções de codificação (Lint, ESLint, Prettier).
 - Gerenciar dependências corretamente.
-```
 
 ## 14. Validação (Aceitação e Homologação)
 
 Aqui garantimos que o software atende aos requisitos do usuário.
-
-### Boas Práticas
 
 - Realizar testes com usuários reais (Testes de Aceitação).
 - Homologar o sistema antes do lançamento.
