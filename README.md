@@ -4,8 +4,6 @@
 
 “Você precisa começar com a experiência do cliente e trabalhar de trás para frente, até chegar à tecnologia.” - Steve Jobs
 
-https://docs.google.com/presentation/d/1XX5cVCrsilkx_do3CR2i8yoQuwV7-HvU/edit?slide=id.g32b4a4d792b_0_551#slide=id.g32b4a4d792b_0_551
-
 ### **1. Visão Geral do Projeto**
 
 - **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
