@@ -1,50 +1,83 @@
-import React, { useEffect, useState } from 'react'
-import { Sun, Moon, CheckCircle } from 'lucide-react'
+import React from 'react'
+import { 
+  Bars3Icon,
+  SunIcon,
+  MoonIcon,
+  BellIcon,
+  UserCircleIcon
+} from '@heroicons/react/24/outline'
 
-const Header = ({ isDarkMode, onToggleTheme }) => {
-  const [userName, setUserName] = useState('')
-  const bgCard = isDarkMode ? 'bg-gray-800' : 'bg-white'
-  const borderColor = isDarkMode ? 'border-gray-700' : 'border-gray-200'
-
+const Header = ({ isDarkMode, onToggleTheme, onOpenSidebar }) => {
+  const bgPrimary = isDarkMode ? 'bg-gray-800' : 'bg-white'
+  const textPrimary = isDarkMode ? 'text-white' : 'text-gray-900'
   const textSecondary = isDarkMode ? 'text-gray-300' : 'text-gray-600'
-
-  useEffect(() => {
-    fetch('http://localhost:8000/users/1')
-      .then(response => response.json())
-      .then(data => setUserName(data.name))
-      .catch(err => console.error('Erro ao buscar usuário:', err))
-  }, [])
-
+  const borderColor = isDarkMode ? 'border-gray-700' : 'border-gray-200'
+  const hoverBg = isDarkMode ? 'hover:bg-gray-700' : 'hover:bg-gray-50'
 
   return (
-    <header className={`${bgCard} shadow-sm border-b ${borderColor}`}>
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between py-6">
-          <div className="flex items-center gap-3">
-            {/* <div className="p-2 bg-gradient-to-r from-gray-300 from-gray-300 rounded-lg">
-              <CheckCircle size={24} className="text-white" />
-            </div> */}
-            <div className="mb-4">
-                      <CheckCircle size={32} className={`mx-auto mt-4 ${textSecondary} opacity-50`} />
-                    </div>
-            <h1 className="text-2xl font-bold">Gerenciador de Tarefas</h1>
-            {userName && (
-              <span className="ml-4 px-2 py-1 bg-blue-100 text-blue-800 rounded">
-                {userName}
-              </span>
-            )}
+    <header className={`${bgPrimary} ${textPrimary} border-b ${borderColor} transition-colors duration-300`}>
+      <div className="flex items-center justify-between px-4 sm:px-6 lg:px-8 h-16">
+        {/* Lado Esquerdo - Botão Menu Mobile + Título */}
+        <div className="flex items-center space-x-4">
+          {/* Botão Menu Mobile */}
+          <button
+            type="button"
+            className={`lg:hidden p-2 rounded-md ${hoverBg} transition-colors duration-200`}
+            onClick={onOpenSidebar}
+          >
+            <span className="sr-only">Abrir menu</span>
+            <Bars3Icon className="w-6 h-6" aria-hidden="true" />
+          </button>
+
+          {/* Título Mobile */}
+          <div className="flex items-center space-x-3 lg:hidden">
+            <h1 className="text-xl font-bold">TaskManager</h1>
           </div>
-          
+
+          {/* Breadcrumb ou Título da Página - Desktop */}
+          <div className="hidden lg:flex items-center space-x-2">
+            <h2 className="text-lg font-medium">Dashboard</h2>
+            <span className={`text-sm ${textSecondary}`}>/ Gerenciar Tarefas</span>
+          </div>
+        </div>
+
+        {/* Lado Direito - Ações e Perfil */}
+        <div className="flex items-center space-x-3">
+          {/* Toggle Theme - Desktop */}
           <button
             onClick={onToggleTheme}
-            className={`p-3 rounded-xl transition-all duration-300 hover:scale-105 ${
-              isDarkMode 
-                ? 'hover:bg-gray-700 text-white' 
-                : 'hover:bg-gray-100 text-gray-900'
-            }`}
+            className={`hidden sm:flex items-center justify-center w-9 h-9 rounded-lg ${hoverBg} transition-colors duration-200`}
+            title={isDarkMode ? 'Modo Claro' : 'Modo Escuro'}
           >
-            {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+            {isDarkMode ? (
+              <SunIcon className="w-5 h-5" />
+            ) : (
+              <MoonIcon className="w-5 h-5" />
+            )}
           </button>
+
+          {/* Notificações */}
+          <button
+            className={`relative flex items-center justify-center w-9 h-9 rounded-lg ${hoverBg} transition-colors duration-200`}
+            title="Notificações"
+          >
+            <BellIcon className="w-5 h-5" />
+            {/* Badge de notificação */}
+            <span className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></span>
+          </button>
+
+          {/* Perfil do Usuário */}
+          <div className="flex items-center space-x-3">
+            <div className="hidden sm:block text-right">
+              <p className="text-sm font-medium">Usuário</p>
+              <p className={`text-xs ${textSecondary}`}>ext-123456</p>
+            </div>
+            <button
+              className={`flex items-center justify-center w-9 h-9 rounded-lg ${hoverBg} transition-colors duration-200`}
+            >
+              <UserCircleIcon className="w-6 h-6" />
+            </button>
+          </div>
         </div>
       </div>
     </header>

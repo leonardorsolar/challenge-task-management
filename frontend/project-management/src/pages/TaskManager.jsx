@@ -4,6 +4,8 @@ import TaskControls from '../components/Task/TaskControls'
 import TaskForm from '../components/Task/TaskForm'
 import TaskStats from '../components/Task/TaskStats'
 import TaskList from '../components/Task/TaskList'
+import SidebarDesktop from '../components/Sidebar/SidebarDesktop'
+import SidebarMobile from '../components/Sidebar/SidebarMobile'
 import useTasks from '../hooks/useTasks'
 import { toast } from 'react-toastify'
 import api from '../services/api'
@@ -17,6 +19,7 @@ const TaskManager = () => {
   const [isAddingTask, setIsAddingTask] = useState(false)
   const [editingTask, setEditingTask] = useState(null)
   const [showStats, setShowStats] = useState(false)
+  const [sidebarOpen, setSidebarOpen] = useState(false)
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',
@@ -35,7 +38,7 @@ const TaskManager = () => {
     try {
       const queryParam = filter !== "all" ? `?status=${filter}` : "";
       const response = await api.get(`/task/list${queryParam}`);
-      console.log(response.data)
+      console.log('TaskManager - fetchTasks response:', response.data)
       setAllTasks(response.data); // substitui toda a lista
     } catch (error) {
       console.error("Erro ao carregar tarefas:", error);
@@ -48,13 +51,9 @@ const TaskManager = () => {
     fetchTasks();
   }, []);
   
+  // Debug: verificar se tasks está sendo passado
+  console.log('TaskManager - tasks:', tasks)
 
-  // const handleAddTask = () => {
-  //   if (newTask.title.trim()) {
-  //     addTask(newTask)
-  //     resetForm()
-  //   }
-  // }
   // Chamada à API para o CREATE
   const handleAddTask = async () => {
     if (!newTask.title.trim()) return;
@@ -66,15 +65,13 @@ const TaskManager = () => {
   
     try {
       const response = await api.post('/task', payload);
-    const createdTask = response.data;
+      const createdTask = response.data;
 
-    addTask(createdTask);
-    fetchTasks();
+      addTask(createdTask);
+      fetchTasks();
   
       if (!createdTask) throw new Error('Erro ao criar tarefa')
   
-      // Você pode adicionar manualmente no estado ou refazer o fetch das tasks
-      addTask(createdTask); // Ou refaça a lista chamando a API
       resetForm();
       toast.success('Tarefa criada com sucesso!');
     } catch (error) {
@@ -83,7 +80,6 @@ const TaskManager = () => {
     }
   };
   
-
   const handleEditTask = (task) => {
     setEditingTask(task)
     setNewTask({
@@ -95,12 +91,6 @@ const TaskManager = () => {
     })
   }
 
-  // const handleSaveEdit = () => {
-  //   if (editingTask && newTask.title.trim()) {
-  //     updateTask(editingTask.id, newTask)
-  //     resetForm()
-  //   }
-  // }
   const handleSaveEdit = async () => {
     if (!editingTask || !newTask.title.trim()) return;
   
@@ -123,8 +113,7 @@ const TaskManager = () => {
   };
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false)
-const [taskToDelete, setTaskToDelete] = useState(null)
-
+  const [taskToDelete, setTaskToDelete] = useState(null)
 
   const confirmDelete = (id) => {
     setTaskToDelete(id)
@@ -147,7 +136,6 @@ const [taskToDelete, setTaskToDelete] = useState(null)
       setTaskToDelete(null)
     }
   }
-  
 
   const resetForm = () => {
     setEditingTask(null)
@@ -161,7 +149,7 @@ const [taskToDelete, setTaskToDelete] = useState(null)
     })
   }
 
-  //Definindo a chamada à API 
+  // Definindo a chamada à API 
   const handleFormSubmit = () => {
     if (editingTask) {
       handleSaveEdit()
@@ -175,54 +163,85 @@ const [taskToDelete, setTaskToDelete] = useState(null)
 
   return (
     <div className={`min-h-screen ${bgBase} ${textPrimary} transition-colors duration-300`}>
-      <Header 
-        isDarkMode={isDarkMode} 
-        onToggleTheme={toggleTheme} 
+      {/* Sidebar Desktop */}
+      <SidebarDesktop 
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+        filter={filter}
+        onFilterChange={setFilter}
+        onAddTask={() => setIsAddingTask(true)}
+        onShowStats={() => setShowStats(true)}
+        tasks={tasks}
       />
 
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <TaskControls
-          searchTerm={searchTerm}
-          onSearchChange={setSearchTerm}
-          filter={filter}
-          onFilterChange={setFilter}
-          onAddTask={() => setIsAddingTask(true)}
-          onShowStats={() => setShowStats(true)}
-          isDarkMode={isDarkMode}
+      {/* Main Content - com padding left apenas para desktop */}
+      <div className="lg:pl-72">
+        {/* Header */}
+        <Header 
+          isDarkMode={isDarkMode} 
+          onToggleTheme={toggleTheme}
+          onOpenSidebar={() => setSidebarOpen(true)}
         />
 
-        <TaskForm
-          isOpen={isAddingTask || !!editingTask}
-          task={newTask}
-          onTaskChange={setNewTask}
-          onSubmit={handleFormSubmit}
-          onCancel={resetForm}
-          isEditing={!!editingTask}
-          isDarkMode={isDarkMode}
-        />
+        {/* Main Content */}
+        <main className="p-4 sm:p-6 lg:p-8">
+          <TaskControls
+            searchTerm={searchTerm}
+            onSearchChange={setSearchTerm}
+            filter={filter}
+            onFilterChange={setFilter}
+            onAddTask={() => setIsAddingTask(true)}
+            onShowStats={() => setShowStats(true)}
+            isDarkMode={isDarkMode}
+          />
 
-        <TaskStats 
-          tasks={tasks} 
-          isDarkMode={isDarkMode}
-          isOpen={showStats}
-          onClose={() => setShowStats(false)}
-        />
+          <TaskForm
+            isOpen={isAddingTask || !!editingTask}
+            task={newTask}
+            onTaskChange={setNewTask}
+            onSubmit={handleFormSubmit}
+            onCancel={resetForm}
+            isEditing={!!editingTask}
+            isDarkMode={isDarkMode}
+          />
 
-        <TaskList
-          tasks={tasks}
-          searchTerm={searchTerm}
-          filter={filter}
-          onEditTask={handleEditTask}
-          onDeleteTask={confirmDelete}
-          isDarkMode={isDarkMode}
-        />
-        <ConfirmDeleteModal
-  isOpen={isDeleteModalOpen}
-  onClose={() => setIsDeleteModalOpen(false)}
-  onConfirm={handleConfirmDelete}
-  isDarkMode={isDarkMode}
-/>
-      </main>
+          <TaskStats 
+            tasks={tasks} 
+            isDarkMode={isDarkMode}
+            isOpen={showStats}
+            onClose={() => setShowStats(false)}
+          />
+
+          <TaskList
+            tasks={tasks}
+            searchTerm={searchTerm}
+            filter={filter}
+            onEditTask={handleEditTask}
+            onDeleteTask={confirmDelete}
+            isDarkMode={isDarkMode}
+          />
+          
+          <ConfirmDeleteModal
+            isOpen={isDeleteModalOpen}
+            onClose={() => setIsDeleteModalOpen(false)}
+            onConfirm={handleConfirmDelete}
+            isDarkMode={isDarkMode}
+          />
+        </main>
+      </div>
+
+      {/* Sidebar Mobile */}
+      <SidebarMobile
+        isOpen={sidebarOpen}
+        onClose={() => setSidebarOpen(false)}
+        isDarkMode={isDarkMode}
+        toggleTheme={toggleTheme}
+        filter={filter}
+        onFilterChange={setFilter}
+        onAddTask={() => setIsAddingTask(true)}
+        onShowStats={() => setShowStats(true)}
+        tasks={tasks}
+      />
     </div>
   )
 }
