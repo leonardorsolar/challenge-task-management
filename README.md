@@ -170,6 +170,10 @@ Diagrama de Componentes – Backend FastAPI (Model C4)
 Diagrama de Código – Modelo C4
 ![alt text](./doc/image/DiagramadeCodigoC4.png)
 
+Diagrama de Classe - UML
+
+![alt text](./doc/image/DiagramadeCodigoC4Classe.png)
+
 ### 2.4 Documentação da API
 
 Foi utilizado o padrão **OpenAPI (Swagger)** para documentar a API. A documentação está disponível na raiz do projeto `/doc`

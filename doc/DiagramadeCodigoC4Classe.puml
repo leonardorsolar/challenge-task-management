@@ -1,0 +1,62 @@
+@startuml
+' Classe Task (entidade principal)
+class Task {
+  - id: string
+  - title: string
+  - description: string | null
+  - status: "pending" | "in_progress" | "completed"
+  - priority: "low" | "medium" | "high"
+  - dueDate: Date | null
+  - userId: string
+  - created_at: Date
+  - updated_at: Date
+
+  + static create(...): Either<AppError, Result<Task>>
+  + update(...): Task
+  + markAsCompleted(): Task
+}
+
+' Interface do Repositório
+interface ITaskRepository {
+  + create(task: Task): Promise<Task>
+  + findById(id: string): Promise<Task | null>
+  + findAll(filter?: {status?: string}): Promise<Task[]>
+  + update(task: Task): Promise<Task>
+  + delete(id: string): Promise<void>
+}
+
+' Caso de Uso para Criar Tarefa
+class CreateTaskUseCase {
+  - taskRepository: ITaskRepository
+  + constructor(taskRepository: ITaskRepository)
+  + execute(data: CreateTaskDTO): Promise<Task>
+}
+
+' Controller que gerencia a criação via HTTP
+class CreateTaskController {
+  - createTaskUseCase: IUseCase
+  + constructor(createTaskUseCase: IUseCase)
+  + handle(req: Request, res: Response): Promise<Response>
+}
+
+' Classe de Repositório concreto que implementa a interface
+class TaskRepository {
+  - connection: IConnection
+  + constructor(connection: IConnection)
+  + create(task: Task): Promise<Task>
+  + findById(id: string): Promise<Task | null>
+  + findAll(filter?: {status?: string}): Promise<Task[]>
+  + update(task: Task): Promise<Task>
+  + delete(id: string): Promise<void>
+}
+
+' Definições de dependência/associação
+CreateTaskUseCase --> ITaskRepository : usa
+CreateTaskController --> CreateTaskUseCase : invoca
+TaskRepository ..|> ITaskRepository : implementa
+
+' Representa que as outras classes DEPENDEM da classe Task (dependência pontilhada)
+CreateTaskUseCase ..> Task : depende
+TaskRepository ..> Task : depende
+
+@enduml
