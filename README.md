@@ -72,8 +72,8 @@ Dica:
 
 | Fase | Entrega                                     | Prazo Estimado |
 | ---- | ------------------------------------------- | -------------- |
-| 1    | Backend Node.js com CRUD de tarefas         | 2H             |
-| 2    | Frontend com exibição e controle de tarefas | 2H             |
+| 1    | Backend Node.js com CRUD de tarefas         | 3H             |
+| 2    | Frontend com exibição e controle de tarefas | 4H             |
 | 3    | Backend FastAPI com autenticação e usuários | 2H             |
 | 4    | Integração total + testes automáticos       | 2H             |
 
@@ -406,20 +406,117 @@ Acessos ao arquivo:
 
 ## 10. Simulação de Distribuição de Tarefas na Equipe
 
-| Desenvolvedor | Responsabilidades                                                                                                          | Entregas Principais                                                                |
-| ------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
-| Dev Backend   | - API RESTful<br>- Modelagem de dados<br>- Serviços e lógica<br>- Documentação da API                                      | Endpoints implementados e documentados, testes backend, banco de dados configurado |
-| Dev Frontend  | - Interface React<br>- Consumo da API<br>- Responsividade e usabilidade                                                    | Tela de listagem, criação, edição e exclusão de tarefas, filtros funcionais        |
-| Dev QA/Docs   | - Testes automatizados (e2e, integração, unitários)<br>- Documentação do projeto<br>- Suporte a integração e versionamento | Testes completos, documentação clara, revisões de código e integração via Git      |
+| Desenvolvedor | Responsabilidades | Entregas Principais |
+| -------------- | ------------------------------------------------------------Claro! Abaixo está a versão ajustada da **Simulação de Distribuição de Tarefas na Equipe**, com o **Dev A atuando como Tech Lead**, responsável por revisões de _pull requests_, garantindo qualidade de código, integração contínua e suporte geral.
 
-### 10.1 Sugestões para manter qualidade e coordenação:
+---
 
-- Uso de **GitHub** com branches específicas para backend, frontend e testes.
-- Revisão de código (pull requests) obrigatória antes de merge.
-- Uso de ferramentas de CI para rodar testes automáticos.
-- Uso da ferramneta Jira.
-- Comunicação diária via chat/calls para alinhamento.
-- Documentação atualizada como parte do processo de entrega.
+## ✅ 10. Simulação de Distribuição de Tarefas na Equipe
+
+| Desenvolvedor                   | Responsabilidades Técnicas                                                                                                                                                                                                                                                                                                                                         | Entregas Principais                                                                                                                             |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Dev A (Backend + Tech Lead)** | - API RESTful em **Node.js + Express**<br>- Modelagem e lógica de negócio<br>- Testes unitários com **Jest**<br>- Configuração de **CI/CD**<br>- **Documentação com Swagger**<br>- **Responsável por revisão de Pull Requests**<br>- **Garantia de qualidade (QA)**<br>- Suporte à integração entre frontend e backend<br>- Controle de versionamento e convenções | Endpoints documentados e testados, banco de dados configurado, CI/CD funcionando, revisões de código realizadas, qualidade de projeto garantida |
+| **Dev B (Backend)**             | - API RESTful em **FastAPI**<br>- Autenticação e gerenciamento de usuários<br>- Testes com **Pytest**<br>- Documentação OpenAPI<br>- Integração com frontend                                                                                                                                                                                                       | Endpoints de usuários, autenticação funcional, documentação gerada, cobertura de testes garantida                                               |
+| **Dev C (Frontend)**            | - Interface em **React**<br>- Consumo de APIs<br>- Interface responsiva com foco em usabilidade<br>- Validações no frontend<br>- Testes e2e com Playwright (com apoio do Dev A)                                                                                                                                                                                    | Funcionalidades completas de CRUD de tarefas com filtros, layout responsivo, testes básicos automatizados                                       |
+
+---
+
+## Tech Lead – Dev A
+
+**Atribuições específicas como líder técnico:**
+
+- Aprovação obrigatória de todos os _Pull Requests_
+- Garantia de padrões de código (lint, arquitetura em camadas, nomenclatura)
+- Organização dos branches (main, dev, feature/_, fix/_)
+- Avaliação de qualidade dos testes (unitários, integração e e2e)
+- Garantia de cobertura mínima de testes (ex: 80%)
+- Suporte aos devs em dúvidas técnicas ou conflitos de merge
+- Garantia de que a documentação está atualizada
+
+---
+
+## Garantia de Qualidade (QA)
+
+- **Testes Unitários**: Node.js (Jest) e Python (Pytest)
+- **Testes de Integração**: Verificação entre camadas (controller-service-repositório)
+- **Testes E2E**: Com Playwright no frontend, simulando uso real
+- **CI/CD**: Automatização de testes e builds via GitHub Actions
+- **Checklist de PRs**:
+
+  - Testes incluídos e passando
+  - Swagger atualizado
+  - Padrões de código respeitados
+  - Revisado pelo Dev A
+
+---
+
+### 10.1 Sugestões para Manter Qualidade e Coordenação da Equipe
+
+Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recomenda-se a adoção das seguintes práticas:
+
+---
+
+#### Gestão de Código e Integração
+
+- Uso de **GitHub** com convenção de _branches_ padronizada:
+
+  - `main`: versão estável e pronta para produção
+  - `dev`: versão de desenvolvimento integrada
+  - `feature/*`, `bugfix/*`, `test/*`: desenvolvimento de novas features, correções e testes
+
+- **Revisão obrigatória de código (Pull Request)** antes do _merge_, com checklist técnico e aprovação do **Tech Lead (Dev A)**.
+- **Padrões de código** definidos e aplicados via linters (Ex: ESLint, Black) e _pre-commit hooks_.
+- Automatização com **CI/CD (GitHub Actions)**:
+
+  - Execução de testes (unitários, integração, e2e)
+  - Análise de cobertura de testes
+  - Validação de lint e build
+
+---
+
+#### Planejamento e Gerenciamento
+
+- Uso da ferramenta **Jira** para:
+
+  - Registro e acompanhamento de tarefas
+  - Planejamento por sprints (Scrum/Kanban)
+  - Priorização baseada no _Product Backlog_
+
+- Definição clara de **Definition of Done (DoD)**:
+
+  - Código funcional e testado
+  - Pull request revisado e aprovado
+  - Documentação atualizada
+  - Deploy em ambiente de homologação (se aplicável)
+
+---
+
+#### Comunicação e Alinhamento
+
+- **Reuniões diárias rápidas (Daily Meetings)** para atualização de progresso, impedimentos e próximos passos.
+- Comunicação contínua via **chat (Slack, Discord ou Microsoft Teams)**.
+- Calls semanais ou por entrega para revisões de sprint e validação técnica.
+
+---
+
+#### Documentação e Manutenção
+
+- **Documentação atualizada** é obrigatória em cada entrega:
+
+  - OpenAPI/Swagger para APIs
+  - Instruções de execução local e testes no `README.md`
+  - Padrões de arquitetura e estruturas de pastas definidas
+
+- Inclusão de comentários claros no código, especialmente em lógicas complexas
+- Manutenção de um **changelog** com as principais alterações do projeto
+
+---
+
+#### Monitoramento e Qualidade Contínua
+
+- Avaliação contínua da **cobertura de testes** (mínimo recomendável: 80%)
+- Monitoramento de performance e erros em produção (se aplicável)
+- Feedbacks recorrentes entre os membros para melhoria contínua
 
 ---
 
