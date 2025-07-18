@@ -2,11 +2,9 @@ export const createTableScripts = [
   `
   CREATE TABLE IF NOT EXISTS users (
     id TEXT PRIMARY KEY,
-    external_id TEXT UNIQUE,
     email TEXT UNIQUE NOT NULL,
     name TEXT NOT NULL,
     password TEXT NOT NULL,
-    status TEXT CHECK (status IN ('active','inactive','banned')) NOT NULL DEFAULT 'active',
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
   );

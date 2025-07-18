@@ -24,6 +24,28 @@ const SidebarMobile = ({
   onShowStats,
   tasks = [] 
 }) => {
+  const [user, setUser] = useState(null); // Armazena o usuário
+  const [loading, setLoading] = useState(true); // Controle de loading
+  const [error, setError] = useState(null); // Controle de erro
+
+  useEffect(() => {
+    fetch('http://localhost:8000/users/1')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Erro ao buscar usuário');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setUser(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        setError(err.message);
+        setLoading(false);
+      });
+  }, []);
+
   const [isVisible, setIsVisible] = useState(false)
   const [isAnimating, setIsAnimating] = useState(false)
 
@@ -134,6 +156,9 @@ const SidebarMobile = ({
     cursor: 'pointer',
     transition: 'all 0.2s ease'
   }
+
+  if (loading) return <p>Carregando...</p>;
+  if (error) return <p>Erro: {error}</p>;
 
   return (
     <>
@@ -474,7 +499,7 @@ const SidebarMobile = ({
                     textOverflow: 'ellipsis',
                     whiteSpace: 'nowrap'
                   }}>
-                    ext-123456
+                    {user.name}
                   </p>
                 </div>
               </div>

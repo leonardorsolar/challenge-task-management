@@ -653,6 +653,7 @@ No navegador:
 
 - React: http://localhost:5173/
 - FastApi:http://localhost:8000/
+- http://localhost:8000/users/health
 - Node:http://localhost:3000/
 
 ---

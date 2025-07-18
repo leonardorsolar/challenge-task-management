@@ -89,17 +89,15 @@ export class SqliteConnectionAdapter implements IConnection {
       console.log("Inserindo usuário padrão...");
       await this.db.run(`
         INSERT OR IGNORE INTO users (
-          external_id,
+          id,
           email,
           name,
-          password,
-          status
+          password
         ) VALUES (
-          'ext-123456',
+          '1',
           'usuario@jumpad.com',
           'João da Silva',
-          '123456',
-          'active'
+          '123456'
         );
       `);
       console.log("✅ Usuário padrão inserido/verificado.");
