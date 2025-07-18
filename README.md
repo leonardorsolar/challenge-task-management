@@ -108,6 +108,36 @@ Quem são os usuários do sistema?
 
 ![alt text](/doc/image/planodetestes.png)
 
+Claro! Aqui está a versão **resumida, compacta e objetiva** das práticas de segurança, ideal para incluir no seu documento de requisitos sem perder clareza:
+
+---
+
+### **2.7 Segurança**
+
+Para garantir segurança desde a fase de requisitos até a entrega, adotar as seguintes práticas:
+
+#### 🔒 Backend
+
+- Validação e sanitização de entradas.
+- Autenticação com JWT e senhas com bcrypt.
+- Controle de acesso por perfil (usuário/admin).
+- Proteção contra ataques com rate limiting e `helmet`.
+- Logs sem dados sensíveis.
+
+#### 🛡️ Frontend
+
+- Escapar dados exibidos (evitar XSS).
+- Validar dados no cliente e no servidor.
+- Usar HTTPS e tokens com cuidado.
+
+#### ⚙️ DevOps / CI/CD
+
+- Análise de vulnerabilidades com `npm audit`, `bandit` ou `snyk`.
+- Husky + lint + testes antes de `push`.
+- CI com testes automatizados e varredura de segurança.
+- Branches protegidos e revisão obrigatória.
+- Evitar versionar segredos (usar `.env` e secret scanning).
+
 #### Critérios de Aceitação por Funcionalidade: (\*BP)
 
 | ID   | História de Usuário                  | Critérios de Aceitação                                                                                                 |
@@ -448,7 +478,7 @@ Acessos ao arquivo:
   - Padrões de código respeitados
   - Revisado pelo Dev A
 
----
+**Obs.:** A adoção de uma arquitetura modular e desacoplada, baseada em princípios do Domain-Driven Design (DDD), facilita a escalabilidade da equipe, permitindo a inclusão de novos desenvolvedores de forma segura e com uma divisão de tarefas mais eficiente.
 
 ### 10.1 Sugestões para Manter Qualidade e Coordenação da Equipe
 
