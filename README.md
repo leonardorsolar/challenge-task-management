@@ -2,7 +2,7 @@
 
 - Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
 
-### 📘 **1. Visão Geral do Projeto**
+### **1. Visão Geral do Projeto**
 
 - **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
 - **1.2 Objetivo:** Desenvolver uma aplicação interna de gestão de tarefas para auxiliar no acompanhamento de demandas. O sistema deve permitir o registro, edição, listagem e filtragem de tarefas, além de fornecer uma interface web para interação com os usuários
@@ -26,7 +26,7 @@ Dica:
 
 ---
 
-### 🧩 **2. Engenharia de Requisitos**
+### **2. Engenharia de Requisitos**
 
 #### 2.1 Requisitos Funcionais
 
@@ -68,7 +68,7 @@ Dica:
 
 ---
 
-### 🛠️ **3. Execução e Instalação**
+### **3. Execução e Instalação**
 
 - **3.1 Clonar o Repositório**
 
@@ -107,7 +107,7 @@ npm run dev
 
 ---
 
-### 🧱 **4. Estrutura do Projeto**
+### **4. Estrutura do Projeto**
 
 - **4.1 Estrutura Geral de Pastas**
 
@@ -164,33 +164,6 @@ shared/                         # Código e recursos compartilhados
 Diagrama de Componentes – Backend Node (Model C4)
 ![alt text](/doc/image/DiagramadeComponentesC4Node.png)
 
-- **4.3 Estrutura Backend FastAPI**
-  Estrutura do Projeto Backend (FastAPI) e Responsabilidades
-
-```
-app/
-├── core/               # Configurações gerais do sistema (ex: variáveis de ambiente)
-│   └── config.py
-├── database/           # Configuração e gerenciamento da conexão com o banco de dados
-│   └── session.py
-├── models/             # Definição dos modelos e schemas (representação dos dados)
-│   ├── user.py         # Modelo de dados do usuário
-│   └── schemas.py      # Schemas para validação e serialização
-├── routers/            # Definição das rotas/endpoints da API
-│   └── user.py         # Rotas relacionadas ao usuário
-├── services/           # Lógica de negócio e regras da aplicação
-│   └── user_service.py # Serviços específicos para manipulação de usuários
-├── main.py             # Ponto de entrada da aplicação (inicializa a API)
-db.sqlite3              # Banco de dados SQLite local
-doc/                    # Documentação do projeto
-requirements.txt        # Dependências do projeto
-venv/                   # Ambiente virtual Python
-```
-
-Diagrama de Componentes – Backend FastAPI (Model C4)
-
-![alt text](./doc/image/DiagramadeComponentesC4FastApi.png)
-
 Diagrama de Código – Modelo C4
 
 ![alt text](./doc/image/DiagramadeCodigoC4.png)
@@ -224,7 +197,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-### 📈 **5. Diagramas do Sistema**
+### **5. Diagramas do Sistema**
 
 - Diagrama de Contêiner (C4 - Node)
 - Diagrama de Componentes (Node, FastAPI, React)
@@ -239,7 +212,7 @@ Acessos aos arquivos:
 
 ---
 
-### 📄 **6. Documentação da API**
+### **6. Documentação da API**
 
 - Listagem dos endpoints:
 
@@ -253,9 +226,15 @@ Acessos aos arquivos:
 
 ![Alt text](./doc/image/api.png "Swagger")
 
+Acessos ao arquivo:
+
+- Acesse o arquivo doc/swagger.yaml
+- clique no arquivo
+- Clique com o botão direito do mouse e selecione “Preview Swagger” ou Shift + Alt + P para renderizar.
+
 ---
 
-### 🌐 **7. Tecnologias Utilizadas**
+### **7. Tecnologias Utilizadas**
 
 - **Backend Node:** Node.js, Express, TypeScript
 - **Backend FastAPI:** Python, FastAPI, SQLite
@@ -265,7 +244,7 @@ Acessos aos arquivos:
 
 ---
 
-### 🧪 **8. Funcionalidades Implementadas**
+### **8. Funcionalidades Implementadas**
 
 #### Backend
 
@@ -360,6 +339,7 @@ Acessos aos arquivos:
 - Uso de **GitHub** com branches específicas para backend, frontend e testes.
 - Revisão de código (pull requests) obrigatória antes de merge.
 - Uso de ferramentas de CI para rodar testes automáticos.
+- Uso da ferramneta Jira.
 - Comunicação diária via chat/calls para alinhamento.
 - Documentação atualizada como parte do processo de entrega.
 
@@ -377,8 +357,12 @@ Acessos aos arquivos:
 
 - Projeto hospedado no GitHub.
 - Commits claros e objetivos.
+  - Conventional commits: https://www.conventionalcommits.org/en/v1.0.0/
 - Uso de tags para versões.
-- Branch principal protegida com revisões obrigatórias.
+- Branch principal protegida com revisões obrigatórias (pull requests).
+- Apenas o líder do projeto tem permissão para fazer push direto na branch principal (Add rule)
+- Estratégia de branches baseada no Gitflow.
+- Husky configurado para executar testes automaticamente antes do push, garantindo qualidade do código antes da integração.
 
 ---
 
