@@ -2,16 +2,6 @@
 
 - Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
 
----
-
-Você já tem uma documentação excelente e rica, mas para **ajustar e alinhar com uma estrutura formal de "Plano de Projeto de Software" e Engenharia de Requisitos**, recomendo uma **organização por seções numeradas e padronizadas**, seguindo boas práticas (IEEE 1058 adaptado). Abaixo está uma proposta de reorganização clara, moderna e objetiva:
-
----
-
-## ✅ SUGESTÃO DE AJUSTE E ORGANIZAÇÃO DO DOCUMENTO
-
----
-
 ### 📘 **1. Visão Geral do Projeto**
 
 - **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
@@ -24,13 +14,15 @@ Você já tem uma documentação excelente e rica, mas para **ajustar e alinhar 
 
 - **1.4 Tempo Total de Desenvolvimento:** 10 horas
   ![Alt text](./doc/image/commits.png "a title")
-- **1.5 Arquitetura de Alto Nível:** (incluir diagrama C4)
+- **1.5 Arquitetura de Alto Nível:**
   Diagrama de Contêiner – Backend Node (Model C4)
   ![alt text](./doc/image/DiagramadeContêineresC4.png)
 
-Dica:Instale a extensão PlantUML.
-Acesse o arquivo doc/DiagramadeConteineresC4.puml.
-Clique em “Preview” ou Alt + D para renderizar.
+Dica:
+
+- Instale a extensão PlantUML no Vscode.
+- Acesse o arquivo doc/Diagram/DiagramadeConteineresC4.puml.
+- Clique em “Preview” ou Alt + D para renderizar.
 
 ---
 
@@ -196,12 +188,15 @@ venv/                   # Ambiente virtual Python
 ```
 
 Diagrama de Componentes – Backend FastAPI (Model C4)
+
 ![alt text](./doc/image/DiagramadeComponentesC4FastApi.png)
 
 Diagrama de Código – Modelo C4
+
 ![alt text](./doc/image/DiagramadeCodigoC4.png)
 
 Diagrama de Classe - UML
+
 ![alt text](./doc/image/DiagramadeCodigoC4Classe.png)
 
 - **4.4 Estrutura Frontend React**
@@ -235,6 +230,12 @@ Diagrama de Componentes – Frontend React (Model C4)
 - Diagrama de Componentes (Node, FastAPI, React)
 - Diagrama de Código
 - Diagrama de Classes (UML)
+
+Acessos aos arquivos:
+
+- Acesse o arquivo doc/Diagram/...
+- clique no arquivo desejado
+- Clique em “Preview” ou Alt + D para renderizar.
 
 ---
 
@@ -366,7 +367,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ## 11. Testes Automatizados
 
-- Backend: testes unitários para serviços e testes de integração dos usecases, repositórios e dos endpoints.
+- Backend: testes unitários para serviços, testes de integração dos usecases, repositórios e dos endpoints.
 - Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
 - Cobertura mínima de 70% recomendada.
 
