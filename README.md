@@ -1,40 +1,91 @@
 # Documentação do Projeto: Sistema de Gestão de Tarefas
 
----
-
-## 1. Visão Geral
-
-Esta aplicação é uma plataforma interna para gestão de tarefas, que permite registrar, editar, listar, filtrar, alterar status e excluir tarefas. A aplicação é composta por:
-
-- **Backend Node:** API RESTful que gerencia as operações CRUD de tarefas.
-- **Backend FastApi:** API RESTful dedicada à exposição de um do usuário.
-- **Frontend:** Interface web responsiva que consome a API para interação com o usuário.
-
-Tempo de produção 10 horas:
-
-![Alt text](./doc/image/commits.png "a title")
+- Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
 
 ---
 
-Diagrama de Contêiner – Backend Node (Model C4)
-![alt text](./doc/image/DiagramadeContêineresC4.png)
+Você já tem uma documentação excelente e rica, mas para **ajustar e alinhar com uma estrutura formal de "Plano de Projeto de Software" e Engenharia de Requisitos**, recomendo uma **organização por seções numeradas e padronizadas**, seguindo boas práticas (IEEE 1058 adaptado). Abaixo está uma proposta de reorganização clara, moderna e objetiva:
+
+---
+
+## ✅ SUGESTÃO DE AJUSTE E ORGANIZAÇÃO DO DOCUMENTO
+
+---
+
+### 📘 **1. Visão Geral do Projeto**
+
+- **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
+- **1.2 Objetivo:** Desenvolver uma aplicação interna de gestão de tarefas para auxiliar no acompanhamento de demandas. O sistema deve permitir o registro, edição, listagem e filtragem de tarefas, além de fornecer uma interface web para interação com os usuários
+- **1.3 Componentes do Sistema:**
+
+  - **Backend Node:** API RESTful com operações CRUD de tarefas.
+  - **Backend FastAPI:** API RESTful para operações relacionadas a usuários.
+  - **Frontend React:** Interface web responsiva que consome as APIs.
+
+- **1.4 Tempo Total de Desenvolvimento:** 10 horas
+  ![Alt text](./doc/image/commits.png "a title")
+- **1.5 Arquitetura de Alto Nível:** (incluir diagrama C4)
+  Diagrama de Contêiner – Backend Node (Model C4)
+  ![alt text](./doc/image/DiagramadeContêineresC4.png)
 
 Dica:Instale a extensão PlantUML.
 Acesse o arquivo doc/DiagramadeConteineresC4.puml.
 Clique em “Preview” ou Alt + D para renderizar.
 
-# ✅ Tutorial de Execução do Projeto
+---
 
-## 🔁 1. Clonar o repositório
+### 🧩 **2. Engenharia de Requisitos**
+
+#### 2.1 Requisitos Funcionais
+
+##### 2.1.1 Frontend
+
+- **RF-FE01.** Exibir a lista de tarefas.
+- **RF-FE02.** Filtrar tarefas por status.
+- **RF-FE03.** Criar nova tarefa.
+- **RF-FE04.** Alterar status da tarefa.
+- **RF-FE05.** Excluir tarefa.
+- **RF-FE06.** Consumir a API de backend.
+
+##### 2.1.2 Backend (Node)
+
+- **RF-BE01.** Criar tarefa via `POST /tasks`.
+- **RF-BE02.** Listar tarefas via `GET /tasks`.
+- **RF-BE03.** Filtrar por status com parâmetro `GET /tasks?status=...`.
+- **RF-BE04.** Atualizar status com `PATCH /tasks/:id/status`.
+- **RF-BE05.** Remover tarefa com `DELETE /tasks/:id`.
+
+##### 2.1.3 Backend (FastAPI)
+
+- **RF-FA01.** Listar usuários.
+- **RF-FA02.** Criar ou autenticar usuários (se aplicável).
+
+#### 2.2 Requisitos Não Funcionais
+
+##### 2.2.1 Frontend
+
+- **RNF-FE01.** Interface responsiva.
+- **RNF-FE02.** Design com foco em usabilidade.
+- **RNF-FE03.** Comunicação com backend via JSON.
+
+##### 2.2.2 Backend (Node e FastAPI)
+
+- **RNF-BE01.** APIs RESTful com uso de JSON.
+- **RNF-BE02.** Separação de responsabilidades: controllers, services, models.
+- **RNF-BE03.** Documentação da API com OpenAPI (Swagger).
+
+---
+
+### 🛠️ **3. Execução e Instalação**
+
+- **3.1 Clonar o Repositório**
 
 ```bash
 git clone https://github.com/leonardorsolar/challenge-task-management.git
 cd challenge-task-management
 ```
 
----
-
-## 🐍 2. Rodar o Backend (Python - FastAPI)
+- **3.2 Instalar e Rodar Backend FastAPI**
 
 ```bash
 cd backend/api-fastapi
@@ -44,9 +95,7 @@ pip install -r requirements.txt
 uvicorn app.main:app --reload
 ```
 
----
-
-## ⚙️ 3. Rodar o Backend (Node.js - TypeScript)
+- **3.3 Instalar e Rodar Backend Node.js**
 
 ```bash
 cd backend/api-node-typescript
@@ -54,11 +103,7 @@ npm install
 npm run dev
 ```
 
-### 👉 Dica: Instalar e usar Node.js 20 (se ainda não tiver)
-
----
-
-## 💻 4. Rodar o Frontend (React.js com Vite)
+- **3.4 Instalar e Rodar Frontend React**
 
 ```bash
 cd frontend/project-management
@@ -66,9 +111,13 @@ npm install
 npm run dev
 ```
 
-Acesse em: [http://localhost:5173](http://localhost:5173)
+- **3.5 Acesso:** [http://localhost:5173](http://localhost:5173)
 
-### 1.1 Estrutura Geral dos Arquivos
+---
+
+### 🧱 **4. Estrutura do Projeto**
+
+- **4.1 Estrutura Geral de Pastas**
 
 ```
 project-management/
@@ -78,36 +127,17 @@ project-management/
 ├── docs/
 │   ├── image
 │   ├── openapi.json
-│   ├── DiagramadeComponentesC4FastApi.puml
-│   ├── DiagramadeComponentesC4Node.puml
-│   ├── DiagramadeComponentesC4React.puml
-│   ├── DiagramadeContextoC4.puml
+│   ├── Diagram
 │   └── swagger.yaml
 ├── frontend/
+├── scripts/
+├── package.json
 └── README.md
 ```
 
-## 2. Backend
+- **4.2 Estrutura Backend Node**
 
-### 2.1 Funcionalidades Implementadas
-
-- Criar uma nova tarefa.
-- Listar tarefas existentes.
-- Filtrar tarefas por status: pendente, em andamento e concluída.
-- Atualizar o status de uma tarefa.
-- Excluir uma tarefa.
-- Comunicação via JSON.
-
-### 2.2 Tecnologias Utilizadas
-
-- **Node.js + Express**
-- **FastAPI**
-- **Banco de dados: SQLite** (fácil para testes)
-- Ferramenta de documentação: **Swagger / OpenAPI** para documentação da API.
-
-### 2.3 Estrutura do Projeto:
-
-### 2.3.1 Estrutura do Projeto Backend (Node) e Responsabilidades
+Estrutura do Projeto Backend (Node) e Responsabilidades
 
 ```
 index.ts                          # Entrada principal da aplicação
@@ -142,7 +172,8 @@ shared/                         # Código e recursos compartilhados
 Diagrama de Componentes – Backend Node (Model C4)
 ![alt text](/doc/image/DiagramadeComponentesC4Node.png)
 
-### 2.3.2 Estrutura do Projeto Backend (FastAPI) e Responsabilidades
+- **4.3 Estrutura Backend FastAPI**
+  Estrutura do Projeto Backend (FastAPI) e Responsabilidades
 
 ```
 app/
@@ -171,45 +202,10 @@ Diagrama de Código – Modelo C4
 ![alt text](./doc/image/DiagramadeCodigoC4.png)
 
 Diagrama de Classe - UML
-
 ![alt text](./doc/image/DiagramadeCodigoC4Classe.png)
 
-### 2.4 Documentação da API
-
-Foi utilizado o padrão **OpenAPI (Swagger)** para documentar a API. A documentação está disponível na raiz do projeto `/doc`
-
-Ela descreve os endpoints:
-
-- `POST /tasks` — Criar tarefa
-- `GET /tasks` — Listar tarefas (com filtro opcional por status)
-- `PATCH /tasks/:id/status` — Atualizar status da tarefa
-- `DELETE /tasks/:id` — Excluir tarefa
-
-![Alt text](./doc/image/api.png "a title")
-
----
-
-## 3. Frontend
-
-![Alt text](./doc/image/front.png "a title")
-
-### 3.1 Funcionalidades Implementadas
-
-- Visualização da lista de tarefas.
-- Filtro por status (pendente, em andamento, concluída).
-- Criação de novas tarefas.
-- Alteração do status da tarefa.
-- Exclusão de tarefas.
-- Consumo da API do backend.
-
-### 3.2 Tecnologias Utilizadas
-
-- **React.js** com Vite
-- Biblioteca de componentes e ícones (exemplo: lucide-react).
-- Axios para chamadas HTTP.
-- esting-library/jest-dom
-
-### 3.3 Estrutura do Projeto Frontend
+- **4.4 Estrutura Frontend React**
+  Estrutura do Projeto Frontend
 
 ```
 frontend/
@@ -233,16 +229,71 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-## 4. Arquitetura e Decisões Técnicas
+### 📈 **5. Diagramas do Sistema**
 
-### 4.1 Tecnologias e Justificativas
+- Diagrama de Contêiner (C4 - Node)
+- Diagrama de Componentes (Node, FastAPI, React)
+- Diagrama de Código
+- Diagrama de Classes (UML)
+
+---
+
+### 📄 **6. Documentação da API**
+
+- Listagem dos endpoints:
+
+  - `POST /tasks`
+  - `GET /tasks`
+  - `PATCH /tasks/:id/status`
+  - `DELETE /tasks/:id`
+
+- Local: `/doc/swagger.yaml`
+- Imagem: (API Swagger UI)
+
+![Alt text](./doc/image/api.png "Swagger")
+
+---
+
+### 🌐 **7. Tecnologias Utilizadas**
+
+- **Backend Node:** Node.js, Express, TypeScript
+- **Backend FastAPI:** Python, FastAPI, SQLite
+- **Frontend:** React.js, Vite, Axios, Lucide-react
+- **Testes:** Jest, Testing Library
+- **Documentação:** Swagger (OpenAPI)
+
+---
+
+### 🧪 **8. Funcionalidades Implementadas**
+
+#### Backend
+
+- CRUD de tarefas
+- Filtro por status
+- Documentação via Swagger
+
+#### Frontend
+
+- Visualização e gerenciamento de tarefas
+- Filtro por status
+- Comunicação com APIs
+
+![Alt text](./doc/image/front.png "a title")
+
+---
+
+# Solcitações de informações extras
+
+## 9. Arquitetura e Decisões Técnicas
+
+### 9.1 Tecnologias e Justificativas
 
 - **Backend:** Escolhi Node.js + Express pela sua simplicidade e eficiência para construir APIs RESTful, além do grande ecossistema e suporte. Adicionei ao projeto uma consulta simples na api FastApi.
 - **Banco de dados:** SQLite (para protótipo rápido) : O projeto está pronto para receber também o banco de dados PostgreSQL ou Mysql(para produção).
 - **Frontend:** React.js com Vite para rápido desenvolvimento e boa experiência de desenvolvimento. Procurei deixar o front livre de framework.
 - **Documentação da API:** Swagger para facilitar a comunicação com outras equipes e futuros desenvolvedores. Realizei uma documentação sistema usando a OpenIa.
 
-### 4.2 Organização do Código e Separação de Responsabilidades
+### 9.2 Organização do Código e Separação de Responsabilidades
 
 - Backend FastApi separado em camadas:
 
@@ -272,7 +323,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 - Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
 - Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
 
-### 4.3 Evolução e Escalabilidade
+### 9.3 Evolução e Escalabilidade
 
 - **Evolução:**
 
@@ -295,7 +346,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-## 5. Simulação de Distribuição de Tarefas na Equipe
+## 10. Simulação de Distribuição de Tarefas na Equipe
 
 | Desenvolvedor | Responsabilidades                                                                                                          | Entregas Principais                                                                |
 | ------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- |
@@ -303,7 +354,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 | Dev Frontend  | - Interface React<br>- Consumo da API<br>- Responsividade e usabilidade                                                    | Tela de listagem, criação, edição e exclusão de tarefas, filtros funcionais        |
 | Dev QA/Docs   | - Testes automatizados (e2e, integração, unitários)<br>- Documentação do projeto<br>- Suporte a integração e versionamento | Testes completos, documentação clara, revisões de código e integração via Git      |
 
-### Sugestões para manter qualidade e coordenação:
+### 10.1 Sugestões para manter qualidade e coordenação:
 
 - Uso de **GitHub** com branches específicas para backend, frontend e testes.
 - Revisão de código (pull requests) obrigatória antes de merge.
@@ -313,7 +364,7 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-## 6. Testes Automatizados
+## 11. Testes Automatizados
 
 - Backend: testes unitários para serviços e testes de integração dos usecases, repositórios e dos endpoints.
 - Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
@@ -321,24 +372,34 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-## 7. Versionamento
+## 12. Versionamento
 
 - Projeto hospedado no GitHub.
 - Commits claros e objetivos.
 - Uso de tags para versões.
 - Branch principal protegida com revisões obrigatórias.
 
-url: https://github.com/leonardorsolar/challenge-task-management
-
-Você pode criar um Abaixo está um exemplo de script chamado `start.sh`:
-
 ---
 
-## Executar os projetos depois de instalados
+## 13. AVALIAÇÃO TÉCNICA
 
-### ✅ Como usar package.json
+Os seguintes critérios serão utilizados:
 
-1. executar os projetos:
+- Funcionamento da solução de ponta a ponta.
+- Organização do código e estrutura do projeto.
+- Coerência na modelagem e nos fluxos de dados.
+- Qualidade da interface (usabilidade, responsividade).
+- Clareza e objetividade da documentação.
+- Testes automatizados (nível de cobertura e relevância).
+- Boas práticas de versionamento e uso do GitHub.
+
+# Informações para desenvolvedores:
+
+## Executar os projetos:
+
+### Como usar package.json
+
+1. Start dos servidores:
 
 react + node
 
