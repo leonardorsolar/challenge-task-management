@@ -380,6 +380,13 @@ Acessos ao arquivo:
 
 - **Evolução:**
 
+  🔹 Monitorar o desempenho e coletar métricas
+  🔹 Manter um backlog de melhorias e novas funcionalidades.
+  🔹 Corrigir bugs rapidamente e documentar correções.
+  🔹 Refatorar código para manter qualidade e escalabilidade.
+
+  Quanto as funcionalidades:
+
   - Criar a Autenticação e autorização para acesso restrito.
   - Permissão de múltiplos usuários e atribuição de tarefas.
   - Gerenciamento por projetos.
