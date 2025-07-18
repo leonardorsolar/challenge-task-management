@@ -2,6 +2,10 @@
 
 - Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
 
+“Você precisa começar com a experiência do cliente e trabalhar de trás para frente, até chegar à tecnologia.” - Steve Jobs
+
+https://docs.google.com/presentation/d/1XX5cVCrsilkx_do3CR2i8yoQuwV7-HvU/edit?slide=id.g32b4a4d792b_0_551#slide=id.g32b4a4d792b_0_551
+
 ### **1. Visão Geral do Projeto**
 
 - **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
@@ -28,7 +32,7 @@ Dica:
 
 ### **2. Engenharia de Requisitos**
 
-#### 2.1 Requisitos Funcionais
+#### 2.1 Requisitos Funcionais (\*BP)
 
 ##### 2.1.1 Frontend
 
@@ -65,6 +69,70 @@ Dica:
 - **RNF-BE01.** APIs RESTful com uso de JSON.
 - **RNF-BE02.** Separação de responsabilidades: controllers, services, models.
 - **RNF-BE03.** Documentação da API com OpenAPI (Swagger).
+
+### 2.3 Roadmap (Simplificado) (\*BP)
+
+| Fase | Entrega                                     | Prazo Estimado |
+| ---- | ------------------------------------------- | -------------- |
+| 1    | Backend Node.js com CRUD de tarefas         | 2H             |
+| 2    | Frontend com exibição e controle de tarefas | 2H             |
+| 3    | Backend FastAPI com autenticação e usuários | 2H             |
+| 4    | Integração total + testes automáticos       | 2H             |
+
+---
+
+### 2.4 Product Backlog (Prioridade Alta → Baixa) (\*BP)
+
+| ID   | História de Usuário                                           | Prioridade |
+| ---- | ------------------------------------------------------------- | ---------- |
+| US01 | Como usuário, quero criar tarefas para organizar meu dia      | Alta       |
+| US02 | Como usuário, quero visualizar a lista de tarefas             | Alta       |
+| US03 | Como usuário, quero filtrar tarefas por status                | Alta       |
+| US04 | Como usuário, quero alterar o status das tarefas              | Média      |
+| US05 | Como usuário, quero excluir tarefas que não preciso mais      | Média      |
+| US06 | Como admin, quero listar usuários para controle de acesso     | Baixa      |
+| US07 | Como usuário, quero me autenticar para acessar minhas tarefas | Baixa      |
+
+**Priorizar requisitos usando técnicas como MoSCoW**
+
+### 2.5 Identificar stakeholders (\*BP)
+
+Quem são os usuários do sistema?
+
+### 2.6 Plano de Testes
+
+- Escreva testes unitários e de integração.
+- Use ferramentas como Jest, Pytest ou Vitest.
+- Execute testes com Husky antes do push.
+- Automatize com CI (GitHub Actions).
+- Documente os cenários e resultados esperados.
+- Criar testes de carga e performance.
+
+![alt text](/doc/image/planodetestes.png)
+
+#### Critérios de Aceitação por Funcionalidade: (\*BP)
+
+| ID   | História de Usuário                  | Critérios de Aceitação                                                                                                 |
+| ---- | ------------------------------------ | ---------------------------------------------------------------------------------------------------------------------- |
+| US01 | Criar tarefas para organizar meu dia | - O usuário deve preencher título e status<br>- A tarefa deve ser salva com sucesso<br>- Exibir confirmação de criação |
+| US02 | Visualizar a lista de tarefas        | - Ao acessar o sistema, as tarefas do usuário logado devem ser listadas<br>- Exibir título, status e data de criação   |
+| US03 | Filtrar tarefas por status           | - O usuário pode selecionar um status (pending, in_progress, completed)<br>- A lista deve ser atualizada dinamicamente |
+| US04 | Alterar o status das tarefas         | - O usuário pode escolher outro status para a tarefa<br>- O novo status deve ser salvo e refletido na UI               |
+| US05 | Excluir tarefas que não precisa mais | - O usuário pode clicar em "Excluir"<br>- Um alerta de confirmação é exibido<br>- A tarefa é removida da lista         |
+| US06 | Listar usuários (admin)              | - A API `/users` deve retornar todos os usuários cadastrados<br>- A resposta deve conter ID, nome e e-mail             |
+| US07 | Autenticar para acessar tarefas      | - O usuário insere e-mail e senha<br>- Se corretos, recebe um token de acesso<br>- Redireciona para a tela de tarefas  |
+
+#### 2.7 Metodologia de desenvolvimento (\*BP)
+
+---
+
+Utilizaremos uma abordagem híbrida baseada em Scrum e Extreme Programming (XP):
+
+Scrum para organização do projeto em sprints semanais, com reuniões diárias (daily) e review ao final de cada sprint.
+
+XP para práticas de desenvolvimento como programação em pares, refatoração contínua, testes automatizados e integração contínua (CI).
+
+Essa combinação garante entregas rápidas, feedback constante e alta qualidade do código.
 
 ---
 
@@ -197,12 +265,13 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ---
 
-### **5. Diagramas do Sistema**
+### **5. Diagramas do Sistema** (\*BP)
 
 - Diagrama de Contêiner (C4 - Node)
 - Diagrama de Componentes (Node, FastAPI, React)
 - Diagrama de Código
 - Diagrama de Classes (UML)
+- Diagrama Entidade-Relacionamento (DER)
 
 Acessos aos arquivos:
 
@@ -303,7 +372,11 @@ Acessos ao arquivo:
 - Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
 - Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
 
-### 9.3 Evolução e Escalabilidade
+### 9.3 Escolher padrões de design apropriados (MVC, Repository, Factory, etc.).(\*BP)
+
+### 9.4 Definir APIs e contratos de integração..(\*BP)
+
+### 9.4 Evolução e Escalabilidade
 
 - **Evolução:**
 
@@ -347,9 +420,10 @@ Acessos ao arquivo:
 
 ## 11. Testes Automatizados
 
-- Backend: testes unitários para serviços, testes de integração dos usecases, repositórios e dos endpoints.
+- Backend: Escrever testes unitários, testes de integração dos usecases, repositórios e dos endpoints.
 - Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
 - Cobertura mínima de 70% recomendada.
+  .
 
 ---
 
@@ -366,7 +440,46 @@ Acessos ao arquivo:
 
 ---
 
-## 13. AVALIAÇÃO TÉCNICA
+## 13. Implementação (Codificação)
+
+```markdown
+## Boas Práticas
+
+- Seguir princípios SOLID e boas práticas de POO.
+- Escrever código modular e reutilizável.
+- Utilizar controle de versão (Git, Git Flow).
+- Realizar revisões de código (Code Review).
+- Evitar código duplicado (DRY - Don’t Repeat Yourself).
+- Seguir convenções de codificação (Lint, ESLint, Prettier).
+- Gerenciar dependências corretamente.
+```
+
+## 14. Validação (Aceitação e Homologação)
+
+Aqui garantimos que o software atende aos requisitos do usuário.
+
+### Boas Práticas
+
+- Realizar testes com usuários reais (Testes de Aceitação).
+- Homologar o sistema antes do lançamento.
+- Criar um ambiente de staging semelhante ao de produção.
+- Validar requisitos não funcionais (desempenho, segurança, usabilidade).
+  - A ISO/IEC 25010 é um padrão internacional que define modelos de qualidade para software.
+- Executar testes exploratórios e coletar feedback com stakeholders.
+
+## 15. Implantação (Deploy e Monitoramento)
+
+Aqui fazemos o lançamento oficial do sistema.
+
+### Boas Práticas:
+
+- Automatizar o deploy com CI/CD (GitHub Actions, Jenkins, GitLab CI).
+- Monitorar logs e erros em tempo real (ELK Stack, New Relic, Datadog).
+- Ter um plano de rollback para falhas.
+- Realizar deploys graduais (Canary Releases, Blue-Green Deployment).
+- Fazer backup de dados antes do deploy.
+
+## 16. AVALIAÇÃO TÉCNICA
 
 Os seguintes critérios serão utilizados:
 
