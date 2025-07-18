@@ -452,7 +452,8 @@ Acessos ao arquivo:
 - Garantia de cobertura mínima de testes (ex: 80%)
 - Suporte aos devs em dúvidas técnicas ou conflitos de merge
 - Garantia de que a documentação está atualizada
-- Treinamentos
+- Treinamentos (delegar + criação de um sucessor)
+- Feedback para o CEO
 
 ---
 
@@ -477,8 +478,6 @@ Acessos ao arquivo:
 - Revisão obrigatória pelo **Dev A (Tech Lead)**.
 
 ### 10.1 Sugestões para Manter Qualidade e Coordenação da Equipe
-
-Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recomenda-se a adoção das seguintes práticas:
 
 #### Gestão de Código e Integração
 
@@ -518,6 +517,19 @@ Para garantir **entregas com qualidade, bem coordenadas e sustentáveis**, recom
 - **Reuniões diárias rápidas (Daily Meetings)** para atualização de progresso, impedimentos e próximos passos.
 - Comunicação contínua via **chat (Slack, Discord ou Microsoft Teams)**.
 - Calls semanais ou por entrega para revisões de sprint e validação técnica.
+
+**Métricas:**
+
+- MTTR — Mean Time to Recovery (Tempo Médio de Recuperação)
+- TTM — Time to Market (Tempo para Lançar no Mercado)
+- Lead Time (Tempo de Ciclo)
+- Taxa de bugs em produção, cobertura de testes, número de deploys por semana
+
+  | Métrica       | Mede o tempo...                            | Foco principal             |
+  | ------------- | ------------------------------------------ | -------------------------- |
+  | **MTTR**      | Para restaurar após uma falha              | **Confiabilidade**         |
+  | **TTM**       | Da ideia até o lançamento                  | **Agilidade de entrega**   |
+  | **Lead Time** | Do início do desenvolvimento até a entrega | **Eficiência do processo** |
 
 ---
 
@@ -650,3 +662,58 @@ No terminal:
 - curl -i http://localhost:8000/
 - curl -i http://localhost:5173/
 - curl -i http://localhost:3000/
+
+Claro! Aqui está a versão ajustada, **mais clara, profissional e organizada**, do plano dos **Primeiros 90 Dias**, com foco em clareza de ações e entregas por fase:
+
+---
+
+## Roadmap Tech Lead
+
+## Primeiros 90 Dias – Plano de Ação
+
+### Fase 1 – **Descobrir (0–30 dias)**
+
+| Tarefa                                                     | Status |
+| ---------------------------------------------------------- | ------ |
+| Conversar com os stakeholders                              | ✓      |
+| Acompanhar incidentes sem interferencia direta (2 semanas) | ✓      |
+| Mapear arquitetura atual (Model c4 Contexto + Container)   | ✓      |
+| Levantar baseline das principais métricas de engenharia    | ✓      |
+| Documentar(BPM)...documentar ...documentar                 | ✓      |
+
+---
+
+### Fase 2 – **Organizar (31–60 dias)**
+
+| Tarefa                                                               | Status |
+| -------------------------------------------------------------------- | ------ |
+| Implantar ritual de _Pull Request_ com SLA de revisão em até 24h     | ✓      |
+| Publicar o primeiro ADR (Architecture Decision Record)               | ✓      |
+| Estabelecer esquema de **on-call rotativo** e criar um runbook claro | ✓      |
+| Painel visual com os principais dados do time de engenharia\*        | ✓      |
+
+- **On-call** é quando um(a) desenvolvedor(a) fica de plantão, ou seja, responsável por responder rapidamente a incidentes
+- **Runbook** é um guia prático e direto com passo a passo do que fazer em caso de incidentes
+
+\*(Grafana/Looker)
+| Tipo de Métrica | Exemplo |
+| ---------------------- | -------------------------------------------------------- |
+| **Entrega (Delivery)** | Quantidade de deploys por semana, lead time por PR |
+| **Qualidade** | Bugs em produção, cobertura de testes, % de falhas em CI |
+| **Colaboração** | Tempo médio de review de PR, número de PRs por pessoa |
+| **Confiabilidade** | MTTR (tempo médio para restaurar), número de incidentes |
+| **Backlog técnico** | Dívidas técnicas mapeadas e status |
+
+---
+
+### Fase 3 – **Impactar (61–90 dias)**
+
+| Tarefa                                                                  | Status |
+| ----------------------------------------------------------------------- | ------ |
+| Identificar e resolver dívida técnica                                   | ✓      |
+| Definir OKRs e definir metas claras com o time                          | ✓      |
+| Entregar o quick-win em produção e medir impacto com métricas           | ✓      |
+| Iniciar coaching do sucessor e começar a delegação de responsabilidades | ✓      |
+
+- Quick-win: É uma melhoria simples e rápida de implementar
+- Dívida técnica é qualquer atalho ou escolha técnica feita para entregar mais rápido, mas que compromete a qualidade ou manutenção do código no futuro
