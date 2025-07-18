@@ -1,0 +1,82 @@
+@startuml
+skinparam componentStyle rectangle
+title Diagrama de Código - Modelo C4 - Projeto de Tarefas
+
+package "src" {
+    
+    [index.ts] <<EntryPoint>>
+
+    package "modules/task" {
+        
+        package "application/usecases" {
+            [CreateTaskUseCase.ts]
+            [UpdateTaskUseCase.ts]
+            [DeleteTaskUseCase.ts]
+            [ListTasksUseCase.ts]
+        }
+
+        package "domain/entities" {
+            [Task.ts]
+        }
+
+        package "domain/repositories" {
+            [ITaskRepository.ts]
+        }
+
+        package "infrastructure/repositories" {
+            [TaskPrismaRepository.ts]
+        }
+
+        package "presentation/controllers" {
+            [TaskController.ts]
+        }
+
+        package "presentation/routes" {
+            [task.routes.ts]
+        }
+
+        package "test" {
+            [TaskUseCase.test.ts]
+        }
+    }
+
+    package "shared" {
+        package "core" {
+            [AppError.ts]
+            [Result.ts]
+            [Either.ts]
+        }
+
+        package "infrastructure" {
+            package "database" {
+                [prismaClient.ts]
+            }
+
+            package "http" {
+                [server.ts]
+                [routes.ts]
+            }
+        }
+    }
+}
+
+' Relações principais
+[index.ts] --> [server.ts]
+[server.ts] --> [routes.ts]
+[routes.ts] --> [task.routes.ts]
+[task.routes.ts] --> [TaskController.ts]
+[TaskController.ts] --> [CreateTaskUseCase.ts]
+[TaskController.ts] --> [UpdateTaskUseCase.ts]
+[TaskController.ts] --> [DeleteTaskUseCase.ts]
+[TaskController.ts] --> [ListTasksUseCase.ts]
+[CreateTaskUseCase.ts] --> [ITaskRepository.ts]
+[UpdateTaskUseCase.ts] --> [ITaskRepository.ts]
+[DeleteTaskUseCase.ts] --> [ITaskRepository.ts]
+[ListTasksUseCase.ts] --> [ITaskRepository.ts]
+[TaskPrismaRepository.ts] ..|> [ITaskRepository.ts]
+[TaskPrismaRepository.ts] --> [prismaClient.ts]
+[Task.ts] <-- [CreateTaskUseCase.ts]
+[Task.ts] <-- [UpdateTaskUseCase.ts]
+[TaskUseCase.test.ts] --> [CreateTaskUseCase.ts]
+
+@enduml

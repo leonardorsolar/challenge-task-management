@@ -167,6 +167,9 @@ venv/                   # Ambiente virtual Python
 Diagrama de Componentes – Backend FastAPI (Model C4)
 ![alt text](./doc/image/DiagramadeComponentesC4FastApi.png)
 
+Diagrama de Código – Modelo C4
+![alt text](./doc/image/DiagramadeCodigoC4.png)
+
 ### 2.4 Documentação da API
 
 Foi utilizado o padrão **OpenAPI (Swagger)** para documentar a API. A documentação está disponível na raiz do projeto `/doc`
