@@ -399,35 +399,58 @@ Acessos ao arquivo:
 
 ### 9.4 Definir APIs e contratos de integração..(\*BP)
 
-### 9.4 Evolução e Escalabilidade
-
-- **Evolução:**
-
-  🔹 Monitorar o desempenho e coletar métricas
-  🔹 Manter um backlog de melhorias e novas funcionalidades.
-  🔹 Corrigir bugs rapidamente e documentar correções.
-  🔹 Refatorar código para manter qualidade e escalabilidade.
-
-  Quanto as funcionalidades:
-
-  - Criar a Autenticação e autorização para acesso restrito.
-  - Permissão de múltiplos usuários e atribuição de tarefas.
-  - Gerenciamento por projetos.
-  - Histórico de alterações em tarefas (logs).
-  - Notificações e integração com outros sistemas (ex: Slack).
-
-- **Performance:**
-
-  - Monolito modular podendo virar um microserviço futuro.
-  - Separação do backend em microserviços se necessário.
-
-- **Manutenção:**
-
-  - Testes automatizados ampliados.
-  - Uso de CI/CD para deploy contínuo.
-  - Documentação atualizada constantemente.
+Claro! Aqui está o tópico **“9.4 Evolução e Escalabilidade”** **refatorado** de forma clara, objetiva e com a **evolução arquitetural bem destacada**, pronta para ser inserida no seu projeto:
 
 ---
+
+### 9.5 Evolução e Escalabilidade
+
+#### **Evolução Arquitetural**
+
+1. **Fase inicial (Monólito)**
+
+   - API REST em Node.js com banco de dados relacional.
+   - Funcionalidades de gerenciamento de tarefas e usuários integradas.
+
+2. **Modularização por responsabilidade (Microserviços)**
+
+   - **Python**: microserviço para análise de produtividade e estatísticas.
+   - **Java**: microserviço para geração de relatórios em PDF e envio de notificações.
+
+3. **Integração com Firebase**
+
+   - Autenticação centralizada (email/senha, Google, etc.).
+   - Gerenciamento de perfis no Firestore.
+   - Validação de tokens JWT no backend Node.js.
+
+4. **Incorporação de Mensageria (RabbitMQ)**
+
+   - Envio assíncrono de eventos e comandos (ex: gerar relatório, análise de tarefas).
+   - Aumento da resiliência e desacoplamento entre os serviços.
+
+5. **Frontend React**
+
+   - Conectado ao Firebase para login e à API Node.js para operações principais.
+   - Segurança baseada em token JWT.
+
+![Evolução da Arquitetura](./doc/image/evolution.png)
+
+---
+
+#### **Performance e Escalabilidade**
+
+- A arquitetura modular permite escalar partes do sistema separadamente.
+- Os microserviços podem ser replicados e balanceados independentemente.
+- Uso de mensageria para evitar bloqueios e melhorar o tempo de resposta.
+
+---
+
+#### **Manutenção e Entregas Contínuas**
+
+- Ampliação de cobertura de testes (unitários, integração e e2e).
+- Pipeline de **CI/CD** para automatizar testes, builds e deploys.
+- Documentação técnica sempre atualizada junto ao código.
+- Monitoramento e métricas para tomada de decisões (ex: tempo de resposta, taxa de erro).
 
 ## 10. Simulação de Distribuição de Tarefas na Equipe
 
