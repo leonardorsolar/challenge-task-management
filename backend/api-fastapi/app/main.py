@@ -10,6 +10,10 @@ from app.models import user as user_model  # ✅ Correção
 app = FastAPI()
 app.include_router(user.router)
 
+@app.get("/")
+def root():
+    return {"message": "API está no ar! Acesse /users para endpoints de usuários."}
+
 origins = [
     "http://localhost:5173",  # endereço do seu frontend
     "http://localhost:3000",  # opcional, outros endereços permitidos

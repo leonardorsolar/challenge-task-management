@@ -322,3 +322,44 @@ Diagrama de Componentes – Frontend React (Model C4)
 - Branch principal protegida com revisões obrigatórias.
 
 url: https://github.com/leonardorsolar/challenge-task-management
+
+Você pode criar um Abaixo está um exemplo de script chamado `start.sh`:
+
+---
+
+## Executar os projetos depois de instalados
+
+### ✅ Como usar package.json
+
+1. executar os projetos:
+
+react + node
+
+```bash
+npm run start-all
+```
+
+fastapi
+
+```bash
+npm run start-fastapi
+```
+
+2. Stop nos servidores:
+
+```bash
+npm run stop
+```
+
+No navegador:
+
+- React: http://localhost:5173/
+- FastApi:http://localhost:8000/
+- Node:http://localhost:3000/
+
+---
+
+No terminal:
+curl -i http://localhost:8000/
+curl -i http://localhost:5173/
+curl -i http://localhost:3000/
