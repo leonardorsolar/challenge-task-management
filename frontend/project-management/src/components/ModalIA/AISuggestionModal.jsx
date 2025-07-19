@@ -1,5 +1,56 @@
 import React, { useEffect } from 'react'
 import { X, Sparkles, Calendar, User, AlertCircle, Lightbulb } from 'lucide-react'
+import ReactMarkdown from 'react-markdown';
+
+const mockAISuggestion = {
+  suggestedDescription: `Criação de um sistema de gerenciamento de tarefas que inclui campos como status, prioridade e data de vencimento, com funcionalidades CRUD completas.`,
+  suggestedPriority: 'high',
+  suggestedStatus: 'pending',
+  suggestedDueDate: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+  reasoning: `Com base no título "Criação de tarefas" e na descrição, a tarefa envolve múltiplos aspectos fundamentais de um sistema de produtividade. É recomendável iniciar com alta prioridade e status pendente. A IA também sugere:
+
+- **Parser de tarefa**: Divida a tarefa em subtarefas como modelagem, API, testes, UI, etc.
+- **Modelagem de dados**: Tabela "Task" com campos: title, description, status, priority, dueDate, createdAt.
+- **Snippets sugeridos**:
+  \`\`\`js
+  const taskSchema = new Schema({
+    title: String,
+    description: String,
+    status: { type: String, enum: ['pending', 'in_progress', 'completed'] },
+    priority: { type: String, enum: ['low', 'medium', 'high'] },
+    dueDate: Date,
+    createdAt: { type: Date, default: Date.now }
+  });
+  \`\`\`
+
+- **Testes automáticos**:
+  \`\`\`js
+  it('deve criar tarefa com título obrigatório', () => {
+    expect(() => createTask({})).toThrow('title is required');
+  });
+  \`\`\`
+
+- **Documentação (OpenAPI)**:
+  \`\`\`yaml
+  /tasks:
+    post:
+      summary: Criação de tarefa
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Task'
+      responses:
+        201:
+          description: Tarefa criada
+  \`\`\`
+
+Essas sugestões têm como objetivo acelerar o desenvolvimento com base em padrões modernos de engenharia de software.`,
+  generatedAt: new Date().toISOString()
+};
+
+
+
 
 const AISuggestionModal = ({ 
   isOpen, 
@@ -46,14 +97,14 @@ const AISuggestionModal = ({
   //const aiSuggestion = task.aiSuggestion
 
   // Mock para testes se não há aiSuggestion
-  const mockAISuggestion = {
-    suggestedDescription: `Análise detalhada para: ${task.title}`,
-    suggestedPriority: 'medium',
-    suggestedStatus: 'pending',
-    suggestedDueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
-    reasoning: 'Com base no título e contexto da tarefa, sugiro uma abordagem estruturada com planejamento adequado.',
-    generatedAt: new Date().toISOString()
-  };
+  // const mockAISuggestion = {
+  //   suggestedDescription: `Análise detalhada para: ${task.title}`,
+  //   suggestedPriority: 'medium',
+  //   suggestedStatus: 'pending',
+  //   suggestedDueDate: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+  //   reasoning: 'Com base no título e contexto da tarefa, sugiro uma abordagem estruturada com planejamento adequado.',
+  //   generatedAt: new Date().toISOString()
+  // };
   
   // const finalAISuggestion = aiSuggestion || mockAISuggestion;
 
@@ -183,9 +234,26 @@ const AISuggestionModal = ({
                 <Sparkles size={18} className="text-purple-500" />
                 <h4 className={`font-semibold ${textPrimary}`}>Justificativa da IA</h4>
               </div>
-              <p className={`${textSecondary} leading-relaxed`}>
+              {/* <p className={`${textSecondary} leading-relaxed`}>
                 {aiSuggestion.reasoning}
-              </p>
+              </p> */}
+              <ReactMarkdown
+  components={{
+    p: ({node, ...props}) => <p className="text-gray-700 mb-2" {...props} />,
+    code: ({inline, className, children, ...props}) => {
+      return inline ? (
+        <code className="bg-gray-200 px-1 rounded" {...props}>{children}</code>
+      ) : (
+        <pre className="bg-gray-900 text-white p-3 rounded overflow-auto" {...props}>
+          <code className={className}>{children}</code>
+        </pre>
+      )
+    },
+    li: ({node, ...props}) => <li className="ml-6 list-disc mb-1" {...props} />
+  }}
+>
+  {aiSuggestion.reasoning}
+</ReactMarkdown>
             </div>
           )}
 
