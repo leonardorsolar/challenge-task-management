@@ -399,8 +399,6 @@ Acessos ao arquivo:
 
 ### 9.4 Definir APIs e contratos de integração..(\*BP)
 
-Claro! Aqui está o tópico **“9.4 Evolução e Escalabilidade”** **refatorado** de forma clara, objetiva e com a **evolução arquitetural bem destacada**, pronta para ser inserida no seu projeto:
-
 ---
 
 ### 9.5 Evolução e Escalabilidade
@@ -686,8 +684,6 @@ No terminal:
 - curl -i http://localhost:8000/
 - curl -i http://localhost:5173/
 - curl -i http://localhost:3000/
-
-Claro! Aqui está a versão ajustada, **mais clara, profissional e organizada**, do plano dos **Primeiros 90 Dias**, com foco em clareza de ações e entregas por fase:
 
 ---
 

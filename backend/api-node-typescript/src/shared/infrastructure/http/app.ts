@@ -34,6 +34,15 @@ app.get("/", (req, res) => {
   res.send("API Jumpad online!!!");
 });
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "ok",
+    service: "node-server",
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+  });
+});
+
 app.use("/api/v1", v1Router);
 
 // Inicializa tabelas ANTES de exportar app

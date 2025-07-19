@@ -35,13 +35,14 @@ const SidebarDesktop = ({
       })
       .then(data => {
         setUser(data);
-        setLoading(false);
       })
       .catch(err => {
-        setError(err.message);
-        setLoading(false);
-      });
+        console.error('Erro ao buscar usuário:', err.message);
+        setError(err.message); // para log ou fallback interno
+      })
+      .finally(() => setLoading(false));
   }, []);
+  
 
  
 
@@ -161,8 +162,9 @@ const SidebarDesktop = ({
     transition: 'all 0.2s ease'
   }
 
-  if (loading) return <p>Carregando...</p>;
-  if (error) return <p>Erro: {error}</p>;
+  //if (loading) return <p>Carregando...</p>;
+  //if (error) return <p>Erro: {error}</p>;
+  if (loading) return null; // ou um spinner discreto opcional
 
   return (
     <div style={sidebarStyle}>
@@ -417,7 +419,7 @@ const SidebarDesktop = ({
                 textOverflow: 'ellipsis',
                 whiteSpace: 'nowrap'
               }}>
-                {user.name}
+               {user?.name || 'server offline'}
               </p>
             </div>
           </div>

@@ -5,7 +5,8 @@ from app.database.session import engine, Base, get_db
 from app.services.user_service import create_user
 from app.models.schemas import UserCreate
 from app.models import user as user_model  # ✅ Correção
-
+from datetime import datetime
+import time
 
 app = FastAPI()
 app.include_router(user.router)
@@ -13,6 +14,17 @@ app.include_router(user.router)
 @app.get("/")
 def root():
     return {"message": "API está no ar! Acesse /users para endpoints de usuários."}
+
+start_time = time.time()
+
+@app.get("/health")
+async def health_check():
+    return {
+        "status": "ok",
+        "service": "python-server",
+        "timestamp": datetime.now().isoformat(),
+        "uptime": time.time() - start_time
+    }
 
 origins = [
     "http://localhost:5173",  # endereço do seu frontend
