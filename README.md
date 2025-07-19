@@ -435,7 +435,7 @@ Acessos ao arquivo:
 
 #### **Evolução Arquitetural v2**
 
-Claro! Aqui está um texto para a nova **Evolução Arquitetural v2**, incorporando o **microserviço TaskGPT** e a integração com o **cliente MCP para conexão com o Jira**:
+A nova **Evolução Arquitetural v2**, incorpora o **microserviço Jumpad TaskGPT** e a integração com o **cliente MCP para conexão com o Jira**:
 
 ---
 
@@ -444,13 +444,13 @@ Claro! Aqui está um texto para a nova **Evolução Arquitetural v2**, incorpora
 6. **Adição do Microserviço TaskGPT (IA Assistente de Tarefas)**
 
    - Novo serviço baseado em **LLM + RAG (Retrieval-Augmented Generation)** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
-   - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI, Ollama ou outro LLM).
+   - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI e Anthropic).
    - Realiza consultas à base de dados de tarefas para fornecer respostas com contexto atualizado.
    - Exemplo de uso:
 
-     - **Dev**: Solicita ajuda para gerar um endpoint REST de tarefas com base em um schema.
-     - **Tech Lead**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
-     - **CEO/PM**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
+     - **Dev (nível operacional - ajuda técnica)**: Solicita ajuda para gerar um endpoint REST de tarefas com base em um schema.
+     - **Tech Lead (nível gerencial - visão de complexidade, dependências, riscos)**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
+     - **CEO/PM (nível estratégico - visão de valor, prazo e produtividade)**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
 
 7. **Integração com Sistemas Externos via Cliente MCP (Jira Connector)**
 
@@ -726,6 +726,117 @@ No terminal:
 
 ---
 
+## ✅ Criação do Produto: **Jumpad TaskGPT**
+
+### 🎯 Cenário de Estudo
+
+**Usuário-alvo:** Desenvolvedor nível operacional
+**Objetivo:** Automatizar tarefas, apoiar tecnicamente e aumentar a produtividade
+
+---
+
+### 🔢 **Passo 1 – Modelagem BPM (Entendimento do Processo Atual)**
+
+![alt text](./doc/image/Jumpad_TaskGPT_Dev.png)
+
+---
+
+### 🔍 **Passo 2 – Análise Crítica da Modelagem (Identificar Dores e Oportunidades)**
+
+1. **Quais são as maiores dores?**
+
+   - Criação dos testes
+   - Criação da documentação
+   - Seguir um padrão de qualidade
+
+2. **Onde o dev gasta mais tempo?**
+
+   - Analisando tarefas e requisitos para criação do prompt
+   - Solicitando a ia exemplos de código para uso
+   - Descobrindo as validações necessárias
+   - Esperando revisão de código
+
+3. **Qual parte pode gerar mais bugs?**
+
+   - Implementação mal entendida
+   - Falta de testes automatizados
+
+4. **Como fazer com qualidade respeitando o cronograma?**
+
+   - Automatizando tarefas repetitivas
+   - Fornecendo sugestões de código com IA
+   - Gerando documentação e testes automaticamente
+   - Reduzindo tempo entre ciclos (menos re-trabalho)
+
+---
+
+### 🚀 **Passo 3 – Definir MVP (Produto Mínimo Viável)**
+
+Baseado nas dores e etapas críticas, defina funcionalidades iniciais que tragam **alto impacto com baixa complexidade**:
+
+| Problema                     | Solução (Funcionalidade do TaskGPT)             | Tipo            |
+| ---------------------------- | ----------------------------------------------- | --------------- |
+| Entendimento da tarefa       | IA que interpreta e resume tickets              | Backend IA      |
+| Escrita de código repetitivo | Sugestão de snippets com base no ticket         | Copilot-like    |
+| Falta de testes              | Geração automática de testes                    | Backend IA      |
+| Documentação                 | Geração automática da documentação              | Backend IA      |
+| Requisições mal definidas    | Checklist inteligente por tipo de tarefa        | UI + Lógica     |
+| Demora na revisão            | Análise prévia de código com lint/boas práticas | Validador local |
+
+---
+
+### 🛠️ **Passo 4 – Definição Técnica: O que atacar primeiro**
+
+**Critério de escolha:**
+
+- Dores mais frequentes + facilidade de implementação inicial + potencial de automação
+
+**Ordem sugerida:**
+
+1. ✅ _Parser de tarefa com IA_ (transforma textos de tickets em resumos e subtarefas)
+2. ✅ _Geração automática da modelagem de dados (Design)_
+3. ✅ _Sugestão de snippets_ (por tipo de tarefa: CRUD, API, etc.)
+4. ✅ _Geração automática de testes_
+5. ✅ _Geração automática da documentação_
+6. 🟡 _Checklist dinâmico_ (por tipo de projeto ou PR)
+7. 🟡 _Análise semântica de PR (pré-checagem antes do revisor)_
+
+---
+
+### 🧭 **Passo 5 – Validação com Usuário Final (Dev Operacional)**
+
+- Criar protótipo interativo (Figma, Low-code)
+- Validar se o dev consegue:
+
+  - Ganhar tempo
+  - Compreender a ajuda da IA
+  - Integrar ao seu fluxo natural
+
+---
+
+### 📈 **Passo 6 – Planejamento de Iterações**
+
+**Sprint 1 (1-2 semanas):**
+
+- Implementar parser de tarefas
+- Gerar checklist baseado em tipo de tarefa
+
+**Sprint 2:**
+
+- Sugestão de código e snippets
+- Testes automatizados
+
+**Sprint 3+:**
+
+- Integração com GitHub (comentários em PR)
+- Dashboard de produtividade
+
+## Evolução
+
+### 1- Sistema de Apoio ao Tech Lead
+
+### 2- Sistema de Apoio ao CEO
+
 ## Roadmap Tech Lead
 
 ## Primeiros 90 Dias – Plano de Ação
@@ -776,3 +887,5 @@ No terminal:
 
 - Quick-win: É uma melhoria simples e rápida de implementar
 - Dívida técnica é qualquer atalho ou escolha técnica feita para entregar mais rápido, mas que compromete a qualidade ou manutenção do código no futuro
+
+---

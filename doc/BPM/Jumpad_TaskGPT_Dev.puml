@@ -1,0 +1,25 @@
+@startuml
+|Desenvolvedor|
+start
+:Receber tarefa;
+:Analisar requisitos;
+:Estimar complexidade;
+:Desenvolver código;
+:Enviar Pull Request;
+
+|Revisor-Tech Lead|
+:Revisar código;
+if (Código OK?) then (Sim)
+  :Aprovar PR;
+else (Não)
+  :Solicitar ajustes;
+  |Desenvolvedor|
+  :Corrigir código;
+  -> [back to PR] :Reenviar Pull Request;
+endif
+
+|Desenvolvedor|
+:Merge PR;
+:Encerrar tarefa;
+stop
+@enduml
