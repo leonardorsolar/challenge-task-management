@@ -812,6 +812,14 @@ Baseado nas dores e etapas críticas, defina funcionalidades iniciais que tragam
   - Compreender a ajuda da IA
   - Integrar ao seu fluxo natural
 
+ex:
+Passo 1: Criar tarefa
+
+- Nova Tarefa
+  - Título \*: Criação de tarefas
+  - Descrição: Cada tarefa deverá ter o status (Pendente, Em Progresso, Concluída), a prioridade (Alta, média, Baixa) , a data de vencimento.
+    Passo 2: Visualizar a tarefa
+
 ---
 
 ### 📈 **Passo 6 – Planejamento de Iterações**

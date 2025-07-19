@@ -8,7 +8,9 @@ const TaskList = ({
   filter, 
   onEditTask, 
   onDeleteTask, 
-  isDarkMode 
+  onViewAISuggestion, // Nova prop adicionada
+  isDarkMode,
+  networkStatus
 }) => {
   const bgCard = isDarkMode ? 'bg-gray-800' : 'bg-white'
   const textSecondary = isDarkMode ? 'text-gray-300' : 'text-gray-600'
@@ -47,12 +49,12 @@ const TaskList = ({
           task={task}
           onEdit={onEditTask}
           onDelete={onDeleteTask}
+          onViewAISuggestion={onViewAISuggestion} // Passando a nova prop
           isDarkMode={isDarkMode}
         />
       ))}
     </div>
   )
 }
-
 
 export default TaskList

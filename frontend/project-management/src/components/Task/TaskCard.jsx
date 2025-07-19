@@ -1,8 +1,10 @@
 import React from 'react'
-import { Edit2, Trash2, User, Calendar, CheckCircle, Clock, AlertCircle, XCircle } from 'lucide-react'
+import { Edit2, Trash2, User, Calendar, CheckCircle, Clock, AlertCircle, XCircle, Sparkles } from 'lucide-react'
 import { formatDate } from '../../utils/formatDate'
 
-const TaskCard = ({ task, onEdit, onDelete, isDarkMode }) => {
+const TaskCard = ({ task, onEdit, onDelete, onViewAISuggestion, isDarkMode }) => {
+
+
   const getStatusColor = (status) => {
     switch (status) {
       case 'completed':
@@ -115,6 +117,23 @@ const TaskCard = ({ task, onEdit, onDelete, isDarkMode }) => {
 
     </div>
 
+    <div className="flex flex-col items-end gap-2">
+          {/* Botão de Sugestão IA - só mostra se existe aiSuggestion  */}
+          {/* {onViewAISuggestion && ( */}
+            {true && (
+            <button
+              onClick={() => onViewAISuggestion(task)}
+              className={`p-1.5 rounded-md transition-all duration-300 hover:scale-105 ${
+                isDarkMode 
+                  ? 'hover:bg-green-700 text-green-300 bg-green-800/50' 
+                  : 'hover:bg-green-100 text-green-600 bg-green-50'
+              }`}
+              title="Ver sugestões da IA"
+            >
+              <Sparkles size={16} />
+            </button>
+          )}
+</div>
     {/* Ações */}
     <div className="flex flex-col items-end gap-2">
       <button

@@ -11,6 +11,7 @@ import useTasks from '../hooks/useTasks';
 import { toast } from 'react-toastify';
 import api from '../services/api';
 import ConfirmDeleteModal from '../components/Modal/ConfirmDeleteModal';
+import AISuggestionModal from '../components/ModalIA/AISuggestionModal';
 
 // Componente Principal TaskManager
 const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
@@ -27,6 +28,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     priority: 'medium',
     dueDate: ''
   });
+
+  // Novos estados para IA
+  const [showAISuggestion, setShowAISuggestion] = useState(false);
+  const [selectedTaskForAI, setSelectedTaskForAI] = useState(null);
 
   const { tasks, addTask, updateTask, deleteTask, setAllTasks } = useTasks();
 
@@ -55,6 +60,55 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   // Debug: verificar se tasks está sendo passado
   console.log('TaskManager - tasks:', tasks);
 
+  // Função para chamar a API da IA
+  const callAISuggestion = async (taskData) => {
+    try {
+      console.log('Chamando API da IA para tarefa:', taskData.title);
+      
+      // const aiResponse = await api.post('/task/ai-suggestion', {
+      //   title: taskData.title,
+      //   description: taskData.description,
+      //   currentStatus: taskData.status,
+      //   currentPriority: taskData.priority
+      // });
+
+      // console.log('Resposta da IA:', aiResponse.data);
+      // return {
+      //   ...aiResponse.data,
+      //   generatedAt: new Date().toISOString()
+      // };
+      console.log('Simulando chamada à API da IA para tarefa:', taskData.title);
+
+    // Espera simulada (para imitar uma chamada real)
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    // Mock da resposta da IA
+    const mockResponse = {
+      summary: `Resumo gerado para: ${taskData.title}`,
+      subtasks: [
+        { title: 'Analisar requisitos', done: false },
+        { title: 'Implementar lógica principal', done: false },
+        { title: 'Testar a funcionalidade', done: false }
+      ],
+      suggestions: [
+        'Utilize componentes reutilizáveis.',
+        'Garanta que haja cobertura de testes.',
+        'Documente o código ao final.'
+      ]
+    };
+    console.log('Resposta mockada da IA:', mockResponse);
+
+    return {
+      ...mockResponse,
+      generatedAt: new Date().toISOString()
+    };
+    } catch (error) {
+      console.error('Erro ao chamar API da IA:', error);
+      toast.warning('Não foi possível gerar sugestões da IA, mas a tarefa foi criada com sucesso.');
+      return null;
+    }
+  };
+
   // Chamada à API para o CREATE
   const handleAddTask = async () => {
     if (!newTask.title.trim()) return;
@@ -70,6 +124,8 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     };
   
     try {
+    
+
       const response = await api.post('/task', payload);
       const createdTask = response.data;
 
@@ -79,7 +135,32 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       if (!createdTask) throw new Error('Erro ao criar tarefa');
   
       resetForm();
+
+      // //Mostra mensagem de sucesso
+      // if (aiSuggestion) {
+      //   toast.success('Tarefa criada com sucesso! Sugestões da IA disponíveis.');
+      // } else {
+      //   toast.success('Tarefa criada com sucesso!');
+      // }
+
       toast.success('Tarefa criada com sucesso!');
+
+    // 3. Roda a IA em segundo plano
+    callAISuggestion(payload).then(async (aiSuggestion) => {
+      if (aiSuggestion) {
+        try {
+          // Atualiza a tarefa com sugestões da IA
+          // await api.patch(`/task/${createdTask.id}`, {
+          //   aiSuggestion
+          // });
+
+          // Opcional: informar o usuário
+          toast.info(`Sugestões da IA adicionadas à tarefa "${createdTask.title}"`);
+        } catch (updateError) {
+          console.warn('Erro ao atualizar tarefa com IA:', updateError);
+        }
+      }
+    });
     } catch (error) {
       console.error('Erro ao criar tarefa:', error);
       toast.error('Falha ao criar tarefa. Verifique sua conexão.');
@@ -126,6 +207,15 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       console.error('Erro ao atualizar tarefa:', error);
       toast.error('Falha ao editar tarefa. Verifique sua conexão.');
     }
+  };
+
+  // Função para visualizar sugestões da IA
+  const handleViewAISuggestion = (task) => {
+    
+    console.log("handleViewAISuggestion")
+    console.log(task)
+    setSelectedTaskForAI(task);
+    setShowAISuggestion(true);
   };
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -235,6 +325,7 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             isEditing={!!editingTask}
             isDarkMode={isDarkMode}
             networkStatus={networkStatus}
+            
           />
 
           <TaskStats 
@@ -252,12 +343,23 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             onDeleteTask={confirmDelete}
             isDarkMode={isDarkMode}
             networkStatus={networkStatus}
+            onViewAISuggestion={handleViewAISuggestion} // Nova prop
           />
           
           <ConfirmDeleteModal
             isOpen={isDeleteModalOpen}
             onClose={() => setIsDeleteModalOpen(false)}
             onConfirm={handleConfirmDelete}
+            isDarkMode={isDarkMode}
+          />
+
+          <AISuggestionModal
+            isOpen={showAISuggestion}
+            task={selectedTaskForAI}
+            onClose={() => {
+              setShowAISuggestion(false);
+              setSelectedTaskForAI(null);
+            }}
             isDarkMode={isDarkMode}
           />
         </main>
