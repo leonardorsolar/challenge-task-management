@@ -1,5 +1,5 @@
 @startuml
-title Arquitetura de Microserviços - Gerenciador de Tarefas (com RabbitMQ)
+title Arquitetura de Microserviços - Gerenciador de Tarefas (Consumo Direto do Python)
 
 ' Frontend
 component "React App\n(Interface do Usuário)" as Frontend
@@ -17,18 +17,12 @@ database "Banco de Dados\n(PostgreSQL / SQLite)" as DB
 ' Firebase
 cloud "Firebase\n(Auth + Firestore)" as Firebase
 
-' RabbitMQ
-queue "RabbitMQ\n(Broker de Mensagens)" as MQ
-
 ' Relações
 Frontend --> Firebase : Login / Token JWT
 Frontend --> NodeAPI : HTTP (axios/fetch)\ncom Token JWT
 NodeAPI --> Firebase : Verificar token / Buscar perfil
 NodeAPI --> DB : SQL (ORM)
-
-' Com RabbitMQ
-NodeAPI --> MQ : Envia mensagens\n(ex: nova tarefa, gerar relatório)
-PythonService --> MQ : Consome mensagens\n(task.analytics)
-JavaService --> MQ : Consome mensagens\n(report.generate)
+NodeAPI --> PythonService : HTTP\nGET /analytics/user/:id
+NodeAPI --> JavaService : HTTP\nPOST /report
 
 @enduml

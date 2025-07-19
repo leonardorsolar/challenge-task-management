@@ -403,7 +403,7 @@ Acessos ao arquivo:
 
 ### 9.5 Evolução e Escalabilidade
 
-#### **Evolução Arquitetural**
+#### **Evolução Arquitetural v1**
 
 1. **Fase inicial (Monólito)**
 
@@ -432,6 +432,45 @@ Acessos ao arquivo:
    - Segurança baseada em token JWT.
 
 ![Evolução da Arquitetura](./doc/image/evolution.png)
+
+#### **Evolução Arquitetural v2**
+
+Claro! Aqui está um texto para a nova **Evolução Arquitetural v2**, incorporando o **microserviço TaskGPT** e a integração com o **cliente MCP para conexão com o Jira**:
+
+---
+
+### **Evolução Arquitetural v2**
+
+6. **Adição do Microserviço TaskGPT (IA Assistente de Tarefas)**
+
+   - Novo serviço baseado em **LLM + RAG (Retrieval-Augmented Generation)** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
+   - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI, Ollama ou outro LLM).
+   - Realiza consultas à base de dados de tarefas para fornecer respostas com contexto atualizado.
+   - Exemplo de uso:
+
+     - **Dev**: Solicita ajuda para gerar um endpoint REST de tarefas com base em um schema.
+     - **Tech Lead**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
+     - **CEO/PM**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
+
+7. **Integração com Sistemas Externos via Cliente MCP (Jira Connector)**
+
+   - Inclusão de um **cliente ou servidor MCP (Microservice Communication Protocol)** que realiza integração com o **Jira**, permitindo:
+
+     - Sincronização de tarefas criadas ou concluídas.
+     - Consulta e importação automática de tarefas vinculadas a um projeto.
+     - Gatilhos automáticos para criação de tarefas no Jira a partir de interações no sistema interno.
+
+   - Comunicação segura com autenticação via tokens da API do Jira.
+
+8. **Expansão do Ecossistema de Microserviços**
+
+   - A arquitetura segue evoluindo para um modelo mais inteligente e automatizado, promovendo:
+
+     - **Colaboração assistida por IA**.
+     - **Interoperabilidade com plataformas externas**.
+     - **Maior autonomia para os usuários através de interações em linguagem natural**.
+
+     ![alt text](./doc/image/evolutionv2.png)
 
 ---
 

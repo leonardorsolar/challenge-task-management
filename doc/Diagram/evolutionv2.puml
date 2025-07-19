@@ -1,0 +1,43 @@
+@startuml
+title Arquitetura de Microserviços - Gerenciador de Tarefas com TaskGPT + Integração Jira
+
+'=== Frontend ===
+component "React App\n(Interface do Usuário)" as Frontend
+
+'=== Backend Principal ===
+component "API Node.js\n(Gestão de Tarefas e Usuários)" as NodeAPI
+
+'=== Microserviços Existentes ===
+component "Análise de Produtividade\n(Python + Pandas)" as PythonService
+component "Relatórios e Notificações\n(Java + Spring Boot)" as JavaService
+
+'=== IA - TaskGPT ===
+component "TaskGPT\n(IA Assistente com RAG)" as TaskGPT
+cloud "OpenAI / Ollama\n(LLM externo ou local)" as LLM
+
+'=== Conector para Jira ===
+component "MCP Jira Connector\n(Node/Java/Python)" as JiraMCP
+cloud "Jira Cloud / API" as JiraCloud
+
+'=== Firebase ===
+cloud "Firebase\n(Auth + Firestore)" as Firebase
+
+'=== Banco de Dados ===
+database "Banco de Dados\n(PostgreSQL ou SQLite)" as DB
+
+'=== Relações ===
+Frontend --> Firebase : Autenticação
+Frontend --> NodeAPI : HTTP + JWT
+NodeAPI --> Firebase : Verificação de Token
+NodeAPI --> DB : ORM / SQL
+NodeAPI --> PythonService : HTTP GET /analytics/user/:id
+NodeAPI --> JavaService : HTTP POST /report
+NodeAPI --> TaskGPT : HTTP POST /ask (tarefas, contexto)
+TaskGPT --> DB : RAG - Busca de contexto
+TaskGPT --> LLM : Prompt + Contexto → Resposta
+
+'== Integração com Jira ==
+NodeAPI --> JiraMCP : Sincronizar tarefa/projeto
+JiraMCP --> JiraCloud : REST API Jira
+
+@enduml
