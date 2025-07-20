@@ -7,9 +7,12 @@ import { SqliteConnectionAdapter } from "../../../../shared/infrastructure/datab
 
 const messageRouter = Router();
 
+console.log(process.env.OPENAI_API_KEY);
+
 // Configuração das dependências
 const connection = SqliteConnectionAdapter.getInstance();
 const openAIService = new OpenAIService(process.env.OPENAI_API_KEY || "");
+console.log(openAIService);
 const messageRepository = new MessageRepository(connection);
 const createMessageUseCase = new CreateMessageUseCase(openAIService, messageRepository);
 const createMessageController = new CreateMessageController(createMessageUseCase);

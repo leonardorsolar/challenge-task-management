@@ -15,67 +15,55 @@ export interface CreateMessageDTO {
 
 export interface CreateMessageResponse {
   userMessage: Message;
-  aiResponse?: LLMResponse;
+  aiResponse?: any;
 }
 
-type Response = Either<AppError, Result<any>>;
+type Response = Either<AppError, Result<CreateMessageResponse>>;
 
 export class CreateMessageUseCase implements IUseCase {
   constructor(private llmService: ILLMService, private messageRepository: IMessageRepository) {}
 
   async execute(dto: CreateMessageDTO): Promise<Response> {
+    console.log("CreateMessageUseCase");
     try {
-      // Criar mensagem do usuário
       const userMessageResult = Message.create(dto.userId || null, dto.content, dto.llmModel || "gpt-3.5-turbo");
-
+      console.log(userMessageResult);
       if (userMessageResult.isFailure) {
         return left(new AppError(userMessageResult.getErrorValue().toString(), 400));
       }
 
       const userMessage = userMessageResult.getValue();
-      let aiResponse: LLMResponse | undefined;
 
-      try {
-        const userMessageResult = Message.create(dto.userId || null, dto.content, dto.llmModel || "gpt-3.5-turbo");
+      let aiResponseMessage;
 
-        if (userMessageResult.isFailure) {
-          return left(new AppError(userMessageResult.getErrorValue().toString(), 400));
-        }
+      const llmResponse = await this.llmService.generateResponse({
+        content: dto.content,
+        model: dto.llmModel || "gpt-3.5-turbo",
+        maxTokens: 1000,
+        temperature: 0.7,
+      });
 
-        const userMessage = userMessageResult.getValue();
-
-        let aiResponseMessage: Message | undefined;
-
-        try {
-          const llmResponse = await this.llmService.generateResponse({
-            content: dto.content,
-            model: dto.llmModel || "gpt-3.5-turbo",
-            maxTokens: 1000,
-            temperature: 0.7,
-          });
-
-          if (llmResponse) {
-            aiResponseMessage = llmResponse.getValue();
-            await this.messageRepository.save(aiResponseMessage); // Salva a resposta da IA
-          }
-
-          return right(
-            Result.ok<any>({
-              userMessage,
-              aiResponse: aiResponseMessage,
-            })
-          );
-        } catch (error) {
-          console.error("Erro ao gerar resposta da IA:", error);
-        }
-      } catch (error) {
-        console.error("Erro ao gerar resposta da IA:", error);
-        // Não falha a operação se a IA não responder
+      if (llmResponse.isRight()) {
+        const aiResponse = llmResponse.value.getValue();
+        aiResponseMessage = aiResponse;
+        console.log("aiResponseMessage");
+        console.log(aiResponseMessage);
+        console.log(userMessage);
+        const data = { userMessage, aiResponseMessage };
+        await this.messageRepository.save(data);
+      } else {
+        console.error("Erro ao obter resposta da IA:", llmResponse.value);
       }
 
-      return right(Result.ok<any>(aiResponse));
+      return right(
+        Result.ok<CreateMessageResponse>({
+          userMessage,
+          aiResponse: aiResponseMessage || undefined,
+        })
+      );
     } catch (error) {
-      return left(new AppError(`Erro inesperado. Tente novamente\n${error}`, 500));
+      console.error("Erro inesperado ao executar use case:", error);
+      return left(new AppError("Erro inesperado. Tente novamente mais tarde.", 500));
     }
   }
 }

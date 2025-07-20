@@ -6,8 +6,7 @@ export const createTableScripts = [
     content TEXT NOT NULL,
     llm_model TEXT,
     generateAIResponse TEXT NOT NULL,
-    created_at TEXT NOT NULL DEFAULT (datetime('now')),
-    FOREIGN KEY (chat_id) REFERENCES chats(id) ON DELETE CASCADE
+    created_at TEXT NOT NULL DEFAULT (datetime('now'))
   );
   `,
 ];

@@ -1,5 +1,5 @@
 import * as dotenv from "dotenv";
-
+dotenv.config();
 import express, { Request, Response } from "express";
 import cors from "cors";
 //import { pool, initializeDB } from "../database/postgress" // Importa a função de inicialização
@@ -13,7 +13,7 @@ const app = express();
 
 const apiKey = process.env.OPENAI_API_KEY;
 
-//console.log(apiKey);
+console.log(apiKey);
 
 const allowedOrigins = [
   "http://localhost:3000",
@@ -31,7 +31,7 @@ app.use(cors(options));
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.send("API Jumpad online!!!");
+  res.send("API Jumpad AI online!!!");
 });
 
 app.get("/health", (req, res) => {

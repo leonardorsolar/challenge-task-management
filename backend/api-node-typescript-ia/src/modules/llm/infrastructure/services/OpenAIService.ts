@@ -28,6 +28,8 @@ export class OpenAIService implements ILLMService {
         Responda em formato JSON válido.
       `;
 
+      console.log(request);
+      console.log("chamada ia");
       const response = await fetch(`${this.baseURL}/chat/completions`, {
         method: "POST",
         headers: {
@@ -44,6 +46,8 @@ export class OpenAIService implements ILLMService {
           temperature: request.temperature || 0.7,
         }),
       });
+
+      console.log(response);
 
       if (!response.ok) {
         throw new Error(`OpenAI API error: ${response.status}`);

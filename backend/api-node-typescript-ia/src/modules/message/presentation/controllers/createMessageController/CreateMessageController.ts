@@ -7,6 +7,7 @@ export default class CreateMessageController {
   async handle(req: Request, res: Response): Promise<Response> {
     try {
       const { userId, content, llmModel } = req.body;
+      console.log(req.body);
 
       // Validação básica
       if (!content) {

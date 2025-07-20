@@ -7,18 +7,23 @@ export class MessageRepository implements IMessageRepository {
   constructor(private readonly connection: IConnection) {}
 
   async save(data: any): Promise<void> {
-    const { message, generateAIResponse } = data;
+    console.log("save");
+    console.log(data);
+    const message = data.userMessage;
+    const generateAIResponse = data.aiResponseMessage;
+
     const sql = `
-      INSERT INTO messages (id, user_id, content, llm_model, role, created_at)
-      VALUES (?, ?, ?, ?, ?, ?, ?)
-    `;
+  INSERT INTO messages (id, user_id, content, llm_model, created_at, generateAIResponse)
+  VALUES (?, ?, ?, ?, ?, ?)
+`;
 
     await this.connection.query(sql, [
       message.id,
+      message.userId, // necessário
       message.content,
       message.llmModel,
-      generateAIResponse,
-      message.createdAt.toISOString(), // garante formato ISO
+      message.createdAt.toISOString(),
+      JSON.stringify(generateAIResponse), // armazena como JSON string
     ]);
   }
 
