@@ -16,5 +16,5 @@ export interface ILLMResponse {
 }
 
 export interface ILLMService {
-  generateResponse(request: ILLMRequest): Promise<ILLMResponse>;
+  generateResponse(request: ILLMRequest): Promise<any>;
 }

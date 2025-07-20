@@ -37,7 +37,7 @@ app.get("/", (req, res) => {
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "ok",
-    service: "node-server",
+    service: "node-server-api",
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
   });

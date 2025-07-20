@@ -1,6 +1,9 @@
 import { ILLMService, ILLMRequest, ILLMResponse } from "../../domain/services/ILLMService";
 import { IAISuggestion } from "../../domain/entities/LLMResponse";
 
+import { right } from "../../../../shared/core/Either";
+import { Result } from "../../../../shared/core/Result";
+
 export class OpenAIService implements ILLMService {
   private readonly apiKey: string;
   private readonly baseURL: string = "https://api.openai.com/v1";
@@ -9,7 +12,7 @@ export class OpenAIService implements ILLMService {
     this.apiKey = apiKey;
   }
 
-  async generateResponse(request: ILLMRequest): Promise<ILLMResponse> {
+  async generateResponse(request: ILLMRequest): Promise<any> {
     try {
       const systemPrompt =
         request.systemPrompt ||
@@ -63,15 +66,17 @@ export class OpenAIService implements ILLMService {
         aiSuggestion = this.generateMockSuggestion(request.content);
       }
 
-      return {
-        content,
-        model: request.model || "gpt-3.5-turbo",
-        aiSuggestion,
-        metadata: {
-          usage: data.usage,
-          finishReason: data.choices[0]?.finish_reason,
-        },
-      };
+      return right(
+        Result.ok<any>({
+          content,
+          model: request.model || "gpt-3.5-turbo",
+          aiSuggestion,
+          metadata: {
+            usage: data.usage,
+            finishReason: data.choices[0]?.finish_reason,
+          },
+        })
+      );
     } catch (error) {
       throw new Error(`Erro ao comunicar com OpenAI: ${error}`);
     }

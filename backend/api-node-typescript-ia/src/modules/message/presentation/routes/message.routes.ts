@@ -1,13 +1,17 @@
 import { Router } from "express";
-import CreateMessageController from "../controllers/CreateMessageController";
 import { CreateMessageUseCase } from "../../application/usecases/CreateMessageUseCase";
 import { OpenAIService } from "../../../llm/infrastructure/services/OpenAIService";
+import CreateMessageController from "../controllers/createMessageController/CreateMessageController";
+import { MessageRepository } from "../../infrastructure/repositories/MessageRepository";
+import { SqliteConnectionAdapter } from "../../../../shared/infrastructure/database/SqliteConnectionAdapter";
 
 const messageRouter = Router();
 
 // Configuração das dependências
+const connection = SqliteConnectionAdapter.getInstance();
 const openAIService = new OpenAIService(process.env.OPENAI_API_KEY || "");
-const createMessageUseCase = new CreateMessageUseCase(openAIService);
+const messageRepository = new MessageRepository(connection);
+const createMessageUseCase = new CreateMessageUseCase(openAIService, messageRepository);
 const createMessageController = new CreateMessageController(createMessageUseCase);
 
 // Rotas

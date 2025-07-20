@@ -86,22 +86,6 @@ export class SqliteConnectionAdapter implements IConnection {
         console.log(`✅ Tabela '${tableName}' criada/verificada.`);
       }
 
-      console.log("Inserindo usuário padrão...");
-      await this.db.run(`
-        INSERT OR IGNORE INTO users (
-          id,
-          email,
-          name,
-          password
-        ) VALUES (
-          '1',
-          'usuario@jumpad.com',
-          'João da Silva',
-          '123456'
-        );
-      `);
-      console.log("✅ Usuário padrão inserido/verificado.");
-
       await this.commit();
       console.log("🏁 Tabelas criadas/verificadas com sucesso!");
     } catch (error) {
