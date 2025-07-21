@@ -1,5 +1,5 @@
 @startuml
-title Arquitetura de Microserviços - Gerenciador de Tarefas com TaskGPT + Integração Jira + RabbitMQ
+title Arquitetura de Microserviços - Gerenciador de Tarefas com TaskGPT + Integração GitHub + RabbitMQ
 
 '=== Frontend ===
 component "React App\n(Interface do Usuário)" as Frontend
@@ -15,9 +15,9 @@ component "Relatórios e Notificações\nJava + Spring Boot" as JavaService
 component "TaskGPT\n(IA Assistente com RAG)" as TaskGPT
 cloud "OpenAI / Ollama\n(LLM externo ou local)" as LLM
 
-'=== Conector para Jira ===
-component "MCP Jira Connector\n(Node/Java/Python)" as JiraMCP
-cloud "Jira Cloud / API" as JiraCloud
+'=== Conector para GitHub ===
+component "MCP GitHub Connector\n(Node/Java/Python)" as GithubMCP
+cloud "GitHub Cloud / API" as GithubAPI
 
 '=== Firebase ===
 cloud "Firebase\n(Auth + Firestore)" as Firebase
@@ -48,7 +48,7 @@ NodeAPI --> TaskGPT : HTTP POST /ask (prompt + contexto)
 TaskGPT --> DBTaskGPT : RAG - Base de conhecimento
 TaskGPT --> LLM : Prompt com contexto → Resposta
 
-NodeAPI --> JiraMCP : Sincronizar com Jira
-JiraMCP --> JiraCloud : REST API Jira
+NodeAPI --> GithubMCP : Requisições para sincronização
+GithubMCP --> GithubAPI : REST API GitHub
 
 @enduml

@@ -8,14 +8,45 @@
 
 - **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
 - **1.2 Objetivo:** Desenvolver uma aplicação interna de gestão de tarefas para auxiliar no acompanhamento de demandas. O sistema deve permitir o registro, edição, listagem e filtragem de tarefas, além de fornecer uma interface web para interação com os usuários
-- **1.3 Componentes do Sistema:**
 
-  - **Backend Node:** API RESTful com operações CRUD de tarefas.
-  - **Backend FastAPI:** API RESTful para operações relacionadas a usuários.
-  - **Frontend React:** Interface web responsiva que consome as APIs.
+---
 
-- **1.4 Tempo Total de Desenvolvimento:** 10 horas
+### **1.3 Componentes do Sistema Completo**
+
+**Componentes do MVP**:
+
+- **Frontend React (MVP):**
+  Interface web responsiva desenvolvida em React, responsável pela interação com o usuário e consumo das APIs do sistema.
+
+- **Backend Principal Node.js (MVP):**
+  API RESTful que gerencia operações CRUD de tarefas e usuários, além de integrar autenticação via Firebase.
+
+  ![alt text](./doc/image/DiagramadeContêineresC4.png)
+
+**Implementações futuras**:
+
+- **Backend Cliente MCP GitHub:**
+  Microserviço que sincroniza tarefas e eventos com a API do GitHub, gerenciando issues, pull requests e commits, utilizando autenticação e webhooks.
+- **Firebase:**
+  Serviço dedicado à gestão de usuários e autenticação, com suporte a email/senha e logins sociais, fornecendo endpoints RESTful para validação de tokens.
+- **Backend TaskGPT:**
+  Microserviço RESTful que integra com OpenAI para fornecer funcionalidades de assistente inteligente e enriquecimento das tarefas.
+- **Backend Java Service:**
+  Serviço responsável por geração de relatórios e notificações, comunicando-se com o backend principal via RabbitMQ.
+- **Backend FastAPI (Análise e Produtividade):**
+  API dedicada à análise de dados de produtividade, fornecendo métricas e insights a partir das tarefas.
+
+  ![alt text](./doc/image/DiagramadeContextoC4Geral.png)
+
+---
+
+- **1.4 Tempo Total de Desenvolvimento da MVP:** 10 horas
+
+  Para mvp será desenvolvido o frontend e o backend com as principais funcionalidades.
   ![Alt text](./doc/image/commits.png "a title")
+
+  Após a mvp serão produzidos os demais requisitos.
+
 - **1.5 Arquitetura de Alto Nível:**
   Diagrama de Contêiner – Backend Node (Model C4)
   ![alt text](./doc/image/DiagramadeContêineresC4.png)
@@ -28,7 +59,7 @@ Dica:
 
 ---
 
-### **2. Engenharia de Requisitos**
+### **2. Engenharia de Requisitos (MVP)**
 
 #### 2.1 Requisitos Funcionais (\*BP)
 
@@ -49,11 +80,6 @@ Dica:
 - **RF-BE04.** Atualizar status com `PATCH /tasks/:id/status`.
 - **RF-BE05.** Remover tarefa com `DELETE /tasks/:id`.
 
-##### 2.1.3 Backend (FastAPI)
-
-- **RF-FA01.** Listar usuários.
-- **RF-FA02.** Criar ou autenticar usuários (se aplicável).
-
 #### 2.2 Requisitos Não Funcionais
 
 ##### 2.2.1 Frontend
@@ -62,24 +88,23 @@ Dica:
 - **RNF-FE02.** Design com foco em usabilidade.
 - **RNF-FE03.** Comunicação com backend via JSON.
 
-##### 2.2.2 Backend (Node e FastAPI)
+##### 2.2.2 Backend (Node)
 
 - **RNF-BE01.** APIs RESTful com uso de JSON.
 - **RNF-BE02.** Separação de responsabilidades: controllers, services, models.
 - **RNF-BE03.** Documentação da API com OpenAPI (Swagger).
 
-### 2.3 Roadmap (Simplificado) (\*BP)
+### 2.3 Roadmap MVP (Simplificado) (\*BP)
 
 | Fase | Entrega                                     | Prazo Estimado |
 | ---- | ------------------------------------------- | -------------- |
-| 1    | Backend Node.js com CRUD de tarefas         | 3H             |
+| 1    | Backend Node.js com CRUD de tarefas         | 4H             |
 | 2    | Frontend com exibição e controle de tarefas | 4H             |
-| 3    | Backend FastAPI com autenticação e usuários | 2H             |
-| 4    | Integração total + testes automáticos       | 2H             |
+| 3    | Integração total + testes automáticos       | 2H             |
 
 ---
 
-### 2.4 Product Backlog (Prioridade Alta → Baixa) (\*BP)
+### 2.4 Product Backlog MVP (Prioridade Alta → Baixa) (\*BP)
 
 | ID   | História de Usuário                                           | Prioridade |
 | ---- | ------------------------------------------------------------- | ---------- |
@@ -107,7 +132,7 @@ Dica:
 
 ### 2.5 Identificar stakeholders (\*BP)
 
-Quem são os usuários do sistema?
+CEO, Tech Lead, Desenvolvedores
 
 ### 2.6 Plano de Testes
 
@@ -127,10 +152,10 @@ Para garantir segurança desde a fase de requisitos até a entrega, adotar as se
 #### 🔒 Backend
 
 - Validação e sanitização de entradas.
-- Autenticação com JWT e senhas com bcrypt.
-- Controle de acesso por perfil (usuário/admin).
 - Proteção contra ataques com rate limiting e `helmet`.
 - Logs sem dados sensíveis.
+- Autenticação com JWT e senhas com bcrypt.
+- Controle de acesso por perfil (usuário/admin).
 
 #### 🛡️ Frontend
 
@@ -167,17 +192,7 @@ git clone https://github.com/leonardorsolar/challenge-task-management.git
 cd challenge-task-management
 ```
 
-- **3.2 Instalar e Rodar Backend FastAPI**
-
-```bash
-cd backend/api-fastapi
-python3 -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn app.main:app --reload
-```
-
-- **3.3 Instalar e Rodar Backend Node.js**
+- **3.2 Instalar e Rodar Backend Node.js**
 
 ```bash
 cd backend/api-node-typescript
@@ -185,7 +200,7 @@ npm install
 npm run dev
 ```
 
-- **3.4 Instalar e Rodar Frontend React**
+- **3.3 Instalar e Rodar Frontend React**
 
 ```bash
 cd frontend/project-management
@@ -193,11 +208,11 @@ npm install
 npm run dev
 ```
 
-- **3.5 Acesso:** [http://localhost:5173](http://localhost:5173)
+- **3.4 Acesso:** [http://localhost:5173](http://localhost:5173)
 
 ---
 
-### **4. Estrutura do Projeto**
+### **4. Estrutura Completa do Projeto**
 
 - **4.1 Estrutura Geral de Pastas**
 
@@ -205,6 +220,8 @@ npm run dev
 project-management/
 ├── backend/
 │   ├── api-fastapi/
+│   ├── api-node-typescript-ia/
+│   ├── mcp-agent/
 │   └── api-node-typescript/
 ├── docs/
 │   ├── image
@@ -217,7 +234,7 @@ project-management/
 └── README.md
 ```
 
-- **4.2 Estrutura Backend Node**
+- **4.2 Estrutura Backend Principal Node**
 
 Estrutura do Projeto Backend (Node) e Responsabilidades
 
@@ -329,7 +346,6 @@ Acessos ao arquivo:
 ### **7. Tecnologias Utilizadas**
 
 - **Backend Node:** Node.js, Express, TypeScript
-- **Backend FastAPI:** Python, FastAPI, SQLite
 - **Frontend:** React.js, Vite, Axios, Lucide-react
 - **Testes:** Jest, Testing Library
 - **Documentação:** Swagger (OpenAPI)
@@ -358,20 +374,51 @@ Acessos ao arquivo:
 
 ## 9. Arquitetura e Decisões Técnicas
 
-### 9.1 Tecnologias e Justificativas
+Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **Projeto Completo**, mantendo alinhamento com os componentes do sistema:
 
-- **Backend:** Escolhi Node.js + Express pela sua simplicidade e eficiência para construir APIs RESTful, além do grande ecossistema e suporte. Adicionei ao projeto uma consulta simples na api FastApi.
-- **Banco de dados:** SQLite (para protótipo rápido) : O projeto está pronto para receber também o banco de dados PostgreSQL ou Mysql(para produção).
-- **Frontend:** React.js com Vite para rápido desenvolvimento e boa experiência de desenvolvimento. Procurei deixar o front livre de framework.
-- **Documentação da API:** Swagger para facilitar a comunicação com outras equipes e futuros desenvolvedores. Realizei uma documentação sistema usando a OpenIa.
+---
+
+### **9.1 Tecnologias e Justificativas**
+
+#### **Tecnologias do MVP**
+
+- **Backend (API Principal):**
+  Utilizei **Node.js com Express** por sua eficiência na construção de APIs RESTful, facilidade de manutenção e integração com outras tecnologias. A escolha também se baseou no suporte da comunidade e rápida prototipação.
+
+- **Banco de Dados:**
+  Adotado o **SQLite** para acelerar o desenvolvimento inicial e testes locais. A arquitetura está preparada para uso futuro de bancos relacionais robustos como **PostgreSQL** ou **MySQL**, ideais para produção.
+
+- **Frontend:**
+  Desenvolvido em **React.js** com **Vite**, proporcionando carregamento rápido, hot reload e uma experiência de desenvolvimento moderna. O frontend foi mantido livre de bibliotecas visuais pesadas, garantindo maior controle e personalização da interface.
+
+- **Documentação da API:**
+  A documentação foi feita com **Swagger (OpenAPI)**, permitindo visualização e testes diretos das rotas. Para clareza e padronização, foram utilizadas ferramentas de IA (OpenAI) no auxílio da geração dos exemplos e descrições.
+
+---
+
+#### **Tecnologias do Projeto Completo (Próximas Fases)**
+
+- **Autenticação:**
+  A autenticação e o gerenciamento de usuários foram implementados com o **Firebase Authentication**, que oferece suporte a login por e-mail/senha e provedores sociais.
+
+- **Microserviço TaskGPT (Node.js + OpenAI):**
+  Microserviço responsável por enriquecer tarefas com sugestões inteligentes, resumos e subtarefas usando **modelos de linguagem da OpenAI**.
+
+- **Microserviço MCP GitHub:**
+  Serviço que realiza a **integração contínua com GitHub**, sincronizando issues, pull requests e commits via **webhooks e autenticação com token**.
+
+- **Serviço de Relatórios (Java):**
+  Serviço assíncrono desenvolvido em **Java**, responsável pela **geração de relatórios e envio de notificações**. Comunica-se com o backend principal usando **RabbitMQ**.
+
+- **API de Análise de Produtividade (FastAPI):**
+  Serviço dedicado à análise de produtividade dos usuários, que fornece **métricas e insights** com base nas tarefas e interações.
+
+- **Fila de Mensagens:**
+  Utilização de **RabbitMQ** para troca assíncrona de mensagens entre serviços, garantindo escalabilidade e desacoplamento entre os módulos.
+
+---
 
 ### 9.2 Organização do Código e Separação de Responsabilidades
-
-- Backend FastApi separado em camadas:
-
-  - Controllers: lidar com requisições HTTP.
-  - Services: regras de negócio.
-  - Models: entidades e acesso a dados.
 
 - Backend Node separado em camadas (Arquitetura Clean Architecture):
 
@@ -403,47 +450,17 @@ Acessos ao arquivo:
 
 ### 9.5 Evolução e Escalabilidade
 
-#### **Evolução Arquitetural v1**
+### **Evolução Arquitetural**
 
-1. **Fase inicial (Monólito)**
-
-   - API REST em Node.js com banco de dados relacional.
-   - Funcionalidades de gerenciamento de tarefas e usuários integradas.
-
-2. **Modularização por responsabilidade (Microserviços)**
-
-   - **Python**: microserviço para análise de produtividade e estatísticas.
-   - **Java**: microserviço para geração de relatórios em PDF e envio de notificações.
-
-3. **Integração com Firebase**
+1. **Integração com Firebase**
 
    - Autenticação centralizada (email/senha, Google, etc.).
    - Gerenciamento de perfis no Firestore.
    - Validação de tokens JWT no backend Node.js.
 
-4. **Incorporação de Mensageria (RabbitMQ)**
+2. **Adição do Microserviço TaskGPT (IA Assistente de Tarefas)**
 
-   - Envio assíncrono de eventos e comandos (ex: gerar relatório, análise de tarefas).
-   - Aumento da resiliência e desacoplamento entre os serviços.
-
-5. **Frontend React**
-
-   - Conectado ao Firebase para login e à API Node.js para operações principais.
-   - Segurança baseada em token JWT.
-
-![Evolução da Arquitetura](./doc/image/evolution.png)
-
-#### **Evolução Arquitetural v2**
-
-A nova **Evolução Arquitetural v2**, incorpora o **microserviço Jumpad TaskGPT** e a integração com o **cliente MCP para conexão com o Jira**:
-
----
-
-### **Evolução Arquitetural v2**
-
-6. **Adição do Microserviço TaskGPT (IA Assistente de Tarefas)**
-
-   - Novo serviço baseado em **LLM + RAG (Retrieval-Augmented Generation)** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
+   - Novo serviço baseado em **LLM** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
    - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI e Anthropic).
    - Realiza consultas à base de dados de tarefas para fornecer respostas com contexto atualizado.
    - Exemplo de uso:
@@ -452,17 +469,20 @@ A nova **Evolução Arquitetural v2**, incorpora o **microserviço Jumpad TaskGP
      - **Tech Lead (nível gerencial - visão de complexidade, dependências, riscos)**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
      - **CEO/PM (nível estratégico - visão de valor, prazo e produtividade)**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
 
-7. **Integração com Sistemas Externos via Cliente MCP (Jira Connector)**
+   - Depois poderá ser implemento: RAG (Retrieval-Augmented Generation)
 
-   - Inclusão de um **cliente ou servidor MCP (Microservice Communication Protocol)** que realiza integração com o **Jira**, permitindo:
+3. **Integração com Sistemas Externos via Cliente MCP (Github)**
 
-     - Sincronização de tarefas criadas ou concluídas.
-     - Consulta e importação automática de tarefas vinculadas a um projeto.
-     - Gatilhos automáticos para criação de tarefas no Jira a partir de interações no sistema interno.
+   - Inclusão de um **cliente ou servidor MCP (Microservice Communication Protocol)** que realiza integração com o **github**, permitindo:
 
-   - Comunicação segura com autenticação via tokens da API do Jira.
+     - Envio das infromações das tarefas via issues para o github
 
-8. **Expansão do Ecossistema de Microserviços**
+4. **Incorporação de Mensageria (RabbitMQ)**
+
+   - Envio assíncrono de eventos e comandos (ex: gerar relatório, análise de tarefas).
+   - Aumento da resiliência e desacoplamento entre os serviços.
+
+5. **Expansão do Ecossistema de Microserviços**
 
    - A arquitetura segue evoluindo para um modelo mais inteligente e automatizado, promovendo:
 
@@ -494,7 +514,7 @@ A nova **Evolução Arquitetural v2**, incorpora o **microserviço Jumpad TaskGP
 | Desenvolvedor                   | Responsabilidades Técnicas                                                                                                                                                                                                                                                                                                                                         | Entregas Principais                                                                                                                             |
 | ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Dev A (Backend + Tech Lead)** | - API RESTful em **Node.js + Express**<br>- Modelagem e lógica de negócio<br>- Testes unitários com **Jest**<br>- Configuração de **CI/CD**<br>- **Documentação com Swagger**<br>- **Responsável por revisão de Pull Requests**<br>- **Garantia de qualidade (QA)**<br>- Suporte à integração entre frontend e backend<br>- Controle de versionamento e convenções | Endpoints documentados e testados, banco de dados configurado, CI/CD funcionando, revisões de código realizadas, qualidade de projeto garantida |
-| **Dev B (Backend)**             | - API RESTful em **FastAPI**<br>- Autenticação e gerenciamento de usuários<br>- Testes com **Pytest**<br>- Documentação OpenAPI<br>- Integração com frontend                                                                                                                                                                                                       | Endpoints de usuários, autenticação funcional, documentação gerada, cobertura de testes garantida                                               |
+| **Dev B (Backend)**             | - API RESTful em **Node - Firebase**<br>- Autenticação e gerenciamento de usuários<br>- Testes com **jest/libray**<br>- Documentação OpenAPI<br>- Integração com frontend                                                                                                                                                                                          | Endpoints de usuários, autenticação funcional, documentação gerada, cobertura de testes garantida                                               |
 | **Dev C (Frontend)**            | - Interface em **React**<br>- Consumo de APIs<br>- Interface responsiva com foco em usabilidade<br>- Validações no frontend<br>- Testes e2e com Playwright (com apoio do Dev A)                                                                                                                                                                                    | Funcionalidades completas de CRUD de tarefas com filtros, layout responsivo, testes básicos automatizados                                       |
 
 ---

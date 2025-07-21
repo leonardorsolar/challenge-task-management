@@ -1,0 +1,29 @@
+@startuml context
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+' Ator externo
+Person(user, "Usuário Interno", "Funcionário que usa a plataforma para gerenciar tarefas")
+
+System_Boundary(taskPlatform, "Plataforma de Gestão de Tarefas") {
+    
+    System(frontend, "Frontend React", "Interface web onde o usuário interage com o sistema")
+    System(apiNode, "API Principal (Node.js)", "Gerencia CRUD de tarefas e usuários, integra autenticação Firebase")
+    System(firebase, "Firebase", "Gerencia autenticação e usuários, com suporte a login social")
+    System(taskGPT, "TaskGPT (Node.js + OpenAI)", "Assistente inteligente que sugere melhorias nas tarefas")
+    System(javaService, "Serviço de Relatórios (Java)", "Gera relatórios e envia notificações via RabbitMQ")
+    System(mcpGithub, "Cliente MCP GitHub", "Sincroniza tarefas com GitHub usando Webhooks")
+    System(fastAPI, "Análise de Produtividade (FastAPI)", "Gera métricas e insights sobre produtividade")
+}
+
+' Relacionamentos do MVP
+Rel(user, frontend, "Interage via navegador")
+Rel(frontend, apiNode, "Faz chamadas REST (JSON)")
+Rel(apiNode, firebase, "Valida tokens, registra e autentica usuários")
+
+' Futuras integrações
+Rel(apiNode, taskGPT, "Consulta sugestões inteligentes via OpenAI")
+Rel(apiNode, javaService, "Envia dados para geração de relatórios via RabbitMQ")
+Rel(apiNode, mcpGithub, "Sincroniza com GitHub (issues, PRs, commits)")
+Rel(apiNode, fastAPI, "Envia dados para análise de produtividade")
+
+@enduml
