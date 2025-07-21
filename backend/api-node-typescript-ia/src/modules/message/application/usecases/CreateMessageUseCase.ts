@@ -25,10 +25,10 @@ export class CreateMessageUseCase implements IUseCase {
 
   async execute(dto: any): Promise<Response> {
     console.log("CreateMessageUseCase");
-    const userId = "1";
+
     const content = JSON.stringify(dto.projectContext, null, 2);
     try {
-      const userMessageResult = Message.create(userId, content, "gpt-3.5-turbo");
+      const userMessageResult = Message.create(dto.task.userId, content, "gpt-3.5-turbo", dto.task.id);
       //console.log(userMessageResult);
       if (userMessageResult.isFailure) {
         return left(new AppError(userMessageResult.getErrorValue().toString(), 400));
@@ -56,9 +56,9 @@ export class CreateMessageUseCase implements IUseCase {
         aiResponseMessage = aiResponse;
         console.log("aiResponseMessage");
         console.log(aiResponseMessage);
-        //console.log(userMessage);
-        //const data = { userMessage, aiResponseMessage };
-        //await this.messageRepository.save(data);
+        console.log(userMessage);
+        const data = { userMessage, aiResponseMessage };
+        await this.messageRepository.save(data);
       } else {
         console.error("Erro ao obter resposta da IA:", llmResponse.value);
       }

@@ -73,7 +73,36 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       const queryParam = filter !== "all" ? `?status=${filter}` : "";
       const response = await api.get(`/task/list${queryParam}`);
       //console.log('TaskManager - fetchTasks response:', response.data);
-      setAllTasks(response.data);
+      //setAllTasks(response.data);
+
+    const responseIa = await apiIA.get(`/message/list`);
+    //console.log(responseIa)
+
+    const tasks = response.data;
+    //console.log(tasks)
+    const iaArray = responseIa.data;
+    //console.log(iaArray)
+    
+
+    // Transforma array em objeto indexado por id
+    const iaMap = iaArray.reduce((acc, msg) => {
+      acc[msg.id] = msg;
+      return acc;
+    }, {});
+
+    // Filtra e adiciona generateAIResponse apenas se houver correspondência
+    const tasksWithIA = tasks
+      .filter(task => !!iaMap[task.id])
+      .map(task => ({
+        ...task,
+        generateAIResponse: iaMap[task.id]?.generateAIResponse || null,
+      }));
+
+    console.log("🔍 Tarefas com IA:", tasksWithIA);
+
+    setAllTasks(tasksWithIA);
+
+
     } catch (error) {
       console.error("Erro ao carregar tarefas:", error);
       toast.error("Falha ao carregar tarefas.");
@@ -89,12 +118,15 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   //console.log('TaskManager - tasks:', tasks);
 
   // Função melhorada para chamar a API da IA com configurações do projeto
-  const callAISuggestion = async (taskData) => {
+  const callAISuggestion = async (taskData, id, userId) => {
     try {
       
       // Criar contexto enriquecido com as configurações do projeto
+      // id é a referencia da tabela task
       const enhancedPrompt = {
         task: {
+          id: id,
+          userId: userId,
           title: taskData.title,
           description: taskData.description,
           currentStatus: taskData.status,
@@ -113,8 +145,8 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       };
 
       const aiResponse = await apiIA.post('/message/ai-suggestion', enhancedPrompt);
-      console.log('******************');
-      console.log('Resposta da IA:', aiResponse.data);
+      //console.log('******************');
+      //console.log('Resposta da IA:', aiResponse.data);
       return {
         ...aiResponse.data,
         generatedAt: new Date().toISOString()
@@ -171,11 +203,15 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     try {
       const response = await api.post('/task', payload);
       const createdTask = response.data;
+      
+      
+      //console.log("createdTask")
+      //console.log(createdTask)
   
       if (!createdTask) throw new Error('Erro ao criar tarefa');
   
       addTask(createdTask);
-      fetchTasks();
+      
       resetForm();
       toast.success('Tarefa criada com sucesso!');
 
@@ -183,10 +219,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       //await createGithubIssue(createdTask);
   
       // 3. Roda a IA em segundo plano com contexto do projeto
-      const aiResponseData = await callAISuggestion(payload);
-      console.log("aiResponseData")
-      console.log(aiResponseData)
-      console.log(aiResponseData._value.aiResponse)
+      const aiResponseData = await callAISuggestion(payload, createdTask.id, createdTask.userId);
+      //console.log("aiResponseData")
+      //console.log(aiResponseData)
+      //console.log(aiResponseData._value.aiResponse)
   
       if (aiResponseData?.isSuccess) {
         setSelectedTaskForAI({
@@ -198,7 +234,8 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
           }
           
         });
-        setShowAISuggestion(true);
+        fetchTasks();
+        //setShowAISuggestion(true);
       }
     } catch (error) {
       console.error('Erro ao adicionar tarefa:', error);
@@ -251,7 +288,7 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
 
   // Função para visualizar sugestões da IA
   const handleViewAISuggestion = (task) => {
-    console.log("✅ handleViewAISuggestion chamada", task);
+    //console.log("✅ handleViewAISuggestion chamada", task);
   setSelectedTaskForAI(task);
   setShowAISuggestion(true);
   };

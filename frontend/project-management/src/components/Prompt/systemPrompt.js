@@ -11,8 +11,15 @@ Com base nos dados acima, gere os seguintes **outputs técnicos**:
 
 ---
 
+1. **Tarefas técnicas**  
+Defina o Requisitos Funcional e Requisitos não Funcionais para:
+- Frontend
+- Backend
+
+Organize como uma checklist para devs.
+
 1. **Tarefas técnicas detalhadas**  
-Quebre a funcionalidade de criação de tarefas em tarefas menores para:
+Quebre a funcionalidade em tarefas menores para:
 - Frontend
 - Backend
 
@@ -30,7 +37,7 @@ Inclua os nomes dos arquivos relevantes.
 ---
 
 3. **Jornada do usuário (UX)**  
-Liste as etapas da jornada do usuário usando **verbo + substantivo**, de forma objetiva.
+Liste as etapas da jornada do usuário usando somnete **verbo + substantivo**, de forma detalhada.
 
 Responda em formato JSON válido.
 `;

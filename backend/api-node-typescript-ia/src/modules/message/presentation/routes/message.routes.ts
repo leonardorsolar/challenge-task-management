@@ -4,6 +4,8 @@ import { OpenAIService } from "../../../llm/infrastructure/services/OpenAIServic
 import CreateMessageController from "../controllers/createMessageController/CreateMessageController";
 import { MessageRepository } from "../../infrastructure/repositories/MessageRepository";
 import { SqliteConnectionAdapter } from "../../../../shared/infrastructure/database/SqliteConnectionAdapter";
+import { ListMessagesUseCase } from "../../application/usecases/ListMessagesUseCase";
+import ListMessagesController from "../controllers/ListMessagesController";
 
 const messageRouter = Router();
 
@@ -21,6 +23,14 @@ const createMessageController = new CreateMessageController(createMessageUseCase
 messageRouter.post("/ai-suggestion", (req, res): any => {
   console.log("create message ai-suggestion");
   return createMessageController.handle(req, res);
+});
+
+const listMessagesUseCase = new ListMessagesUseCase(messageRepository);
+const listMessagesController = new ListMessagesController(listMessagesUseCase);
+
+// rota para listar mensagens
+messageRouter.get("/list", (req, res): any => {
+  return listMessagesController.handle(req, res);
 });
 
 // Rota para testar IA diretamente

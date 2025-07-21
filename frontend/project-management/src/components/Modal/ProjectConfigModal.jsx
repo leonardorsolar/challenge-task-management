@@ -14,10 +14,14 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
     projectName: '',
     objective: '',
     projectType: 'fullstack', // frontend, backend, fullstack
-    programmingLanguage: '',
-    architecture: '', // apenas para backend
+    // Frontend
+    frontendLanguage: '',
     frontendFramework: '',
+    frontendArchitecture: '',
+    // Backend
+    backendLanguage: '',
     backendFramework: '',
+    backendArchitecture: '',
     database: '',
     ...projectConfig
   })
@@ -41,10 +45,12 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
     'Rust',
     'Kotlin',
     'Swift',
-    'Dart'
+    'Dart',
+    'HTML/CSS'
   ]
 
-  const architectures = [
+  // Arquiteturas específicas para backend
+  const backendArchitectures = [
     'MVC (Model-View-Controller)',
     'MVVM (Model-View-ViewModel)',
     'Clean Architecture',
@@ -55,7 +61,25 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
     'Event-Driven',
     'REST API',
     'GraphQL',
-    'SOA (Service-Oriented Architecture)'
+    'SOA (Service-Oriented Architecture)',
+    'CQRS (Command Query Responsibility Segregation)',
+    'Domain-Driven Design (DDD)'
+  ]
+
+  // Arquiteturas específicas para frontend
+  const frontendArchitectures = [
+    'Component-Based Architecture',
+    'MVC (Model-View-Controller)',
+    'MVVM (Model-View-ViewModel)',
+    'Flux Architecture',
+    'Redux Pattern',
+    'Atomic Design',
+    'Micro Frontends',
+    'JAMstack',
+    'SPA (Single Page Application)',
+    'SSR (Server-Side Rendering)',
+    'SSG (Static Site Generation)',
+    'Modular Architecture'
   ]
 
   const frontendFrameworks = [
@@ -65,24 +89,32 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
     'Svelte',
     'Next.js',
     'Nuxt.js',
+    'Gatsby',
+    'Remix',
     'Vanilla JS',
     'jQuery',
-    'Bootstrap',
-    'Tailwind CSS'
+    'Alpine.js',
+    'Lit',
+    'Solid.js'
   ]
 
   const backendFrameworks = [
     'Express.js',
     'Nest.js',
+    'Fastify',
     'Django',
     'Flask',
     'FastAPI',
     'Spring Boot',
     'ASP.NET Core',
     'Laravel',
+    'Symfony',
     'Ruby on Rails',
+    'Sinatra',
     'Gin (Go)',
+    'Echo (Go)',
     'Actix (Rust)',
+    'Rocket (Rust)',
     'Fiber (Go)'
   ]
 
@@ -92,13 +124,16 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
     'MongoDB',
     'SQLite',
     'Redis',
-    'Firebase',
+    'Firebase Firestore',
     'Supabase',
     'Oracle',
     'SQL Server',
+    'MariaDB',
     'DynamoDB',
     'Cassandra',
-    'Neo4j'
+    'Neo4j',
+    'InfluxDB',
+    'CouchDB'
   ]
 
   // Fechar modal com tecla ESC
@@ -235,35 +270,35 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
               </div>
             </div>
 
-            {/* Tecnologias */}
-            <div>
-              <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${textPrimary}`}>
-                <Code size={18} />
-                Tecnologias
-              </h3>
-              
-              <div className="space-y-4">
-                {/* Linguagem de Programação */}
-                <div>
-                  <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
-                    Linguagem de Programação Principal
-                  </label>
-                  <select
-                    value={config.programmingLanguage}
-                    onChange={(e) => handleInputChange('programmingLanguage', e.target.value)}
-                    className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
-                  >
-                    <option value="">Selecione uma linguagem</option>
-                    {programmingLanguages.map(lang => (
-                      <option key={lang} value={lang}>
-                        {lang}
-                      </option>
-                    ))}
-                  </select>
-                </div>
+            {/* Configurações Frontend - mostrar se não for apenas backend */}
+            {config.projectType !== 'backend' && (
+              <div>
+                <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${textPrimary}`}>
+                  <Code size={18} />
+                  Frontend
+                </h3>
+                
+                <div className="space-y-4">
+                  {/* Linguagem Frontend */}
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
+                      Linguagem Principal do Frontend
+                    </label>
+                    <select
+                      value={config.frontendLanguage}
+                      onChange={(e) => handleInputChange('frontendLanguage', e.target.value)}
+                      className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
+                    >
+                      <option value="">Selecione uma linguagem</option>
+                      {programmingLanguages.map(lang => (
+                        <option key={lang} value={lang}>
+                          {lang}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
 
-                {/* Framework Frontend - mostrar se não for apenas backend */}
-                {config.projectType !== 'backend' && (
+                  {/* Framework Frontend */}
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
                       Framework/Biblioteca Frontend
@@ -281,10 +316,58 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
                       ))}
                     </select>
                   </div>
-                )}
 
-                {/* Framework Backend - mostrar se não for apenas frontend */}
-                {config.projectType !== 'frontend' && (
+                  {/* Arquitetura Frontend */}
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
+                      Arquitetura Frontend
+                    </label>
+                    <select
+                      value={config.frontendArchitecture}
+                      onChange={(e) => handleInputChange('frontendArchitecture', e.target.value)}
+                      className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
+                    >
+                      <option value="">Selecione uma arquitetura</option>
+                      {frontendArchitectures.map(arch => (
+                        <option key={arch} value={arch}>
+                          {arch}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Configurações Backend - mostrar se não for apenas frontend */}
+            {config.projectType !== 'frontend' && (
+              <div>
+                <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${textPrimary}`}>
+                  <Database size={18} />
+                  Backend
+                </h3>
+                
+                <div className="space-y-4">
+                  {/* Linguagem Backend */}
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
+                      Linguagem Principal do Backend
+                    </label>
+                    <select
+                      value={config.backendLanguage}
+                      onChange={(e) => handleInputChange('backendLanguage', e.target.value)}
+                      className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
+                    >
+                      <option value="">Selecione uma linguagem</option>
+                      {programmingLanguages.filter(lang => lang !== 'HTML/CSS').map(lang => (
+                        <option key={lang} value={lang}>
+                          {lang}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  {/* Framework Backend */}
                   <div>
                     <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
                       Framework Backend
@@ -302,63 +385,56 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
                       ))}
                     </select>
                   </div>
-                )}
-              </div>
-            </div>
 
-            {/* Arquitetura - apenas para backend/fullstack */}
+                  {/* Arquitetura Backend */}
+                  <div>
+                    <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
+                      Arquitetura Backend
+                    </label>
+                    <select
+                      value={config.backendArchitecture}
+                      onChange={(e) => handleInputChange('backendArchitecture', e.target.value)}
+                      className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
+                    >
+                      <option value="">Selecione uma arquitetura</option>
+                      {backendArchitectures.map(arch => (
+                        <option key={arch} value={arch}>
+                          {arch}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                </div>
+              </div>
+            )}
+
+            {/* Banco de Dados - apenas para backend/fullstack */}
             {config.projectType !== 'frontend' && (
               <div>
                 <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${textPrimary}`}>
                   <Layers size={18} />
-                  Arquitetura
+                  Banco de Dados
                 </h3>
                 
                 <div>
                   <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
-                    Padrão Arquitetural
+                    Sistema de Banco de Dados
                   </label>
                   <select
-                    value={config.architecture}
-                    onChange={(e) => handleInputChange('architecture', e.target.value)}
+                    value={config.database}
+                    onChange={(e) => handleInputChange('database', e.target.value)}
                     className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
                   >
-                    <option value="">Selecione uma arquitetura</option>
-                    {architectures.map(arch => (
-                      <option key={arch} value={arch}>
-                        {arch}
+                    <option value="">Selecione um banco de dados</option>
+                    {databases.map(db => (
+                      <option key={db} value={db}>
+                        {db}
                       </option>
                     ))}
                   </select>
                 </div>
               </div>
             )}
-
-            {/* Banco de Dados */}
-            <div>
-              <h3 className={`text-lg font-semibold mb-4 flex items-center gap-2 ${textPrimary}`}>
-                <Database size={18} />
-                Banco de Dados
-              </h3>
-              
-              <div>
-                <label className={`block text-sm font-medium mb-2 ${textPrimary}`}>
-                  Sistema de Banco de Dados
-                </label>
-                <select
-                  value={config.database}
-                  onChange={(e) => handleInputChange('database', e.target.value)}
-                  className={`w-full px-3 py-2 rounded-lg border ${inputBorder} ${inputBg} ${textPrimary} focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all`}
-                >
-                  <option value="">Selecione um banco de dados</option>
-                  {databases.map(db => (
-                    <option key={db} value={db}>
-                      {db}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
 
             {/* Resumo da Configuração */}
             {isFormValid && (
@@ -370,11 +446,25 @@ const ProjectConfigModal = ({ isOpen, onClose, isDarkMode, projectConfig, onSave
                 <div className={`space-y-2 text-sm ${textSecondary}`}>
                   <p><strong>Projeto:</strong> {config.projectName}</p>
                   <p><strong>Tipo:</strong> {projectTypes.find(t => t.value === config.projectType)?.label}</p>
-                  {config.programmingLanguage && <p><strong>Linguagem:</strong> {config.programmingLanguage}</p>}
-                  {config.frontendFramework && <p><strong>Frontend:</strong> {config.frontendFramework}</p>}
-                  {config.backendFramework && <p><strong>Backend:</strong> {config.backendFramework}</p>}
-                  {config.architecture && <p><strong>Arquitetura:</strong> {config.architecture}</p>}
-                  {config.database && <p><strong>Banco:</strong> {config.database}</p>}
+                  
+                  {/* Configurações Frontend */}
+                  {config.projectType !== 'backend' && (
+                    <>
+                      {config.frontendLanguage && <p><strong>Linguagem Frontend:</strong> {config.frontendLanguage}</p>}
+                      {config.frontendFramework && <p><strong>Framework Frontend:</strong> {config.frontendFramework}</p>}
+                      {config.frontendArchitecture && <p><strong>Arquitetura Frontend:</strong> {config.frontendArchitecture}</p>}
+                    </>
+                  )}
+
+                  {/* Configurações Backend */}
+                  {config.projectType !== 'frontend' && (
+                    <>
+                      {config.backendLanguage && <p><strong>Linguagem Backend:</strong> {config.backendLanguage}</p>}
+                      {config.backendFramework && <p><strong>Framework Backend:</strong> {config.backendFramework}</p>}
+                      {config.backendArchitecture && <p><strong>Arquitetura Backend:</strong> {config.backendArchitecture}</p>}
+                      {config.database && <p><strong>Banco de Dados:</strong> {config.database}</p>}
+                    </>
+                  )}
                 </div>
               </div>
             )}

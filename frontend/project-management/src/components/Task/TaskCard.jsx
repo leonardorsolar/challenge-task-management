@@ -4,7 +4,8 @@ import { formatDate } from '../../utils/formatDate'
 
 const TaskCard = ({ task, onEdit, onDelete, onViewAISuggestion, isDarkMode }) => {
 
-
+  console.log(task)
+  
   const getStatusColor = (status) => {
     switch (status) {
       case 'completed':

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { X, Sparkles, Calendar, User, AlertCircle, Lightbulb } from 'lucide-react'
 import ReactMarkdown from 'react-markdown';
+import AIRequestField from '../Chat/AIRequestField';
 
 const AISuggestionModal = ({ 
   isOpen, 
@@ -12,8 +13,8 @@ const AISuggestionModal = ({
   const textPrimary = isDarkMode ? 'text-white' : 'text-gray-900'
   const textSecondary = isDarkMode ? 'text-gray-300' : 'text-gray-600'
   const borderColor = isDarkMode ? 'border-gray-700' : 'border-gray-200'
-  console.log("AISuggestionModal")
-  console.log(isOpen, task)
+  //console.log("AISuggestionModal")
+  //console.log(isOpen, task)
 
  
 
@@ -44,7 +45,7 @@ const AISuggestionModal = ({
  // if (!isOpen || !task?.aiSuggestion) return null
  if (!isOpen) return null;
 
- if (!task?.aiSuggestion) {
+ if (!task?.generateAIResponse) {
   return (
     <div
       className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
@@ -69,11 +70,18 @@ const AISuggestionModal = ({
     </div>
   );
 }
+console.log("aqui")
+//console.log(task.generateAIResponse)
 
+let aiSuggestion;
+try {
+  aiSuggestion = JSON.parse(task.generateAIResponse);
+} catch (e) {
+  console.error("Erro ao fazer parse do JSON da sugestão da IA:", e);
+  return null;
+}
 
-const aiSuggestion = task.aiSuggestion;
-
-  console.log(aiSuggestion)
+console.log(aiSuggestion)
 
 
 
@@ -99,6 +107,11 @@ const aiSuggestion = task.aiSuggestion;
     if (!dateString) return ''
     const date = new Date(dateString)
     return date.toLocaleDateString('pt-BR')
+  }
+
+  const handleResponse = (response, fullData) => {
+    console.log('Nova resposta recebida:', response)
+    // Aqui você pode fazer algo com a resposta, como salvar em estado
   }
 
   return (
@@ -147,7 +160,7 @@ const aiSuggestion = task.aiSuggestion;
 
           {/* Justificativa */}
           {/* Justificativa */}
-                   {aiSuggestion.reasoning && (
+                   {aiSuggestion.content && (
                      <div className={`p-4 rounded-xl border-2 border-purple-300 ${isDarkMode ? 'bg-purple-900/20' : 'bg-purple-50'}`}>
                        <div className="flex items-center gap-2 mb-3">
                          <Sparkles size={18} className="text-purple-500" />
@@ -157,34 +170,117 @@ const aiSuggestion = task.aiSuggestion;
                          {aiSuggestion.reasoning}
                        </p> */}
                        <ReactMarkdown
-           components={{
-             p: ({node, ...props}) => <p className="text-gray-700 mb-2" {...props} />,
-             code: ({inline, className, children, ...props}) => {
-               return inline ? (
-                 <code className="bg-gray-200 px-1 rounded" {...props}>{children}</code>
-               ) : (
-                 <pre className="bg-gray-900 text-white p-3 rounded overflow-auto" {...props}>
-                   <code className={className}>{children}</code>
-                 </pre>
-               )
-             },
-             li: ({node, ...props}) => <li className="ml-6 list-disc mb-1" {...props} />
-           }}
-         >
-           {aiSuggestion.reasoning}
-         </ReactMarkdown>
+  components={{
+    // Parágrafos com melhor espaçamento e responsividade
+    p: ({node, ...props}) => (
+      <p className="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed" {...props} />
+    ),
+    
+    // Títulos com hierarquia visual
+    h1: ({node, ...props}) => (
+      <h1 className="text-gray-900 dark:text-gray-100 text-2xl font-bold mb-4 mt-6 pb-2 border-b border-gray-200 dark:border-gray-700" {...props} />
+    ),
+    h2: ({node, ...props}) => (
+      <h2 className="text-gray-900 dark:text-gray-100 text-xl font-semibold mb-3 mt-5" {...props} />
+    ),
+    h3: ({node, ...props}) => (
+      <h3 className="text-gray-900 dark:text-gray-100 text-lg font-semibold mb-2 mt-4" {...props} />
+    ),
+    h4: ({node, ...props}) => (
+      <h4 className="text-gray-900 dark:text-gray-100 text-base font-medium mb-2 mt-3" {...props} />
+    ),
+    
+    // Código melhorado com dark mode
+    code: ({inline, className, children, ...props}) => {
+      return inline ? (
+        <code className="bg-gray-100 dark:bg-gray-800 text-red-600 dark:text-red-400 px-1.5 py-0.5 rounded text-sm font-mono border" {...props}>
+          {children}
+        </code>
+      ) : (
+        <pre className="bg-gray-900 dark:bg-black text-gray-100 p-4 rounded-lg overflow-auto text-sm my-4 border" {...props}>
+          <code className={className}>{children}</code>
+        </pre>
+      )
+    },
+    
+    // Listas com melhor formatação
+    ul: ({node, ...props}) => (
+      <ul className="text-gray-700 dark:text-gray-300 mb-4 space-y-1" {...props} />
+    ),
+    ol: ({node, ...props}) => (
+      <ol className="text-gray-700 dark:text-gray-300 mb-4 space-y-1 list-decimal" {...props} />
+    ),
+    li: ({node, ...props}) => (
+      <li className="ml-6 list-disc mb-1 leading-relaxed" {...props} />
+    ),
+    
+    // Links com hover states
+    a: ({node, href, ...props}) => (
+      <a 
+        href={href}
+        className="text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors"
+        target={href?.startsWith('http') ? '_blank' : undefined}
+        rel={href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+        {...props} 
+      />
+    ),
+    
+    // Citações estilizadas
+    blockquote: ({node, ...props}) => (
+      <blockquote className="border-l-4 border-blue-500 pl-4 py-2 my-4 bg-gray-50 dark:bg-gray-800 rounded-r italic text-gray-700 dark:text-gray-300" {...props} />
+    ),
+    
+    // Tabelas responsivas
+    table: ({node, ...props}) => (
+      <div className="overflow-x-auto my-4">
+        <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg" {...props} />
+      </div>
+    ),
+    thead: ({node, ...props}) => (
+      <thead className="bg-gray-50 dark:bg-gray-800" {...props} />
+    ),
+    th: ({node, ...props}) => (
+      <th className="text-gray-900 dark:text-gray-100 px-4 py-2 text-left font-semibold border-b border-gray-200 dark:border-gray-700" {...props} />
+    ),
+    td: ({node, ...props}) => (
+      <td className="text-gray-700 dark:text-gray-300 px-4 py-2 border-b border-gray-200 dark:border-gray-700" {...props} />
+    ),
+    
+    // Linha horizontal
+    hr: ({node, ...props}) => (
+      <hr className="my-6 border-t border-gray-200 dark:border-gray-700" {...props} />
+    ),
+    
+    // Texto forte e ênfase
+    strong: ({node, ...props}) => (
+      <strong className="text-gray-900 dark:text-gray-100 font-semibold" {...props} />
+    ),
+    em: ({node, ...props}) => (
+      <em className="text-gray-700 dark:text-gray-300 italic" {...props} />
+    )
+  }}
+>
+  {aiSuggestion.content}
+</ReactMarkdown>
                      </div>
                    )}
 
-          {/* Timestamp */}
-          {aiSuggestion.generatedAt && (
-            <div className="text-center">
-              <p className={`text-xs ${textSecondary}`}>
-                Sugestões geradas em: {new Date(aiSuggestion.generatedAt).toLocaleString('pt-BR')}
-              </p>
-            </div>
-          )}
         </div>
+
+        <div className="p-6">
+      {/* <h2 className="text-2xl font-bold mb-4">Com Contexto Existente</h2> */}
+      <AIRequestField 
+        isDarkMode={isDarkMode}
+        contextContent={aiSuggestion?.content || ''}
+        placeholder="Ex: Crie um diagrama de atividades"
+        title="Expandir Sugestão da IA"
+        onResponse={handleResponse}
+        additionalData={{
+          taskId: 'task-123',
+          type: 'expansion'
+        }}
+      />
+    </div>
 
         {/* Footer */}
         <div className={`px-6 py-4 border-t ${borderColor} flex justify-end`}>

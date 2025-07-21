@@ -27,6 +27,13 @@ export class MessageRepository implements IMessageRepository {
     ]);
   }
 
+  async listAll(): Promise<any[]> {
+    const sql = `SELECT * FROM messages ORDER BY created_at DESC`;
+
+    const result = await this.connection.query(sql);
+    return result;
+  }
+
   async findById(id: string): Promise<Message | null> {
     const result = await this.connection.query("SELECT * FROM messages WHERE id = $1", [id]);
     return result[0] ?? null;
