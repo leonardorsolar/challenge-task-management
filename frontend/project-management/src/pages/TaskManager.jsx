@@ -14,6 +14,7 @@ import ConfirmDeleteModal from '../components/Modal/ConfirmDeleteModal';
 import AISuggestionModal from '../components/ModalIA/AISuggestionModal';
 import ProjectConfigModal from '../components/Modal/ProjectConfigModal'; // Novo import
 import apiGithub from '../services/apiGithub';
+import apiIA from '../services/apiIA';
 
 // Componente Principal TaskManager
 const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
@@ -71,7 +72,7 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     try {
       const queryParam = filter !== "all" ? `?status=${filter}` : "";
       const response = await api.get(`/task/list${queryParam}`);
-      console.log('TaskManager - fetchTasks response:', response.data);
+      //console.log('TaskManager - fetchTasks response:', response.data);
       setAllTasks(response.data);
     } catch (error) {
       console.error("Erro ao carregar tarefas:", error);
@@ -85,13 +86,11 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   }, [networkStatus?.allServersOnline, filter]);
   
   // Debug: verificar se tasks está sendo passado
-  console.log('TaskManager - tasks:', tasks);
+  //console.log('TaskManager - tasks:', tasks);
 
   // Função melhorada para chamar a API da IA com configurações do projeto
   const callAISuggestion = async (taskData) => {
     try {
-      console.log('Chamando API da IA para tarefa:', taskData.title);
-      console.log('Configurações do projeto:', projectConfig);
       
       // Criar contexto enriquecido com as configurações do projeto
       const enhancedPrompt = {
@@ -113,70 +112,15 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
         }
       };
 
-      // const aiResponse = await api.post('/task/ai-suggestion', enhancedPrompt);
-      // console.log('Resposta da IA:', aiResponse.data);
-      // return {
-      //   ...aiResponse.data,
-      //   generatedAt: new Date().toISOString()
-      // };
-
-      // Simulação melhorada com base nas configurações
-      console.log('Simulando chamada à API da IA com contexto do projeto:', enhancedPrompt);
-      await new Promise(resolve => setTimeout(resolve, 1000));
-
-      // Mock da resposta da IA personalizada com base no projeto
-      const getContextualSuggestions = () => {
-        const suggestions = [];
-        
-        if (projectConfig.programmingLanguage) {
-          suggestions.push(`Utilize as melhores práticas do ${projectConfig.programmingLanguage}.`);
-        }
-        
-        if (projectConfig.frontendFramework) {
-          suggestions.push(`Aproveite os recursos do ${projectConfig.frontendFramework} para otimizar a implementação.`);
-        }
-        
-        if (projectConfig.backendFramework) {
-          suggestions.push(`Implemente seguindo os padrões do ${projectConfig.backendFramework}.`);
-        }
-        
-        if (projectConfig.architecture) {
-          suggestions.push(`Mantenha a consistência com a arquitetura ${projectConfig.architecture}.`);
-        }
-        
-        if (projectConfig.database) {
-          suggestions.push(`Considere as características do ${projectConfig.database} para persistência de dados.`);
-        }
-
-        // Sugestões padrão se não houver configurações específicas
-        if (suggestions.length === 0) {
-          suggestions.push(
-            'Utilize componentes reutilizáveis.',
-            'Garanta que haja cobertura de testes.',
-            'Documente o código ao final.'
-          );
-        }
-
-        return suggestions;
-      };
-
-      const mockResponse = {
-        summary: `Resumo contextualizado para: ${taskData.title} ${projectConfig.projectName ? `no projeto ${projectConfig.projectName}` : ''}`,
-        subtasks: [
-          { title: 'Analisar requisitos específicos do projeto', done: false },
-          { title: 'Implementar seguindo a arquitetura definida', done: false },
-          { title: 'Testar integração com o stack tecnológico', done: false },
-          { title: 'Validar com os objetivos do projeto', done: false }
-        ],
-        suggestions: getContextualSuggestions(),
-        projectContext: projectConfig.projectName ? `Sugestões baseadas no contexto do projeto: ${projectConfig.projectName}` : null
-      };
-
-      console.log('Resposta mockada contextualizada da IA:', mockResponse);
+      const aiResponse = await apiIA.post('/message/ai-suggestion', enhancedPrompt);
+      console.log('******************');
+      console.log('Resposta da IA:', aiResponse.data);
       return {
-        ...mockResponse,
+        ...aiResponse.data,
         generatedAt: new Date().toISOString()
       };
+
+    
     } catch (error) {
       console.error('Erro ao chamar API da IA:', error);
       toast.warning('Não foi possível gerar sugestões da IA, mas a tarefa foi criada com sucesso.');
@@ -190,10 +134,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     // Salvar no localStorage
     localStorage.setItem('projectConfig', JSON.stringify(newConfig));
     toast.success('Configurações do projeto salvas com sucesso!');
-    console.log('Configurações salvas:', newConfig);
+    //console.log('Configurações salvas:', newConfig);
   };
 
-  //função auxiliar no frontend que chama esse endpoint
+  //função auxiliar no frontend que chama o endpoint mcp
   const createGithubIssue = async (task) => {
     try {
       await apiGithub.post('/issue', {
@@ -223,47 +167,45 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       ...newTask,
       userId: 'ext-123456' // Troque por ID real ou dinâmico
     };
-  
+
     try {
       const response = await api.post('/task', payload);
       const createdTask = response.data;
-
-      addTask(createdTask);
-      fetchTasks();
   
       if (!createdTask) throw new Error('Erro ao criar tarefa');
   
+      addTask(createdTask);
+      fetchTasks();
       resetForm();
       toast.success('Tarefa criada com sucesso!');
 
-      // Cria uma issue no GitHub relacionada
-      await createGithubIssue(createdTask);
-
+       // Cria uma issue no GitHub relacionada
+      //await createGithubIssue(createdTask);
+  
       // 3. Roda a IA em segundo plano com contexto do projeto
-      callAISuggestion(payload).then(async (aiSuggestion) => {
-        if (aiSuggestion) {
-          try {
-            // Atualiza a tarefa com sugestões da IA
-            // await api.patch(`/task/${createdTask.id}`, {
-            //   aiSuggestion
-            // });
-
-            // Opcional: informar o usuário
-            const contextMessage = projectConfig.projectName 
-              ? ` baseadas no projeto ${projectConfig.projectName}`
-              : '';
-            toast.info(`Sugestões da IA${contextMessage} adicionadas à tarefa "${createdTask.title}"`);
-          } catch (updateError) {
-            console.warn('Erro ao atualizar tarefa com IA:', updateError);
+      const aiResponseData = await callAISuggestion(payload);
+      console.log("aiResponseData")
+      console.log(aiResponseData)
+      console.log(aiResponseData._value.aiResponse)
+  
+      if (aiResponseData?.isSuccess) {
+        setSelectedTaskForAI({
+          ...createdTask,
+          title: createdTask.title,
+          aiSuggestion: {
+            reasoning: aiResponseData._value.aiResponse,
+            generatedAt: new Date().toISOString()
           }
-        }
-      });
-
+          
+        });
+        setShowAISuggestion(true);
+      }
     } catch (error) {
-      console.error('Erro ao criar tarefa:', error);
-      toast.error('Falha ao criar tarefa. Verifique sua conexão.');
+      console.error('Erro ao adicionar tarefa:', error);
+      toast.error('Erro ao adicionar tarefa');
     }
   };
+
   
   const handleEditTask = (task) => {
     if (!networkStatus?.allServersOnline) {
@@ -305,14 +247,13 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       console.error('Erro ao atualizar tarefa:', error);
       toast.error('Falha ao editar tarefa. Verifique sua conexão.');
     }
-  };
+  }
 
   // Função para visualizar sugestões da IA
   const handleViewAISuggestion = (task) => {
-    console.log("handleViewAISuggestion")
-    console.log(task)
-    setSelectedTaskForAI(task);
-    setShowAISuggestion(true);
+    console.log("✅ handleViewAISuggestion chamada", task);
+  setSelectedTaskForAI(task);
+  setShowAISuggestion(true);
   };
 
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);

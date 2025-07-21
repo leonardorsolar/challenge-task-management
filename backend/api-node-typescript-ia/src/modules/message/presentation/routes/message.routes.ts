@@ -18,8 +18,8 @@ const createMessageUseCase = new CreateMessageUseCase(openAIService, messageRepo
 const createMessageController = new CreateMessageController(createMessageUseCase);
 
 // Rotas
-messageRouter.post("/create", (req, res): any => {
-  console.log("create message");
+messageRouter.post("/ai-suggestion", (req, res): any => {
+  console.log("create message ai-suggestion");
   return createMessageController.handle(req, res);
 });
 

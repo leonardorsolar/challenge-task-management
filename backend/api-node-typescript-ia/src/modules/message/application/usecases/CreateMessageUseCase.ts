@@ -23,34 +23,42 @@ type Response = Either<AppError, Result<CreateMessageResponse>>;
 export class CreateMessageUseCase implements IUseCase {
   constructor(private llmService: ILLMService, private messageRepository: IMessageRepository) {}
 
-  async execute(dto: CreateMessageDTO): Promise<Response> {
+  async execute(dto: any): Promise<Response> {
     console.log("CreateMessageUseCase");
+    const userId = "1";
+    const content = JSON.stringify(dto.projectContext, null, 2);
     try {
-      const userMessageResult = Message.create(dto.userId || null, dto.content, dto.llmModel || "gpt-3.5-turbo");
-      console.log(userMessageResult);
+      const userMessageResult = Message.create(userId, content, "gpt-3.5-turbo");
+      //console.log(userMessageResult);
       if (userMessageResult.isFailure) {
         return left(new AppError(userMessageResult.getErrorValue().toString(), 400));
       }
 
       const userMessage = userMessageResult.getValue();
 
+      console.log("userMessage");
+      console.log(userMessage);
+
       let aiResponseMessage;
 
       const llmResponse = await this.llmService.generateResponse({
-        content: dto.content,
+        content: userMessage.content,
         model: dto.llmModel || "gpt-3.5-turbo",
         maxTokens: 1000,
         temperature: 0.7,
       });
+
+      console.log("llmResponse");
+      console.log(llmResponse);
 
       if (llmResponse.isRight()) {
         const aiResponse = llmResponse.value.getValue();
         aiResponseMessage = aiResponse;
         console.log("aiResponseMessage");
         console.log(aiResponseMessage);
-        console.log(userMessage);
-        const data = { userMessage, aiResponseMessage };
-        await this.messageRepository.save(data);
+        //console.log(userMessage);
+        //const data = { userMessage, aiResponseMessage };
+        //await this.messageRepository.save(data);
       } else {
         console.error("Erro ao obter resposta da IA:", llmResponse.value);
       }
@@ -58,7 +66,7 @@ export class CreateMessageUseCase implements IUseCase {
       return right(
         Result.ok<CreateMessageResponse>({
           userMessage,
-          aiResponse: aiResponseMessage || undefined,
+          aiResponse: aiResponseMessage.content || undefined,
         })
       );
     } catch (error) {
