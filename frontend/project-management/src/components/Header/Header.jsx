@@ -72,7 +72,7 @@ const Header = ({ isDarkMode, onToggleTheme, onOpenSidebar, networkStatus }) => 
            
           {/* Título Mobile */}
           <div className="flex items-center space-x-3 lg:hidden">
-            <h1 className="text-xl font-bold">João</h1>
+            <h1 className="text-xl font-bold">Gerenciador de Tarefas</h1>
           </div>
            
           {/* Breadcrumb ou Título da Página - Desktop */}

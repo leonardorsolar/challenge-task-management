@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import api from '../services/api';
 import ConfirmDeleteModal from '../components/Modal/ConfirmDeleteModal';
 import AISuggestionModal from '../components/ModalIA/AISuggestionModal';
+import apiGithub from '../services/apiGithub';
 
 // Componente Principal TaskManager
 const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
@@ -108,7 +109,27 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       return null;
     }
   };
+ 
+  
 
+   //função auxiliar no frontend que chama esse endpoint
+   const createGithubIssue = async (task) => {
+    try {
+      await apiGithub.post('/issue', {
+        command: "CREATE_TASK",
+        payload: {
+          title: task.title,
+          description: task.description,
+        },
+      });
+      toast.info('✅ Issue criada no GitHub!');
+    } catch (error) {
+      console.error('❌ Erro ao criar issue no GitHub:', error);
+      toast.error('Erro ao criar issue no GitHub');
+    }
+  };
+  
+  
   // Chamada à API para o CREATE
   const handleAddTask = async () => {
     if (!newTask.title.trim()) return;
@@ -136,14 +157,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   
       resetForm();
 
-      // //Mostra mensagem de sucesso
-      // if (aiSuggestion) {
-      //   toast.success('Tarefa criada com sucesso! Sugestões da IA disponíveis.');
-      // } else {
-      //   toast.success('Tarefa criada com sucesso!');
-      // }
-
       toast.success('Tarefa criada com sucesso!');
+
+      // Cria uma issue no GitHub relacionada
+    await createGithubIssue(createdTask);
 
     // 3. Roda a IA em segundo plano
     callAISuggestion(payload).then(async (aiSuggestion) => {
@@ -161,6 +178,8 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
         }
       }
     });
+
+
     } catch (error) {
       console.error('Erro ao criar tarefa:', error);
       toast.error('Falha ao criar tarefa. Verifique sua conexão.');

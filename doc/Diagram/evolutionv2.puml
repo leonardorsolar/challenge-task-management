@@ -1,5 +1,5 @@
 @startuml
-title Arquitetura de Microserviços - Gerenciador de Tarefas com TaskGPT + Integração Jira
+title Arquitetura de Microserviços - Gerenciador de Tarefas com TaskGPT + Integração Jira + RabbitMQ
 
 '=== Frontend ===
 component "React App\n(Interface do Usuário)" as Frontend
@@ -7,9 +7,9 @@ component "React App\n(Interface do Usuário)" as Frontend
 '=== Backend Principal ===
 component "API Node.js\n(Gestão de Tarefas e Usuários)" as NodeAPI
 
-'=== Microserviços Existentes ===
+'=== Microserviços ===
 component "Análise de Produtividade\n(Python + Pandas)" as PythonService
-component "Relatórios e Notificações\n(Java + Spring Boot)" as JavaService
+component "Relatórios e Notificações\nJava + Spring Boot" as JavaService
 
 '=== IA - TaskGPT ===
 component "TaskGPT\n(IA Assistente com RAG)" as TaskGPT
@@ -22,22 +22,33 @@ cloud "Jira Cloud / API" as JiraCloud
 '=== Firebase ===
 cloud "Firebase\n(Auth + Firestore)" as Firebase
 
-'=== Banco de Dados ===
-database "Banco de Dados\n(PostgreSQL ou SQLite)" as DB
+'=== Bancos de Dados ===
+database "DB Node\n(PostgreSQL ou SQLite)" as DBNode
+database "DB TaskGPT\n(SQLite)" as DBTaskGPT
+database "DB JavaService\n(SQLite)" as DBJava
+database "DB PythonService\n(opcional)" as DBPython
+
+'=== Mensageria ===
+queue "RabbitMQ" as MQ
 
 '=== Relações ===
 Frontend --> Firebase : Autenticação
 Frontend --> NodeAPI : HTTP + JWT
 NodeAPI --> Firebase : Verificação de Token
-NodeAPI --> DB : ORM / SQL
-NodeAPI --> PythonService : HTTP GET /analytics/user/:id
-NodeAPI --> JavaService : HTTP POST /report
-NodeAPI --> TaskGPT : HTTP POST /ask (tarefas, contexto)
-TaskGPT --> DB : RAG - Busca de contexto
-TaskGPT --> LLM : Prompt + Contexto → Resposta
+NodeAPI --> DBNode : ORM / SQL
 
-'== Integração com Jira ==
-NodeAPI --> JiraMCP : Sincronizar tarefa/projeto
+NodeAPI --> PythonService : HTTP GET /analytics/user/:id
+PythonService --> DBPython : leitura/dados (opcional)
+
+NodeAPI --> MQ : Envia eventos
+MQ --> JavaService : Recebe e processa eventos
+JavaService --> DBJava : Armazena relatórios/notificações
+
+NodeAPI --> TaskGPT : HTTP POST /ask (prompt + contexto)
+TaskGPT --> DBTaskGPT : RAG - Base de conhecimento
+TaskGPT --> LLM : Prompt com contexto → Resposta
+
+NodeAPI --> JiraMCP : Sincronizar com Jira
 JiraMCP --> JiraCloud : REST API Jira
 
 @enduml

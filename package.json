@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "scripts": {
     "start-node": "npm run dev --prefix backend/api-node-typescript",
+    "start-node-ia": "npm run dev --prefix backend/api-node-typescript-ia",
+    "start-node-mcp": "npm run dev --prefix backend/mcp-agent",
     "start-react": "npm run dev --prefix frontend/project-management",
-    "start-all": "concurrently \"npm run start-node\" \"npm run start-react\"",
     "start-fastapi": "bash ./scripts/startFastapi.sh",
+    "start-all": "concurrently \"npm run start-node\" \"npm run start-node-ia\" \"npm run start-node-mcp\" \"npm run start-react\" \"npm run start-fastapi\"",
     "stop": "bash ./scripts/stop.sh"
   },
   "devDependencies": {
     "concurrently": "^7.6.0"
+  },
+  "dependencies": {
+    "cors": "^2.8.5"
   }
 }
