@@ -172,13 +172,59 @@ const AISuggestionModal = ({
 
         {/* Content */}
         <div className="p-6 space-y-6">
-          
+          {/* Descrição Sugerida */}
+          {aiSuggestion.suggestedDescription && (
+            <div className={`p-4 rounded-xl border ${borderColor} ${isDarkMode ? 'bg-gray-700/30' : 'bg-gray-50'}`}>
+              <div className="flex items-center gap-2 mb-3">
+                <Lightbulb size={18} className="text-blue-500" />
+                <h4 className={`font-semibold ${textPrimary}`}>Descrição Sugerida</h4>
+              </div>
+              <p className={`${textSecondary} leading-relaxed`}>
+                {aiSuggestion.suggestedDescription}
+              </p>
+            </div>
+          )}
 
           {/* Informações da Tarefa */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            
+            {/* Prioridade Sugerida */}
+            {aiSuggestion.suggestedPriority && (
+              <div className={`p-4 rounded-xl border ${borderColor} ${isDarkMode ? 'bg-gray-700/30' : 'bg-gray-50'}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <User size={16} className="text-orange-500" />
+                  <h5 className={`font-medium ${textPrimary}`}>Prioridade Sugerida</h5>
+                </div>
+                <p className={`${textSecondary}`}>
+                  {formatPriority(aiSuggestion.suggestedPriority)}
+                </p>
+              </div>
+            )}
 
-            
+            {/* Status Sugerido */}
+            {aiSuggestion.suggestedStatus && (
+              <div className={`p-4 rounded-xl border ${borderColor} ${isDarkMode ? 'bg-gray-700/30' : 'bg-gray-50'}`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <AlertCircle size={16} className="text-green-500" />
+                  <h5 className={`font-medium ${textPrimary}`}>Status Sugerido</h5>
+                </div>
+                <p className={`${textSecondary}`}>
+                  {formatStatus(aiSuggestion.suggestedStatus)}
+                </p>
+              </div>
+            )}
+
+            {/* Data Sugerida */}
+            {aiSuggestion.suggestedDueDate && (
+              <div className={`p-4 rounded-xl border ${borderColor} ${isDarkMode ? 'bg-gray-700/30' : 'bg-gray-50'} md:col-span-2`}>
+                <div className="flex items-center gap-2 mb-2">
+                  <Calendar size={16} className="text-purple-500" />
+                  <h5 className={`font-medium ${textPrimary}`}>Data de Vencimento Sugerida</h5>
+                </div>
+                <p className={`${textSecondary}`}>
+                  {formatDate(aiSuggestion.suggestedDueDate)}
+                </p>
+              </div>
+            )}
           </div>
 
           {/* Justificativa */}
@@ -186,7 +232,7 @@ const AISuggestionModal = ({
             <div className={`p-4 rounded-xl border-2 border-purple-300 ${isDarkMode ? 'bg-purple-900/20' : 'bg-purple-50'}`}>
               <div className="flex items-center gap-2 mb-3">
                 <Sparkles size={18} className="text-purple-500" />
-                <h4 className={`font-semibold ${textPrimary}`}>IA</h4>
+                <h4 className={`font-semibold ${textPrimary}`}>Justificativa da IA</h4>
               </div>
               {/* <p className={`${textSecondary} leading-relaxed`}>
                 {aiSuggestion.reasoning}

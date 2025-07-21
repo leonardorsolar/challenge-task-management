@@ -12,6 +12,7 @@ import { toast } from 'react-toastify';
 import api from '../services/api';
 import ConfirmDeleteModal from '../components/Modal/ConfirmDeleteModal';
 import AISuggestionModal from '../components/ModalIA/AISuggestionModal';
+import ProjectConfigModal from '../components/Modal/ProjectConfigModal'; // Novo import
 import apiGithub from '../services/apiGithub';
 
 // Componente Principal TaskManager
@@ -34,7 +35,32 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   const [showAISuggestion, setShowAISuggestion] = useState(false);
   const [selectedTaskForAI, setSelectedTaskForAI] = useState(null);
 
+  // Novos estados para configurações do projeto
+  const [showProjectConfig, setShowProjectConfig] = useState(false);
+  const [projectConfig, setProjectConfig] = useState({
+    projectName: '',
+    objective: '',
+    projectType: 'fullstack',
+    programmingLanguage: '',
+    architecture: '',
+    frontendFramework: '',
+    backendFramework: '',
+    database: ''
+  });
+
   const { tasks, addTask, updateTask, deleteTask, setAllTasks } = useTasks();
+
+  // Carregar configurações do projeto do localStorage na inicialização
+  useEffect(() => {
+    const savedConfig = localStorage.getItem('projectConfig');
+    if (savedConfig) {
+      try {
+        setProjectConfig(JSON.parse(savedConfig));
+      } catch (error) {
+        console.error('Erro ao carregar configurações do projeto:', error);
+      }
+    }
+  }, []);
 
   const fetchTasks = async () => {
     // Só tenta buscar se estiver online e servidores disponíveis
@@ -61,59 +87,114 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
   // Debug: verificar se tasks está sendo passado
   console.log('TaskManager - tasks:', tasks);
 
-  // Função para chamar a API da IA
+  // Função melhorada para chamar a API da IA com configurações do projeto
   const callAISuggestion = async (taskData) => {
     try {
       console.log('Chamando API da IA para tarefa:', taskData.title);
+      console.log('Configurações do projeto:', projectConfig);
       
-      // const aiResponse = await api.post('/task/ai-suggestion', {
-      //   title: taskData.title,
-      //   description: taskData.description,
-      //   currentStatus: taskData.status,
-      //   currentPriority: taskData.priority
-      // });
+      // Criar contexto enriquecido com as configurações do projeto
+      const enhancedPrompt = {
+        task: {
+          title: taskData.title,
+          description: taskData.description,
+          currentStatus: taskData.status,
+          currentPriority: taskData.priority
+        },
+        projectContext: {
+          name: projectConfig.projectName,
+          objective: projectConfig.objective,
+          type: projectConfig.projectType,
+          programmingLanguage: projectConfig.programmingLanguage,
+          architecture: projectConfig.architecture,
+          frontendFramework: projectConfig.frontendFramework,
+          backendFramework: projectConfig.backendFramework,
+          database: projectConfig.database
+        }
+      };
 
+      // const aiResponse = await api.post('/task/ai-suggestion', enhancedPrompt);
       // console.log('Resposta da IA:', aiResponse.data);
       // return {
       //   ...aiResponse.data,
       //   generatedAt: new Date().toISOString()
       // };
-      console.log('Simulando chamada à API da IA para tarefa:', taskData.title);
 
-    // Espera simulada (para imitar uma chamada real)
-    await new Promise(resolve => setTimeout(resolve, 1000));
+      // Simulação melhorada com base nas configurações
+      console.log('Simulando chamada à API da IA com contexto do projeto:', enhancedPrompt);
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
-    // Mock da resposta da IA
-    const mockResponse = {
-      summary: `Resumo gerado para: ${taskData.title}`,
-      subtasks: [
-        { title: 'Analisar requisitos', done: false },
-        { title: 'Implementar lógica principal', done: false },
-        { title: 'Testar a funcionalidade', done: false }
-      ],
-      suggestions: [
-        'Utilize componentes reutilizáveis.',
-        'Garanta que haja cobertura de testes.',
-        'Documente o código ao final.'
-      ]
-    };
-    console.log('Resposta mockada da IA:', mockResponse);
+      // Mock da resposta da IA personalizada com base no projeto
+      const getContextualSuggestions = () => {
+        const suggestions = [];
+        
+        if (projectConfig.programmingLanguage) {
+          suggestions.push(`Utilize as melhores práticas do ${projectConfig.programmingLanguage}.`);
+        }
+        
+        if (projectConfig.frontendFramework) {
+          suggestions.push(`Aproveite os recursos do ${projectConfig.frontendFramework} para otimizar a implementação.`);
+        }
+        
+        if (projectConfig.backendFramework) {
+          suggestions.push(`Implemente seguindo os padrões do ${projectConfig.backendFramework}.`);
+        }
+        
+        if (projectConfig.architecture) {
+          suggestions.push(`Mantenha a consistência com a arquitetura ${projectConfig.architecture}.`);
+        }
+        
+        if (projectConfig.database) {
+          suggestions.push(`Considere as características do ${projectConfig.database} para persistência de dados.`);
+        }
 
-    return {
-      ...mockResponse,
-      generatedAt: new Date().toISOString()
-    };
+        // Sugestões padrão se não houver configurações específicas
+        if (suggestions.length === 0) {
+          suggestions.push(
+            'Utilize componentes reutilizáveis.',
+            'Garanta que haja cobertura de testes.',
+            'Documente o código ao final.'
+          );
+        }
+
+        return suggestions;
+      };
+
+      const mockResponse = {
+        summary: `Resumo contextualizado para: ${taskData.title} ${projectConfig.projectName ? `no projeto ${projectConfig.projectName}` : ''}`,
+        subtasks: [
+          { title: 'Analisar requisitos específicos do projeto', done: false },
+          { title: 'Implementar seguindo a arquitetura definida', done: false },
+          { title: 'Testar integração com o stack tecnológico', done: false },
+          { title: 'Validar com os objetivos do projeto', done: false }
+        ],
+        suggestions: getContextualSuggestions(),
+        projectContext: projectConfig.projectName ? `Sugestões baseadas no contexto do projeto: ${projectConfig.projectName}` : null
+      };
+
+      console.log('Resposta mockada contextualizada da IA:', mockResponse);
+      return {
+        ...mockResponse,
+        generatedAt: new Date().toISOString()
+      };
     } catch (error) {
       console.error('Erro ao chamar API da IA:', error);
       toast.warning('Não foi possível gerar sugestões da IA, mas a tarefa foi criada com sucesso.');
       return null;
     }
   };
- 
-  
 
-   //função auxiliar no frontend que chama esse endpoint
-   const createGithubIssue = async (task) => {
+  // Função para salvar configurações do projeto
+  const handleSaveProjectConfig = (newConfig) => {
+    setProjectConfig(newConfig);
+    // Salvar no localStorage
+    localStorage.setItem('projectConfig', JSON.stringify(newConfig));
+    toast.success('Configurações do projeto salvas com sucesso!');
+    console.log('Configurações salvas:', newConfig);
+  };
+
+  //função auxiliar no frontend que chama esse endpoint
+  const createGithubIssue = async (task) => {
     try {
       await apiGithub.post('/issue', {
         command: "CREATE_TASK",
@@ -128,7 +209,6 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       toast.error('Erro ao criar issue no GitHub');
     }
   };
-  
   
   // Chamada à API para o CREATE
   const handleAddTask = async () => {
@@ -145,8 +225,6 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
     };
   
     try {
-    
-
       const response = await api.post('/task', payload);
       const createdTask = response.data;
 
@@ -156,29 +234,30 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
       if (!createdTask) throw new Error('Erro ao criar tarefa');
   
       resetForm();
-
       toast.success('Tarefa criada com sucesso!');
 
       // Cria uma issue no GitHub relacionada
-    await createGithubIssue(createdTask);
+      await createGithubIssue(createdTask);
 
-    // 3. Roda a IA em segundo plano
-    callAISuggestion(payload).then(async (aiSuggestion) => {
-      if (aiSuggestion) {
-        try {
-          // Atualiza a tarefa com sugestões da IA
-          // await api.patch(`/task/${createdTask.id}`, {
-          //   aiSuggestion
-          // });
+      // 3. Roda a IA em segundo plano com contexto do projeto
+      callAISuggestion(payload).then(async (aiSuggestion) => {
+        if (aiSuggestion) {
+          try {
+            // Atualiza a tarefa com sugestões da IA
+            // await api.patch(`/task/${createdTask.id}`, {
+            //   aiSuggestion
+            // });
 
-          // Opcional: informar o usuário
-          toast.info(`Sugestões da IA adicionadas à tarefa "${createdTask.title}"`);
-        } catch (updateError) {
-          console.warn('Erro ao atualizar tarefa com IA:', updateError);
+            // Opcional: informar o usuário
+            const contextMessage = projectConfig.projectName 
+              ? ` baseadas no projeto ${projectConfig.projectName}`
+              : '';
+            toast.info(`Sugestões da IA${contextMessage} adicionadas à tarefa "${createdTask.title}"`);
+          } catch (updateError) {
+            console.warn('Erro ao atualizar tarefa com IA:', updateError);
+          }
         }
-      }
-    });
-
+      });
 
     } catch (error) {
       console.error('Erro ao criar tarefa:', error);
@@ -230,7 +309,6 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
 
   // Função para visualizar sugestões da IA
   const handleViewAISuggestion = (task) => {
-    
     console.log("handleViewAISuggestion")
     console.log(task)
     setSelectedTaskForAI(task);
@@ -308,8 +386,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
         onFilterChange={setFilter}
         onAddTask={() => setIsAddingTask(true)}
         onShowStats={() => setShowStats(true)}
+        onShowProjectConfig={() => setShowProjectConfig(true)} // Nova prop
         tasks={tasks}
         networkStatus={networkStatus}
+        projectConfig={projectConfig} // Passar configurações para mostrar status
       />
 
       {/* Main Content - com padding left apenas para desktop */}
@@ -331,8 +411,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             onFilterChange={setFilter}
             onAddTask={() => setIsAddingTask(true)}
             onShowStats={() => setShowStats(true)}
+            onShowProjectConfig={() => setShowProjectConfig(true)} // Nova prop
             isDarkMode={isDarkMode}
             networkStatus={networkStatus}
+            projectConfig={projectConfig} // Passar configurações
           />
 
           <TaskForm
@@ -344,7 +426,6 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             isEditing={!!editingTask}
             isDarkMode={isDarkMode}
             networkStatus={networkStatus}
-            
           />
 
           <TaskStats 
@@ -362,7 +443,7 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             onDeleteTask={confirmDelete}
             isDarkMode={isDarkMode}
             networkStatus={networkStatus}
-            onViewAISuggestion={handleViewAISuggestion} // Nova prop
+            onViewAISuggestion={handleViewAISuggestion}
           />
           
           <ConfirmDeleteModal
@@ -381,6 +462,15 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
             }}
             isDarkMode={isDarkMode}
           />
+
+          {/* Novo Modal de Configurações do Projeto */}
+          <ProjectConfigModal
+            isOpen={showProjectConfig}
+            onClose={() => setShowProjectConfig(false)}
+            isDarkMode={isDarkMode}
+            projectConfig={projectConfig}
+            onSaveConfig={handleSaveProjectConfig}
+          />
         </main>
       </div>
 
@@ -394,8 +484,10 @@ const TaskManager = ({ isDarkMode, onToggleTheme, networkStatus }) => {
         onFilterChange={setFilter}
         onAddTask={() => setIsAddingTask(true)}
         onShowStats={() => setShowStats(true)}
+        onShowProjectConfig={() => setShowProjectConfig(true)} // Nova prop
         tasks={tasks}
         networkStatus={networkStatus}
+        projectConfig={projectConfig} // Passar configurações
       />
     </div>
   );
