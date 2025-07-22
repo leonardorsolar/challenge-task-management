@@ -917,3 +917,73 @@ Passo 1: Criar tarefa
 - Dívida técnica é qualquer atalho ou escolha técnica feita para entregar mais rápido, mas que compromete a qualidade ou manutenção do código no futuro
 
 ---
+
+# PAPÉIS E RESPONSABILIDADES
+
+## LÍDER TÉCNICO
+
+Desenvolvedor que é referência técnica para a equipe e que apoia o Gerente do Projeto no alcance dos prazos e qualidade estabelecidos no planejamento do projeto.
+
+**Responsabilidades:**
+
+- Planejar e manter os prazos relacionados ao desenvolvimento;
+- Garantir que os padrões arquiteturais, de código e de qualidade definidos pela Divisão de Desenvolvimento sejam seguidos no projeto;
+- Agregar a equipe em busca do bom andamento do projeto dentro dos prazos estabelecidos;
+- Contribuir com informações para o planejamento do projeto;
+- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+
+---
+
+## DESENVOLVEDOR
+
+Membro da Secretaria de Tecnologia da Informação especializado no desenvolvimento de soluções de TI.
+
+**Responsabilidades:**
+
+- Desenhar e implementar o software, em conformidade com o Documento de Visão e o Documento de Apoio ao Desenvolvimento, seguindo os padrões arquiteturais e de codificação definidos pela Divisão de Desenvolvimento;
+- Realizar testes no software a ser entregue, seguindo os padrões de qualidade definidos pela Divisão de Desenvolvimento;
+- Disponibilizar o software desenvolvido em ambiente de homologação, seguindo os padrões DevOps definidos pela Divisão de Desenvolvimento;
+- Corrigir, no tempo adequado, os defeitos de codificação identificados em todas as fases do projeto;
+- Apoiar tecnicamente o Analista de Requisitos na elaboração do Documento de Visão, Documento de Apoio ao Desenvolvimento e/ou testes de verificação;
+- Seguir orientações definidas pelo Líder Técnico;
+- Contribuir com informações para o planejamento do projeto;
+- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+
+---
+
+## ANALISTA DE REQUISITOS
+
+Pessoa ou grupo que traduz as necessidades do Fornecedor de Requisitos e do Demandante em uma linguagem que a equipe técnica compreende bem e vice-versa. O Analista é a interface entre a Empresa e a Área de Demandante e deve coletar, documentar, verificar e manter os requisitos do projeto.
+
+**Responsabilidades:**
+
+- Coletar requisitos e elaborar o Documento de Visão;
+- Acompanhar e auxiliar o Demandante na aprovação do Documento de Visão;
+- Elaborar o Documento de Apoio ao Desenvolvimento;
+- Realizar testes em ambiente de homologação;
+- Liberar o software para homologação do Demandante;
+- Acompanhar e auxiliar o Demandante na homologação do software;
+- Auxiliar a Equipe do Projeto em relação ao escopo do projeto;
+- Contribuir com informações para o planejamento do projeto;
+- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+
+---
+
+## GERENTE DO PROJETO
+
+O Gerente do Projeto é a pessoa designada pela SETIN para atingir os objetivos do projeto. Ele precisa ser capaz de entender os detalhes do projeto e, como responsável pelo sucesso do projeto, o gerente do projeto fica encarregado de todos os aspectos do mesmo.
+
+Segundo o PMBOK, o gerente de projetos é responsável e responsabilizável pelo estabelecimento de limites reais e alcançáveis para o projeto e por sua realização no âmbito das Linhas de Base aprovadas.
+
+**Responsabilidades:**
+
+- Gerenciar o projeto de acordo com esta metodologia;
+- Definir estratégias de execução do projeto;
+- Definir e gerenciar os recursos humanos, financeiros e materiais do projeto;
+- Relacionar-se com as partes interessadas no projeto, de forma a garantir um relacionamento saudável para o sucesso do projeto;
+- Coletar os indicadores de desempenho do projeto;
+- Corrigir desvios de planejamento identificados;
+- Reportar a situação do projeto ao Patrocinador do projeto e ao Escritório de Gestão de Projetos de TI.
+
+CICLO DE VIDA DO PROJETO DE DESENVOLVIMENTO
+PRINCIPAIS ARTEFATOS
