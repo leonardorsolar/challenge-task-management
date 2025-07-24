@@ -137,3 +137,113 @@ Você pode futuramente expandir essa separação assim:
 -   `repositories/` → acesso ao banco de dados
 
 ---
+
+# Classes em python
+
+Usar **classes nos módulos (como `task`)** — especialmente em **controllers, usecases, services, etc.** — traz diversas vantagens **estruturais e práticas**, principalmente em projetos **médios ou grandes**, com foco em **manutenção, testes e escalabilidade**.
+
+---
+
+## ✅ Quando e por que usar **classes** em módulos FastAPI (como `task`)?
+
+### 🧩 Exemplo prático:
+
+```python
+# app/modules/task/presentation/controllers/create_task_controller.py
+
+class CreateTaskController:
+    def __init__(self, usecase):
+        self.usecase = usecase
+
+    def handle(self, request_data):
+        print("[Controller] Processando criação de tarefa...")
+        return self.usecase.execute(request_data)
+```
+
+---
+
+## 📚 Vantagens de usar **classes**
+
+### 1. **Injeção de dependência clara (SOLID - D)**
+
+Você pode passar usecases, serviços ou repositórios como argumentos no `__init__`, facilitando **mockagem em testes** e substituição de implementações.
+
+```python
+controller = CreateTaskController(usecase)
+```
+
+---
+
+### 2. **Reutilização e Encapsulamento**
+
+Você pode guardar estados, dependências ou configurações dentro da instância, evitando variáveis globais e código repetido.
+
+```python
+controller = CreateTaskController(logging_service)
+controller.handle(req_data)
+```
+
+---
+
+### 3. **Facilita testes unitários**
+
+Controladores e usecases baseados em classe são fáceis de testar isoladamente:
+
+```python
+def test_create_task_controller():
+    mock_usecase = Mock()
+    mock_usecase.execute.return_value = {"id": 1}
+    controller = CreateTaskController(mock_usecase)
+    response = controller.handle({"title": "Nova tarefa"})
+    assert response == {"id": 1}
+```
+
+---
+
+### 4. **Escalabilidade do código**
+
+Com classes, você pode agrupar métodos relacionados a uma mesma entidade:
+
+```python
+class TaskService:
+    def create(self, data): ...
+    def update(self, id, data): ...
+    def delete(self, id): ...
+```
+
+---
+
+### 5. **Aderência a padrões de arquitetura**
+
+Padrões como **Clean Architecture**, **Hexagonal**, **DDD** e **MVC** geralmente esperam que entidades como:
+
+-   **controllers**
+-   **usecases**
+-   **repositories**
+-   **services**
+
+sejam **objetos ou classes**, com métodos coesos e isolados.
+
+---
+
+## 🚫 E se eu **não usar classes**?
+
+Usar apenas funções (`def`) não é errado em projetos pequenos ou simples, mas:
+
+-   Pode dificultar testes em módulos mais complexos.
+-   Torna a injeção de dependência mais “manual” e acoplada.
+-   Limita a reutilização e extensibilidade.
+
+---
+
+## ✅ Conclusão
+
+| Critério                 | Funções Simples | Classes                  |
+| ------------------------ | --------------- | ------------------------ |
+| Simplicidade             | ✅ Simples      | 🔸 Um pouco mais verboso |
+| Testabilidade            | 🔸 Manual       | ✅ Facilitada com mocks  |
+| Escalabilidade           | 🔸 Limitada     | ✅ Alta                  |
+| Injeção de dependência   | 🔸 Implícita    | ✅ Clara via construtor  |
+| Organização por entidade | 🔸 Dispersa     | ✅ Agrupada por classe   |
+
+---
