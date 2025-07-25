@@ -1,6 +1,7 @@
 # app/modules/task/presentation/routes/task_routes.py
 from fastapi import APIRouter
-from app.modules.task.presentation.controllers import create_task_controller  # ✅ importação correta
+from app.modules.task.task_container import TaskContainer
+
 
 router = APIRouter()
 
@@ -14,4 +15,5 @@ def list_tasks():
 
 @router.post("/")
 def create_task():
-    return create_task_controller.handle()
+    controller = TaskContainer.create_task_controller()
+    return controller.handle()

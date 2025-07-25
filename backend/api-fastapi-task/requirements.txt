@@ -4,3 +4,4 @@ sqlalchemy
 databases[sqlite]
 pydantic
 python-dotenv
+pytest>=8.0.0

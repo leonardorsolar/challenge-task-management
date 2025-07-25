@@ -1,14 +1,16 @@
-# app/modules/task/presentation/controllers/create_task_controller.py
-from app.modules.task.application.usecases import create_task_usecase
-from app.modules.task.infrastructure.repositories import task_repository
+from app.modules.task.application.usecases.create_task_usecase import CreateTaskUseCase
 
-def handle():
-    print("[CreateTaskController] Chamando o usecase...")
-    
-    data = {
-        "title": "Nova tarefa",  # futuramente virá do request body
-        "description": "Descrição da tarefa"
-    }
-    
-    result = create_task_usecase.execute(data, task_repository)
-    return {"message": "Tarefa criada com sucesso", "data": result}
+class CreateTaskController:
+    def __init__(self, usecase: CreateTaskUseCase):
+        self.usecase = usecase
+
+    def handle(self):
+        print("[CreateTaskController] Recebendo requisição...")
+
+        data = {
+            "title": "Nova tarefa",
+            "description": "Descrição da tarefa"
+        }
+
+        result = self.usecase.execute(data)
+        return {"message": "Tarefa criada com sucesso", "data": result}
