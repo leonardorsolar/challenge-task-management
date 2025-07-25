@@ -42,9 +42,9 @@ Formato: **Verbo + Substantivo**
 
 ### 2. 📋 ANÁLISE DE REQUISITOS
 
-#### Requisitos Funcionais (RF)
+#### Requisitos Funcionais (RF) Frontend
 - Tipo: Requisito Funcional
-- Área: Frontend ou Backend 
+- Área: Frontend  
 
 **Descrição::**
 - **Como** [persona], **eu quero** [funcionalidade] **para** [valor/objetivo]
@@ -54,11 +54,17 @@ Formato: **Verbo + Substantivo**
   - **Quando** (ação executada)  
   - **Então** (resultado esperado)
 
-**Definition of Done:**
-- [ ] Componente criado e testado
-- [ ] Responsivo para mobile
-- [ ] Validações implementadas
-- [ ] Testes unitários passando
+#### Requisitos Funcionais (RF) Backend
+- Tipo: Requisito Funcional
+- Área: Backend  
+
+**Descrição::**
+- **Como** [persona], **eu quero** [funcionalidade] **para** [valor/objetivo]
+
+**Critérios de Aceitação:**
+  - **Dado** (contexto inicial)
+  - **Quando** (ação executada)  
+  - **Então** (resultado esperado)
 
 #### Requisitos Não-Funcionais (RNF)
 - Performance (ex.:tempo de resposta)
@@ -74,8 +80,7 @@ Formato: **Verbo + Substantivo**
 
 ### 4. 📁 ARQUITETURA DE ARQUIVOS
 
-#### Backend (Clean Architecture)
-Exemplo de estrutura de pastas para um módulo de tarefas:
+Exemplo de estrutura de pastas para o Tipo de Requisito Funcional
 #### Frontend (React + Clean Architecture)
 \`\`\`
 src/
@@ -99,6 +104,8 @@ src/
     └── TasksPage.tsx
 \`\`\`
 
+Exemplo de estrutura de pastas para o Tipo de Requisito Funcional
+#### Backend (Clean Architecture)
 \`\`\`
 src/
 ├── domain/
@@ -125,7 +132,10 @@ src/
 \`\`\`
 ### 5. 📦 PAYLOADS DE EXEMPLO
 
+exemplo de payload para  o Tipo de Requisito Funcional
+
 #### Request (POST /api/tasks)
+
 \`\`\`json
 {
     "title": "Implementar autenticação de usuários",
@@ -175,29 +185,20 @@ src/
 }
 \`\`\`
 
-### 6. 🔍 CHECKLIST DE IMPLEMENTAÇÃO
+### 7. 🔍 CHECKLIST DE IMPLEMENTAÇÃO
 
 #### Backend
-- [ ] Criar entidade Task no domínio
-- [ ] Implementar repository pattern
-- [ ] Criar use case de criação
-- [ ] Implementar controller com validações
-- [ ] Configurar rota no Express
-- [ ] Implementar middleware de validação
-- [ ] Criar migration da tabela
-- [ ] Escrever testes unitários
-- [ ] Escrever testes de integração
+
+exemplo do  código da usecase para o Tipo de Requisito Funcional
+
+### 6. 🔍 CHECKLIST DE IMPLEMENTAÇÃO
+
+exemplo  para o Tipo de Requisito Funcional
+#### Backend
+- [ ] 
 
 #### Frontend  
-- [ ] Criar tipos TypeScript
-- [ ] Implementar hook customizado
-- [ ] Criar componente TaskForm
-- [ ] Implementar validações do formulário
-- [ ] Criar service de API
-- [ ] Implementar estados de loading
-- [ ] Adicionar tratamento de erros
-- [ ] Implementar feedback visual
-- [ ] Escrever testes dos componentes
+- [ ] 
 
 `;
 
@@ -211,7 +212,7 @@ src/
       Siga as instruções abaixo para analisar esse contexto e fornecer sugestões estruturadas.
       `.trim();
 
-      //console.log(systemPrompt);
+      console.log(systemPrompt);
 
       //console.log(request);
       console.log("chamada ia");
