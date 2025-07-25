@@ -1,13 +1,13 @@
 # Documentação do Projeto: Sistema de Gestão de Tarefas
 
-- Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
+-   Plano de Projeto de Software (2025), baseado nas práticas tradicionais (IEEE 1058)
 
 “Você precisa começar com a experiência do cliente e trabalhar de trás para frente, até chegar à tecnologia.” - Steve Jobs
 
 ### **1. Visão Geral do Projeto**
 
-- **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
-- **1.2 Objetivo:** Desenvolver uma aplicação interna de gestão de tarefas para auxiliar no acompanhamento de demandas. O sistema deve permitir o registro, edição, listagem e filtragem de tarefas, além de fornecer uma interface web para interação com os usuários
+-   **1.1 Nome do Projeto:** Plataforma de Gestão de Tarefas (challenge-task-management)
+-   **1.2 Objetivo:** Desenvolver uma aplicação interna de gestão de tarefas para auxiliar no acompanhamento de demandas. O sistema deve permitir o registro, edição, listagem e filtragem de tarefas, além de fornecer uma interface web para interação com os usuários
 
 ---
 
@@ -15,47 +15,47 @@
 
 **Componentes do MVP**:
 
-- **Frontend React (MVP):**
-  Interface web responsiva desenvolvida em React, responsável pela interação com o usuário e consumo das APIs do sistema.
+-   **Frontend React (MVP):**
+    Interface web responsiva desenvolvida em React, responsável pela interação com o usuário e consumo das APIs do sistema.
 
-- **Backend Principal Node.js (MVP):**
-  API RESTful que gerencia operações CRUD de tarefas e usuários, além de integrar autenticação via Firebase.
+-   **Backend Principal Node.js (MVP):**
+    API RESTful que gerencia operações CRUD de tarefas e usuários, além de integrar autenticação via Firebase.
 
-  ![alt text](./doc/image/DiagramadeContêineresC4.png)
+    ![alt text](./doc/image/DiagramadeContêineresC4.png)
 
 **Implementações futuras**:
 
-- **Backend Cliente MCP GitHub:**
-  Microserviço que sincroniza tarefas e eventos com a API do GitHub, gerenciando issues, pull requests e commits, utilizando autenticação e webhooks.
-- **Firebase:**
-  Serviço dedicado à gestão de usuários e autenticação, com suporte a email/senha e logins sociais, fornecendo endpoints RESTful para validação de tokens.
-- **Backend TaskGPT:**
-  Microserviço RESTful que integra com OpenAI para fornecer funcionalidades de assistente inteligente e enriquecimento das tarefas.
-- **Backend Java Service:**
-  Serviço responsável por geração de relatórios e notificações, comunicando-se com o backend principal via RabbitMQ.
-- **Backend FastAPI (Análise e Produtividade):**
-  API dedicada à análise de dados de produtividade, fornecendo métricas e insights a partir das tarefas.
+-   **Backend Cliente MCP GitHub:**
+    Microserviço que sincroniza tarefas e eventos com a API do GitHub, gerenciando issues, pull requests e commits, utilizando autenticação e webhooks.
+-   **Firebase:**
+    Serviço dedicado à gestão de usuários e autenticação, com suporte a email/senha e logins sociais, fornecendo endpoints RESTful para validação de tokens.
+-   **Backend TaskGPT:**
+    Microserviço RESTful que integra com OpenAI para fornecer funcionalidades de assistente inteligente e enriquecimento das tarefas.
+-   **Backend Java Service:**
+    Serviço responsável por geração de relatórios e notificações, comunicando-se com o backend principal via RabbitMQ.
+-   **Backend FastAPI (Análise e Produtividade):**
+    API dedicada à análise de dados de produtividade, fornecendo métricas e insights a partir das tarefas.
 
-  ![alt text](./doc/image/DiagramadeContextoC4Geral.png)
+    ![alt text](./doc/image/DiagramadeContextoC4Geral.png)
 
 ---
 
-- **1.4 Tempo Total de Desenvolvimento da MVP:** 10 horas
+-   **1.4 Tempo Total de Desenvolvimento da MVP:** 10 horas
 
-  Para mvp será desenvolvido o frontend e o backend com as principais funcionalidades.
-  ![Alt text](./doc/image/commits.png "a title")
+    Para mvp será desenvolvido o frontend e o backend com as principais funcionalidades.
+    ![Alt text](./doc/image/commits.png "a title")
 
-  Após a mvp serão produzidos os demais requisitos.
+    Após a mvp serão produzidos os demais requisitos.
 
-- **1.5 Arquitetura de Alto Nível:**
-  Diagrama de Contêiner – Backend Node (Model C4)
-  ![alt text](./doc/image/DiagramadeContêineresC4.png)
+-   **1.5 Arquitetura de Alto Nível:**
+    Diagrama de Contêiner – Backend Node (Model C4)
+    ![alt text](./doc/image/DiagramadeContêineresC4.png)
 
 Dica:
 
-- Instale a extensão PlantUML no Vscode.
-- Acesse o arquivo doc/Diagram/DiagramadeConteineresC4.puml.
-- Clique em “Preview” ou Alt + D para renderizar.
+-   Instale a extensão PlantUML no Vscode.
+-   Acesse o arquivo doc/Diagram/DiagramadeConteineresC4.puml.
+-   Clique em “Preview” ou Alt + D para renderizar.
 
 ---
 
@@ -65,34 +65,34 @@ Dica:
 
 ##### 2.1.1 Frontend
 
-- **RF-FE01.** Exibir a lista de tarefas.
-- **RF-FE02.** Filtrar tarefas por status.
-- **RF-FE03.** Criar nova tarefa.
-- **RF-FE04.** Alterar status da tarefa.
-- **RF-FE05.** Excluir tarefa.
-- **RF-FE06.** Consumir a API de backend.
+-   **RF-FE01.** Exibir a lista de tarefas.
+-   **RF-FE02.** Filtrar tarefas por status.
+-   **RF-FE03.** Criar nova tarefa.
+-   **RF-FE04.** Alterar status da tarefa.
+-   **RF-FE05.** Excluir tarefa.
+-   **RF-FE06.** Consumir a API de backend.
 
 ##### 2.1.2 Backend (Node)
 
-- **RF-BE01.** Criar tarefa via `POST /tasks`.
-- **RF-BE02.** Listar tarefas via `GET /tasks`.
-- **RF-BE03.** Filtrar por status com parâmetro `GET /tasks?status=...`.
-- **RF-BE04.** Atualizar status com `PATCH /tasks/:id/status`.
-- **RF-BE05.** Remover tarefa com `DELETE /tasks/:id`.
+-   **RF-BE01.** Criar tarefa via `POST /tasks`.
+-   **RF-BE02.** Listar tarefas via `GET /tasks`.
+-   **RF-BE03.** Filtrar por status com parâmetro `GET /tasks?status=...`.
+-   **RF-BE04.** Atualizar status com `PATCH /tasks/:id/status`.
+-   **RF-BE05.** Remover tarefa com `DELETE /tasks/:id`.
 
 #### 2.2 Requisitos Não Funcionais
 
 ##### 2.2.1 Frontend
 
-- **RNF-FE01.** Interface responsiva.
-- **RNF-FE02.** Design com foco em usabilidade.
-- **RNF-FE03.** Comunicação com backend via JSON.
+-   **RNF-FE01.** Interface responsiva.
+-   **RNF-FE02.** Design com foco em usabilidade.
+-   **RNF-FE03.** Comunicação com backend via JSON.
 
 ##### 2.2.2 Backend (Node)
 
-- **RNF-BE01.** APIs RESTful com uso de JSON.
-- **RNF-BE02.** Separação de responsabilidades: controllers, services, models.
-- **RNF-BE03.** Documentação da API com OpenAPI (Swagger).
+-   **RNF-BE01.** APIs RESTful com uso de JSON.
+-   **RNF-BE02.** Separação de responsabilidades: controllers, services, models.
+-   **RNF-BE03.** Documentação da API com OpenAPI (Swagger).
 
 ### 2.3 Roadmap MVP (Simplificado) (\*BP)
 
@@ -136,12 +136,12 @@ CEO, Tech Lead, Desenvolvedores
 
 ### 2.6 Plano de Testes
 
-- Escreva testes unitários e de integração.
-- Use ferramentas como Jest, Pytest ou Vitest.
-- Execute testes com Husky antes do push.
-- Automatize com CI (GitHub Actions).
-- Documente os cenários e resultados esperados.
-- Criar testes de carga e performance.
+-   Escreva testes unitários e de integração.
+-   Use ferramentas como Jest, Pytest ou Vitest.
+-   Execute testes com Husky antes do push.
+-   Automatize com CI (GitHub Actions).
+-   Documente os cenários e resultados esperados.
+-   Criar testes de carga e performance.
 
 ## ![alt text](/doc/image/planodetestes.png)
 
@@ -151,25 +151,25 @@ Para garantir segurança desde a fase de requisitos até a entrega, adotar as se
 
 #### 🔒 Backend
 
-- Validação e sanitização de entradas.
-- Proteção contra ataques com rate limiting e `helmet`.
-- Logs sem dados sensíveis.
-- Autenticação com JWT e senhas com bcrypt.
-- Controle de acesso por perfil (usuário/admin).
+-   Validação e sanitização de entradas.
+-   Proteção contra ataques com rate limiting e `helmet`.
+-   Logs sem dados sensíveis.
+-   Autenticação com JWT e senhas com bcrypt.
+-   Controle de acesso por perfil (usuário/admin).
 
 #### 🛡️ Frontend
 
-- Escapar dados exibidos (evitar XSS).
-- Validar dados no cliente e no servidor.
-- Usar HTTPS e tokens com cuidado.
+-   Escapar dados exibidos (evitar XSS).
+-   Validar dados no cliente e no servidor.
+-   Usar HTTPS e tokens com cuidado.
 
 #### ⚙️ DevOps / CI/CD
 
-- Análise de vulnerabilidades com `npm audit`, `bandit` ou `snyk`.
-- Husky + lint + testes antes de `push`.
-- CI com testes automatizados e varredura de segurança.
-- Branches protegidos e revisão obrigatória.
-- Evitar versionar segredos (usar `.env` e secret scanning).
+-   Análise de vulnerabilidades com `npm audit`, `bandit` ou `snyk`.
+-   Husky + lint + testes antes de `push`.
+-   CI com testes automatizados e varredura de segurança.
+-   Branches protegidos e revisão obrigatória.
+-   Evitar versionar segredos (usar `.env` e secret scanning).
 
 #### 2.7 Metodologia de desenvolvimento (\*BP)
 
@@ -185,14 +185,14 @@ Essa combinação garante entregas rápidas, feedback constante e alta qualidade
 
 ### **3. Execução e Instalação**
 
-- **3.1 Clonar o Repositório**
+-   **3.1 Clonar o Repositório**
 
 ```bash
 git clone https://github.com/leonardorsolar/challenge-task-management.git
 cd challenge-task-management
 ```
 
-- **3.2 Instalar e Rodar Backend Node.js**
+-   **3.2 Instalar e Rodar Backend Node.js**
 
 ```bash
 cd backend/api-node-typescript
@@ -200,7 +200,7 @@ npm install
 npm run dev
 ```
 
-- **3.3 Instalar e Rodar Frontend React**
+-   **3.3 Instalar e Rodar Frontend React**
 
 ```bash
 cd frontend/project-management
@@ -208,13 +208,13 @@ npm install
 npm run dev
 ```
 
-- **3.4 Acesso:** [http://localhost:5173](http://localhost:5173)
+-   **3.4 Acesso:** [http://localhost:5173](http://localhost:5173)
 
 ---
 
 ### **4. Estrutura Completa do Projeto**
 
-- **4.1 Estrutura Geral de Pastas**
+-   **4.1 Estrutura Geral de Pastas**
 
 ```
 project-management/
@@ -234,7 +234,7 @@ project-management/
 └── README.md
 ```
 
-- **4.2 Estrutura Backend Principal Node**
+-   **4.2 Estrutura Backend Principal Node**
 
 Estrutura do Projeto Backend (Node) e Responsabilidades
 
@@ -279,8 +279,8 @@ Diagrama de Classe - UML
 
 ![alt text](./doc/image/DiagramadeCodigoC4Classe.png)
 
-- **4.4 Estrutura Frontend React**
-  Estrutura do Projeto Frontend
+-   **4.4 Estrutura Frontend React**
+    Estrutura do Projeto Frontend
 
 ```
 frontend/
@@ -306,49 +306,49 @@ Diagrama de Componentes – Frontend React (Model C4)
 
 ### **5. Diagramas do Sistema** (\*BP)
 
-- Diagrama de Contêiner (C4 - Node)
-- Diagrama de Componentes (Node, FastAPI, React)
-- Diagrama de Código
-- Diagrama de Classes (UML)
-- Diagrama Entidade-Relacionamento (DER)
-- Diagrama de implantação
+-   Diagrama de Contêiner (C4 - Node)
+-   Diagrama de Componentes (Node, FastAPI, React)
+-   Diagrama de Código
+-   Diagrama de Classes (UML)
+-   Diagrama Entidade-Relacionamento (DER)
+-   Diagrama de implantação
 
 Acessos aos arquivos:
 
-- Acesse o arquivo doc/Diagram/...
-- clique no arquivo desejado
-- Clique em “Preview” ou Alt + D para renderizar.
+-   Acesse o arquivo doc/Diagram/...
+-   clique no arquivo desejado
+-   Clique em “Preview” ou Alt + D para renderizar.
 
 ---
 
 ### **6. Documentação da API**
 
-- Listagem dos endpoints:
+-   Listagem dos endpoints:
 
-  - `POST /tasks`
-  - `GET /tasks`
-  - `PATCH /tasks/:id/status`
-  - `DELETE /tasks/:id`
+    -   `POST /tasks`
+    -   `GET /tasks`
+    -   `PATCH /tasks/:id/status`
+    -   `DELETE /tasks/:id`
 
-- Local: `/doc/swagger.yaml`
-- Imagem: (API Swagger UI)
+-   Local: `/doc/swagger.yaml`
+-   Imagem: (API Swagger UI)
 
 ![Alt text](./doc/image/api.png "Swagger")
 
 Acessos ao arquivo:
 
-- Acesse o arquivo doc/swagger.yaml
-- clique no arquivo
-- Clique com o botão direito do mouse e selecione “Preview Swagger” ou Shift + Alt + P para renderizar.
+-   Acesse o arquivo doc/swagger.yaml
+-   clique no arquivo
+-   Clique com o botão direito do mouse e selecione “Preview Swagger” ou Shift + Alt + P para renderizar.
 
 ---
 
 ### **7. Tecnologias Utilizadas**
 
-- **Backend Node:** Node.js, Express, TypeScript
-- **Frontend:** React.js, Vite, Axios, Lucide-react
-- **Testes:** Jest, Testing Library
-- **Documentação:** Swagger (OpenAPI)
+-   **Backend Node:** Node.js, Express, TypeScript
+-   **Frontend:** React.js, Vite, Axios, Lucide-react
+-   **Testes:** Jest, Testing Library
+-   **Documentação:** Swagger (OpenAPI)
 
 ---
 
@@ -356,15 +356,15 @@ Acessos ao arquivo:
 
 #### Backend
 
-- CRUD de tarefas
-- Filtro por status
-- Documentação via Swagger
+-   CRUD de tarefas
+-   Filtro por status
+-   Documentação via Swagger
 
 #### Frontend
 
-- Visualização e gerenciamento de tarefas
-- Filtro por status
-- Comunicação com APIs
+-   Visualização e gerenciamento de tarefas
+-   Filtro por status
+-   Comunicação com APIs
 
 ![Alt text](./doc/image/front.png "a title")
 
@@ -382,65 +382,65 @@ Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **P
 
 #### **Tecnologias do MVP**
 
-- **Backend (API Principal):**
-  Utilizei **Node.js com Express** por sua eficiência na construção de APIs RESTful, facilidade de manutenção e integração com outras tecnologias. A escolha também se baseou no suporte da comunidade e rápida prototipação.
+-   **Backend (API Principal):**
+    Utilizei **Node.js com Express** por sua eficiência na construção de APIs RESTful, facilidade de manutenção e integração com outras tecnologias. A escolha também se baseou no suporte da comunidade e rápida prototipação.
 
-- **Banco de Dados:**
-  Adotado o **SQLite** para acelerar o desenvolvimento inicial e testes locais. A arquitetura está preparada para uso futuro de bancos relacionais robustos como **PostgreSQL** ou **MySQL**, ideais para produção.
+-   **Banco de Dados:**
+    Adotado o **SQLite** para acelerar o desenvolvimento inicial e testes locais. A arquitetura está preparada para uso futuro de bancos relacionais robustos como **PostgreSQL** ou **MySQL**, ideais para produção.
 
-- **Frontend:**
-  Desenvolvido em **React.js** com **Vite**, proporcionando carregamento rápido, hot reload e uma experiência de desenvolvimento moderna. O frontend foi mantido livre de bibliotecas visuais pesadas, garantindo maior controle e personalização da interface.
+-   **Frontend:**
+    Desenvolvido em **React.js** com **Vite**, proporcionando carregamento rápido, hot reload e uma experiência de desenvolvimento moderna. O frontend foi mantido livre de bibliotecas visuais pesadas, garantindo maior controle e personalização da interface.
 
-- **Documentação da API:**
-  A documentação foi feita com **Swagger (OpenAPI)**, permitindo visualização e testes diretos das rotas. Para clareza e padronização, foram utilizadas ferramentas de IA (OpenAI) no auxílio da geração dos exemplos e descrições.
+-   **Documentação da API:**
+    A documentação foi feita com **Swagger (OpenAPI)**, permitindo visualização e testes diretos das rotas. Para clareza e padronização, foram utilizadas ferramentas de IA (OpenAI) no auxílio da geração dos exemplos e descrições.
 
 ---
 
 #### **Tecnologias do Projeto Completo (Próximas Fases)**
 
-- **Autenticação:**
-  A autenticação e o gerenciamento de usuários foram implementados com o **Firebase Authentication**, que oferece suporte a login por e-mail/senha e provedores sociais.
+-   **Autenticação:**
+    A autenticação e o gerenciamento de usuários foram implementados com o **Firebase Authentication**, que oferece suporte a login por e-mail/senha e provedores sociais.
 
-- **Microserviço TaskGPT (Node.js + OpenAI):**
-  Microserviço responsável por enriquecer tarefas com sugestões inteligentes, resumos e subtarefas usando **modelos de linguagem da OpenAI**.
+-   **Microserviço TaskGPT (Node.js + OpenAI):**
+    Microserviço responsável por enriquecer tarefas com sugestões inteligentes, resumos e subtarefas usando **modelos de linguagem da OpenAI**.
 
-- **Microserviço MCP GitHub:**
-  Serviço que realiza a **integração contínua com GitHub**, sincronizando issues, pull requests e commits via **webhooks e autenticação com token**.
+-   **Microserviço MCP GitHub:**
+    Serviço que realiza a **integração contínua com GitHub**, sincronizando issues, pull requests e commits via **webhooks e autenticação com token**.
 
-- **Serviço de Relatórios (Java):**
-  Serviço assíncrono desenvolvido em **Java**, responsável pela **geração de relatórios e envio de notificações**. Comunica-se com o backend principal usando **RabbitMQ**.
+-   **Serviço de Relatórios (Java):**
+    Serviço assíncrono desenvolvido em **Java**, responsável pela **geração de relatórios e envio de notificações**. Comunica-se com o backend principal usando **RabbitMQ**.
 
-- **API de Análise de Produtividade (FastAPI):**
-  Serviço dedicado à análise de produtividade dos usuários, que fornece **métricas e insights** com base nas tarefas e interações.
+-   **API de Análise de Produtividade (FastAPI):**
+    Serviço dedicado à análise de produtividade dos usuários, que fornece **métricas e insights** com base nas tarefas e interações.
 
-- **Fila de Mensagens:**
-  Utilização de **RabbitMQ** para troca assíncrona de mensagens entre serviços, garantindo escalabilidade e desacoplamento entre os módulos.
+-   **Fila de Mensagens:**
+    Utilização de **RabbitMQ** para troca assíncrona de mensagens entre serviços, garantindo escalabilidade e desacoplamento entre os módulos.
 
 ---
 
 ### 9.2 Organização do Código e Separação de Responsabilidades
 
-- Backend Node separado em camadas (Arquitetura Clean Architecture):
+-   Backend Node separado em camadas (Arquitetura Clean Architecture):
 
-  - **index.ts:** Ponto de entrada principal da aplicação, responsável por iniciar o servidor e injetar as dependências.
-  - **modules/task/application:** Camada de aplicação que orquestra os casos de uso.
-  - **modules/task/application/usecases:** Contém os casos de uso, que representam as regras específicas de negócio.
-  - **modules/task/domain:** Camada de domínio que representa a lógica central da aplicação.
-  - **modules/task/domain/entities:** Entidades do negócio, incluindo modelo e comportamento.
-  - **modules/task/domain/repositories:** Interfaces que definem os contratos para persistência de dados.
-  - **modules/task/infrastructure:** Camada de infraestrutura com implementações concretas das interfaces do domínio.
-  - **modules/task/infrastructure/repositories:** Implementações dos repositórios definidos no domínio.
-  - **modules/task/presentation:** Camada de apresentação, interface entre a aplicação e o mundo externo.
-  - **modules/task/presentation/controllers:** Controladores que recebem requisições e invocam os casos de uso.
-  - **modules/task/presentation/routes:** Arquivos que definem as rotas da API.
-  - **modules/task/test:** Testes unitários e de integração para o módulo de tarefas.
-  - **shared/core:** Código compartilhado que contém tipos base, utilitários e objetos para tratamento de erros e resultados (como AppError, Either, Result).
-  - **shared/infrastructure:** Infraestrutura compartilhada, incluindo conexão com banco de dados e configurações.
-  - **shared/infrastructure/database:** Configuração e gerenciamento da conexão com o banco de dados.
-  - **shared/infrastructure/http:** Configuração do servidor HTTP, middleware e rotas globais.
+    -   **index.ts:** Ponto de entrada principal da aplicação, responsável por iniciar o servidor e injetar as dependências.
+    -   **modules/task/application:** Camada de aplicação que orquestra os casos de uso.
+    -   **modules/task/application/usecases:** Contém os casos de uso, que representam as regras específicas de negócio.
+    -   **modules/task/domain:** Camada de domínio que representa a lógica central da aplicação.
+    -   **modules/task/domain/entities:** Entidades do negócio, incluindo modelo e comportamento.
+    -   **modules/task/domain/repositories:** Interfaces que definem os contratos para persistência de dados.
+    -   **modules/task/infrastructure:** Camada de infraestrutura com implementações concretas das interfaces do domínio.
+    -   **modules/task/infrastructure/repositories:** Implementações dos repositórios definidos no domínio.
+    -   **modules/task/presentation:** Camada de apresentação, interface entre a aplicação e o mundo externo.
+    -   **modules/task/presentation/controllers:** Controladores que recebem requisições e invocam os casos de uso.
+    -   **modules/task/presentation/routes:** Arquivos que definem as rotas da API.
+    -   **modules/task/test:** Testes unitários e de integração para o módulo de tarefas.
+    -   **shared/core:** Código compartilhado que contém tipos base, utilitários e objetos para tratamento de erros e resultados (como AppError, Either, Result).
+    -   **shared/infrastructure:** Infraestrutura compartilhada, incluindo conexão com banco de dados e configurações.
+    -   **shared/infrastructure/database:** Configuração e gerenciamento da conexão com o banco de dados.
+    -   **shared/infrastructure/http:** Configuração do servidor HTTP, middleware e rotas globais.
 
-- Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
-- Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
+-   Frontend modularizado em componentes reutilizáveis, páginas e serviços para chamadas API.
+-   Testes organizados em pastas dedicadas, separados por tipo (unitários, integração).
 
 ### 9.3 Escolher padrões de design apropriados (MVC, Repository, Factory, etc.).(\*BP)
 
@@ -454,60 +454,60 @@ Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **P
 
 1. **Integração com Firebase**
 
-   - Autenticação centralizada (email/senha, Google, etc.).
-   - Gerenciamento de perfis no Firestore.
-   - Validação de tokens JWT no backend Node.js.
+    - Autenticação centralizada (email/senha, Google, etc.).
+    - Gerenciamento de perfis no Firestore.
+    - Validação de tokens JWT no backend Node.js.
 
 2. **Adição do Microserviço TaskGPT (IA Assistente de Tarefas)**
 
-   - Novo serviço baseado em **LLM** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
-   - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI e Anthropic).
-   - Realiza consultas à base de dados de tarefas para fornecer respostas com contexto atualizado.
-   - Exemplo de uso:
+    - Novo serviço baseado em **LLM** para auxiliar desenvolvedores, tech leads e gestores com sugestões automáticas, geração de código e melhoria de produtividade.
+    - A comunicação é feita via API HTTP, com prompts estruturados enviados a um modelo de linguagem (via OpenAI e Anthropic).
+    - Realiza consultas à base de dados de tarefas para fornecer respostas com contexto atualizado.
+    - Exemplo de uso:
 
-     - **Dev (nível operacional - ajuda técnica)**: Solicita ajuda para gerar um endpoint REST de tarefas com base em um schema.
-     - **Tech Lead (nível gerencial - visão de complexidade, dependências, riscos)**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
-     - **CEO/PM (nível estratégico - visão de valor, prazo e produtividade)**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
+        - **Dev (nível operacional - ajuda técnica)**: Solicita ajuda para gerar um endpoint REST de tarefas com base em um schema.
+        - **Tech Lead (nível gerencial - visão de complexidade, dependências, riscos)**: Recebe sugestões de refatorações técnicas e melhorias baseadas nas tarefas atuais.
+        - **CEO/PM (nível estratégico - visão de valor, prazo e produtividade)**: Pergunta "quais tarefas estão em atraso?" e recebe insights consolidados em linguagem natural.
 
-   - Depois poderá ser implemento: RAG (Retrieval-Augmented Generation)
+    - Depois poderá ser implemento: RAG (Retrieval-Augmented Generation)
 
 3. **Integração com Sistemas Externos via Cliente MCP (Github)**
 
-   - Inclusão de um **cliente ou servidor MCP (Microservice Communication Protocol)** que realiza integração com o **github**, permitindo:
+    - Inclusão de um **cliente ou servidor MCP (Microservice Communication Protocol)** que realiza integração com o **github**, permitindo:
 
-     - Envio das infromações das tarefas via issues para o github
+        - Envio das infromações das tarefas via issues para o github
 
 4. **Incorporação de Mensageria (RabbitMQ)**
 
-   - Envio assíncrono de eventos e comandos (ex: gerar relatório, análise de tarefas).
-   - Aumento da resiliência e desacoplamento entre os serviços.
+    - Envio assíncrono de eventos e comandos (ex: gerar relatório, análise de tarefas).
+    - Aumento da resiliência e desacoplamento entre os serviços.
 
 5. **Expansão do Ecossistema de Microserviços**
 
-   - A arquitetura segue evoluindo para um modelo mais inteligente e automatizado, promovendo:
+    - A arquitetura segue evoluindo para um modelo mais inteligente e automatizado, promovendo:
 
-     - **Colaboração assistida por IA**.
-     - **Interoperabilidade com plataformas externas**.
-     - **Maior autonomia para os usuários através de interações em linguagem natural**.
+        - **Colaboração assistida por IA**.
+        - **Interoperabilidade com plataformas externas**.
+        - **Maior autonomia para os usuários através de interações em linguagem natural**.
 
-     ![alt text](./doc/image/evolutionv2.png)
+        ![alt text](./doc/image/evolutionv2.png)
 
 ---
 
 #### **Performance e Escalabilidade**
 
-- A arquitetura modular permite escalar partes do sistema separadamente.
-- Os microserviços podem ser replicados e balanceados independentemente.
-- Uso de mensageria para evitar bloqueios e melhorar o tempo de resposta.
+-   A arquitetura modular permite escalar partes do sistema separadamente.
+-   Os microserviços podem ser replicados e balanceados independentemente.
+-   Uso de mensageria para evitar bloqueios e melhorar o tempo de resposta.
 
 ---
 
 #### **Manutenção e Entregas Contínuas**
 
-- Ampliação de cobertura de testes (unitários, integração e e2e).
-- Pipeline de **CI/CD** para automatizar testes, builds e deploys.
-- Documentação técnica sempre atualizada junto ao código.
-- Monitoramento e métricas para tomada de decisões (ex: tempo de resposta, taxa de erro).
+-   Ampliação de cobertura de testes (unitários, integração e e2e).
+-   Pipeline de **CI/CD** para automatizar testes, builds e deploys.
+-   Documentação técnica sempre atualizada junto ao código.
+-   Monitoramento e métricas para tomada de decisões (ex: tempo de resposta, taxa de erro).
 
 ## 10. Simulação de Distribuição de Tarefas na Equipe
 
@@ -525,159 +525,159 @@ Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **P
 
 **Atribuições específicas como líder técnico:**
 
-- Aprovação obrigatória de todos os _Pull Requests_
-- Garantia de padrões de código (lint, arquitetura em camadas, nomenclatura)
-- Organização dos branches (main, dev, feature/_, fix/_)
-- Avaliação de qualidade dos testes (unitários, integração e e2e)
-- Garantia de cobertura mínima de testes (ex: 80%)
-- Suporte aos devs em dúvidas técnicas ou conflitos de merge
-- Garantia de que a documentação está atualizada
-- Treinamentos (delegar + criação de um sucessor)
-- Feedback para o CEO
+-   Aprovação obrigatória de todos os _Pull Requests_
+-   Garantia de padrões de código (lint, arquitetura em camadas, nomenclatura)
+-   Organização dos branches (main, dev, feature/_, fix/_)
+-   Avaliação de qualidade dos testes (unitários, integração e e2e)
+-   Garantia de cobertura mínima de testes (ex: 80%)
+-   Suporte aos devs em dúvidas técnicas ou conflitos de merge
+-   Garantia de que a documentação está atualizada
+-   Treinamentos (delegar + criação de um sucessor)
+-   Feedback para o CEO
 
 ---
 
 ## Qualidade de Software
 
-- **QA (Quality Assurance)**: Revisões de código, Auditorias de processo, revisões técnicas.
-- **QC (Quality Control)**: Testes funcionais, de usabilidade e de desempenho.
+-   **QA (Quality Assurance)**: Revisões de código, Auditorias de processo, revisões técnicas.
+-   **QC (Quality Control)**: Testes funcionais, de usabilidade e de desempenho.
 
 ### Garantia de Qualidade (QA)
 
-- **Testes Unitários**: Jest (Node.js) e Pytest (Python).
-- **Testes de Integração**: Entre controllers, services e repositórios.
-- **Testes End-to-End (E2E)**: Playwright no frontend simulando uso real.
-- **CI/CD**: Execução automática de testes e builds via GitHub Actions.
-- **Sonar Cloud**: Análise de código (bugs, vulnerabilidades de segurança, "code smells")
+-   **Testes Unitários**: Jest (Node.js) e Pytest (Python).
+-   **Testes de Integração**: Entre controllers, services e repositórios.
+-   **Testes End-to-End (E2E)**: Playwright no frontend simulando uso real.
+-   **CI/CD**: Execução automática de testes e builds via GitHub Actions.
+-   **Sonar Cloud**: Análise de código (bugs, vulnerabilidades de segurança, "code smells")
 
 #### Checklist de Pull Requests (PRs)
 
-- Testes automatizados incluídos e aprovados.
-- Documentação (Swagger) atualizada.
-- Padrões de código aplicados (lint, formatação).
-- Revisão obrigatória pelo **Dev A (Tech Lead)**.
+-   Testes automatizados incluídos e aprovados.
+-   Documentação (Swagger) atualizada.
+-   Padrões de código aplicados (lint, formatação).
+-   Revisão obrigatória pelo **Dev A (Tech Lead)**.
 
 ### 10.1 Sugestões para Manter Qualidade e Coordenação da Equipe
 
 #### Gestão de Código e Integração
 
-- Uso de **GitHub** com convenção de _branches_ padronizada:
+-   Uso de **GitHub** com convenção de _branches_ padronizada:
 
-  - `main`: versão estável e pronta para produção
-  - `dev`: versão de desenvolvimento integrada
-  - `feature/*`, `bugfix/*`, `test/*`: desenvolvimento de novas features, correções e testes
+    -   `main`: versão estável e pronta para produção
+    -   `dev`: versão de desenvolvimento integrada
+    -   `feature/*`, `bugfix/*`, `test/*`: desenvolvimento de novas features, correções e testes
 
-- **Revisão obrigatória de código (Pull Request)** antes do _merge_, com checklist técnico e aprovação do **Tech Lead (Dev A)**.
-- **Padrões de código** definidos e aplicados via linters (Ex: ESLint, Black) e _pre-commit hooks_.
-- Automatização com **CI/CD (GitHub Actions)**:
+-   **Revisão obrigatória de código (Pull Request)** antes do _merge_, com checklist técnico e aprovação do **Tech Lead (Dev A)**.
+-   **Padrões de código** definidos e aplicados via linters (Ex: ESLint, Black) e _pre-commit hooks_.
+-   Automatização com **CI/CD (GitHub Actions)**:
 
-  - Execução de testes (unitários, integração, e2e)
-  - Análise de cobertura de testes
-  - Validação de lint e build
+    -   Execução de testes (unitários, integração, e2e)
+    -   Análise de cobertura de testes
+    -   Validação de lint e build
 
 #### Planejamento e Gerenciamento
 
-- Uso da ferramenta **Jira** para:
+-   Uso da ferramenta **Jira** para:
 
-  - Registro e acompanhamento de tarefas
-  - Planejamento por sprints (Scrum/Kanban)
-  - Priorização baseada no _Product Backlog_
+    -   Registro e acompanhamento de tarefas
+    -   Planejamento por sprints (Scrum/Kanban)
+    -   Priorização baseada no _Product Backlog_
 
-- Definição clara de **Definition of Done (DoD)**:
+-   Definição clara de **Definition of Done (DoD)**:
 
-  - Código funcional e testado
-  - Pull request revisado e aprovado
-  - Documentação atualizada
-  - Deploy em ambiente de homologação (se aplicável)
+    -   Código funcional e testado
+    -   Pull request revisado e aprovado
+    -   Documentação atualizada
+    -   Deploy em ambiente de homologação (se aplicável)
 
 ---
 
 #### Comunicação e Alinhamento
 
-- **Reuniões diárias rápidas (Daily Meetings)** para atualização de progresso, impedimentos e próximos passos.
-- Comunicação contínua via **chat (Slack, Discord ou Microsoft Teams)**.
-- Calls semanais ou por entrega para revisões de sprint e validação técnica.
+-   **Reuniões diárias rápidas (Daily Meetings)** para atualização de progresso, impedimentos e próximos passos.
+-   Comunicação contínua via **chat (Slack, Discord ou Microsoft Teams)**.
+-   Calls semanais ou por entrega para revisões de sprint e validação técnica.
 
 **Métricas:**
 
-- MTTR — Mean Time to Recovery (Tempo Médio de Recuperação)
-- TTM — Time to Market (Tempo para Lançar no Mercado)
-- Lead Time (Tempo de Ciclo)
-- Taxa de bugs em produção, cobertura de testes, número de deploys por semana
+-   MTTR — Mean Time to Recovery (Tempo Médio de Recuperação)
+-   TTM — Time to Market (Tempo para Lançar no Mercado)
+-   Lead Time (Tempo de Ciclo)
+-   Taxa de bugs em produção, cobertura de testes, número de deploys por semana
 
-  | Métrica       | Mede o tempo...                            | Foco principal             |
-  | ------------- | ------------------------------------------ | -------------------------- |
-  | **MTTR**      | Para restaurar após uma falha              | **Confiabilidade**         |
-  | **TTM**       | Da ideia até o lançamento                  | **Agilidade de entrega**   |
-  | **Lead Time** | Do início do desenvolvimento até a entrega | **Eficiência do processo** |
+    | Métrica       | Mede o tempo...                            | Foco principal             |
+    | ------------- | ------------------------------------------ | -------------------------- |
+    | **MTTR**      | Para restaurar após uma falha              | **Confiabilidade**         |
+    | **TTM**       | Da ideia até o lançamento                  | **Agilidade de entrega**   |
+    | **Lead Time** | Do início do desenvolvimento até a entrega | **Eficiência do processo** |
 
 ---
 
 #### Documentação e Manutenção
 
-- **Documentação atualizada** é obrigatória em cada entrega:
+-   **Documentação atualizada** é obrigatória em cada entrega:
 
-  - OpenAPI/Swagger para APIs
-  - Instruções de execução local e testes no `README.md`
-  - Padrões de arquitetura e estruturas de pastas definidas
+    -   OpenAPI/Swagger para APIs
+    -   Instruções de execução local e testes no `README.md`
+    -   Padrões de arquitetura e estruturas de pastas definidas
 
-- Inclusão de comentários claros no código, especialmente em lógicas complexas
-- Manutenção de um **changelog** com as principais alterações do projeto
+-   Inclusão de comentários claros no código, especialmente em lógicas complexas
+-   Manutenção de um **changelog** com as principais alterações do projeto
 
 ---
 
 #### Monitoramento e Qualidade Contínua
 
-- Avaliação contínua da **cobertura de testes** (mínimo recomendável: 80%)
-- Monitoramento de resultados: Monitoramento de performance e erros em produção
-- Feedbacks recorrentes entre os membros para melhoria contínua
-- Coleta de métricas
-- Feedback para melhorar processos e produtos continuamente.
+-   Avaliação contínua da **cobertura de testes** (mínimo recomendável: 80%)
+-   Monitoramento de resultados: Monitoramento de performance e erros em produção
+-   Feedbacks recorrentes entre os membros para melhoria contínua
+-   Coleta de métricas
+-   Feedback para melhorar processos e produtos continuamente.
 
 ---
 
 ## 11. Testes Automatizados
 
-- Backend: Escrever testes unitários, testes de integração dos usecases, repositórios e dos endpoints.
-- Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
-- Cobertura mínima de 80% recomendada.
-  .
+-   Backend: Escrever testes unitários, testes de integração dos usecases, repositórios e dos endpoints.
+-   Frontend: testes unitários para componentes e testes end-to-end para fluxo completo (exemplo: Playwright, Cypress).
+-   Cobertura mínima de 80% recomendada.
+    .
 
 ---
 
 ## 12. Versionamento
 
-- Projeto hospedado no GitHub.
-- Commits claros e objetivos.
-  - Conventional commits: https://www.conventionalcommits.org/en/v1.0.0/
-- Uso de tags para versões.
-- Branch principal protegida com revisões obrigatórias (pull requests).
-- Apenas o líder do projeto tem permissão para fazer push direto na branch principal (Add rule)
-- Estratégia de branches baseada no Gitflow.
-- Husky configurado para executar testes automaticamente antes do push, garantindo qualidade do código antes da integração.
+-   Projeto hospedado no GitHub.
+-   Commits claros e objetivos.
+    -   Conventional commits: https://www.conventionalcommits.org/en/v1.0.0/
+-   Uso de tags para versões.
+-   Branch principal protegida com revisões obrigatórias (pull requests).
+-   Apenas o líder do projeto tem permissão para fazer push direto na branch principal (Add rule)
+-   Estratégia de branches baseada no Gitflow.
+-   Husky configurado para executar testes automaticamente antes do push, garantindo qualidade do código antes da integração.
 
 ---
 
 ## 13. Implementação (Codificação)
 
-- Seguir princípios SOLID e boas práticas de POO.
-- Escrever código modular e reutilizável.
-- Utilizar controle de versão (Git, Git Flow).
-- Realizar revisões de código (Code Review).
-- Evitar código duplicado (DRY - Don’t Repeat Yourself).
-- Seguir convenções de codificação (Lint, ESLint, Prettier).
-- Gerenciar dependências corretamente.
+-   Seguir princípios SOLID e boas práticas de POO.
+-   Escrever código modular e reutilizável.
+-   Utilizar controle de versão (Git, Git Flow).
+-   Realizar revisões de código (Code Review).
+-   Evitar código duplicado (DRY - Don’t Repeat Yourself).
+-   Seguir convenções de codificação (Lint, ESLint, Prettier).
+-   Gerenciar dependências corretamente.
 
 ## 14. Validação (Aceitação e Homologação)
 
 Aqui garantimos que o software atende aos requisitos do usuário.
 
-- Realizar testes com usuários reais (Testes de Aceitação).
-- Homologar o sistema antes do lançamento.
-- Criar um ambiente de staging semelhante ao de produção.
-- Validar requisitos não funcionais (desempenho, segurança, usabilidade).
-  - A ISO/IEC 25010 é um padrão internacional que define modelos de qualidade para software.
-- Executar testes exploratórios e coletar feedback com stakeholders.
+-   Realizar testes com usuários reais (Testes de Aceitação).
+-   Homologar o sistema antes do lançamento.
+-   Criar um ambiente de staging semelhante ao de produção.
+-   Validar requisitos não funcionais (desempenho, segurança, usabilidade).
+    -   A ISO/IEC 25010 é um padrão internacional que define modelos de qualidade para software.
+-   Executar testes exploratórios e coletar feedback com stakeholders.
 
 ## 15. Implantação (Deploy e Monitoramento)
 
@@ -685,23 +685,23 @@ Aqui fazemos o lançamento oficial do sistema.
 
 ### Boas Práticas:
 
-- Automatizar o deploy com CI/CD (GitHub Actions, Jenkins, GitLab CI).
-- Monitorar logs e erros em tempo real (ELK Stack, New Relic, Datadog).
-- Ter um plano de rollback para falhas.
-- Realizar deploys graduais (Canary Releases, Blue-Green Deployment).
-- Fazer backup de dados antes do deploy.
+-   Automatizar o deploy com CI/CD (GitHub Actions, Jenkins, GitLab CI).
+-   Monitorar logs e erros em tempo real (ELK Stack, New Relic, Datadog).
+-   Ter um plano de rollback para falhas.
+-   Realizar deploys graduais (Canary Releases, Blue-Green Deployment).
+-   Fazer backup de dados antes do deploy.
 
 ## 16. AVALIAÇÃO TÉCNICA
 
 Os seguintes critérios serão utilizados:
 
-- Funcionamento da solução de ponta a ponta.
-- Organização do código e estrutura do projeto.
-- Coerência na modelagem e nos fluxos de dados.
-- Qualidade da interface (usabilidade, responsividade).
-- Clareza e objetividade da documentação.
-- Testes automatizados (nível de cobertura e relevância).
-- Boas práticas de versionamento e uso do GitHub.
+-   Funcionamento da solução de ponta a ponta.
+-   Organização do código e estrutura do projeto.
+-   Coerência na modelagem e nos fluxos de dados.
+-   Qualidade da interface (usabilidade, responsividade).
+-   Clareza e objetividade da documentação.
+-   Testes automatizados (nível de cobertura e relevância).
+-   Boas práticas de versionamento e uso do GitHub.
 
 # Informações para desenvolvedores:
 
@@ -731,18 +731,18 @@ npm run stop
 
 No navegador:
 
-- React: http://localhost:5173/
-- FastApi:http://localhost:8000/
-- http://localhost:8000/users/health
-- Node:http://localhost:3000/
+-   React: http://localhost:5173/
+-   FastApi:http://localhost:8000/
+-   http://localhost:8000/users/health
+-   Node:http://localhost:3000/
 
 ---
 
 No terminal:
 
-- curl -i http://localhost:8000/
-- curl -i http://localhost:5173/
-- curl -i http://localhost:3000/
+-   curl -i http://localhost:8000/
+-   curl -i http://localhost:5173/
+-   curl -i http://localhost:3000/
 
 ---
 
@@ -765,28 +765,28 @@ No terminal:
 
 1. **Quais são as maiores dores?**
 
-   - Criação dos testes
-   - Criação da documentação
-   - Seguir um padrão de qualidade
+    - Criação dos testes
+    - Criação da documentação
+    - Seguir um padrão de qualidade
 
 2. **Onde o dev gasta mais tempo?**
 
-   - Analisando tarefas e requisitos para criação do prompt
-   - Solicitando a ia exemplos de código para uso
-   - Descobrindo as validações necessárias
-   - Esperando revisão de código
+    - Analisando tarefas e requisitos para criação do prompt
+    - Solicitando a ia exemplos de código para uso
+    - Descobrindo as validações necessárias
+    - Esperando revisão de código
 
 3. **Qual parte pode gerar mais bugs?**
 
-   - Implementação mal entendida
-   - Falta de testes automatizados
+    - Implementação mal entendida
+    - Falta de testes automatizados
 
 4. **Como fazer com qualidade respeitando o cronograma?**
 
-   - Automatizando tarefas repetitivas
-   - Fornecendo sugestões de código com IA
-   - Gerando documentação e testes automaticamente
-   - Reduzindo tempo entre ciclos (menos re-trabalho)
+    - Automatizando tarefas repetitivas
+    - Fornecendo sugestões de código com IA
+    - Gerando documentação e testes automaticamente
+    - Reduzindo tempo entre ciclos (menos re-trabalho)
 
 ---
 
@@ -809,7 +809,7 @@ Baseado nas dores e etapas críticas, defina funcionalidades iniciais que tragam
 
 **Critério de escolha:**
 
-- Dores mais frequentes + facilidade de implementação inicial + potencial de automação
+-   Dores mais frequentes + facilidade de implementação inicial + potencial de automação
 
 **Ordem sugerida:**
 
@@ -825,20 +825,20 @@ Baseado nas dores e etapas críticas, defina funcionalidades iniciais que tragam
 
 ### 🧭 **Passo 5 – Validação com Usuário Final (Dev Operacional)**
 
-- Criar protótipo interativo (Figma, Low-code)
-- Validar se o dev consegue:
+-   Criar protótipo interativo (Figma, Low-code)
+-   Validar se o dev consegue:
 
-  - Ganhar tempo
-  - Compreender a ajuda da IA
-  - Integrar ao seu fluxo natural
+    -   Ganhar tempo
+    -   Compreender a ajuda da IA
+    -   Integrar ao seu fluxo natural
 
 ex:
 Passo 1: Criar tarefa
 
-- Nova Tarefa
-  - Título \*: Criação de tarefas
-  - Descrição: Cada tarefa deverá ter o status (Pendente, Em Progresso, Concluída), a prioridade (Alta, média, Baixa) , a data de vencimento.
-    Passo 2: Visualizar a tarefa
+-   Nova Tarefa
+    -   Título \*: Criação de tarefas
+    -   Descrição: Cada tarefa deverá ter o status (Pendente, Em Progresso, Concluída), a prioridade (Alta, média, Baixa) , a data de vencimento.
+        Passo 2: Visualizar a tarefa
 
 ---
 
@@ -846,18 +846,18 @@ Passo 1: Criar tarefa
 
 **Sprint 1 (1-2 semanas):**
 
-- Implementar parser de tarefas
-- Gerar checklist baseado em tipo de tarefa
+-   Implementar parser de tarefas
+-   Gerar checklist baseado em tipo de tarefa
 
 **Sprint 2:**
 
-- Sugestão de código e snippets
-- Testes automatizados
+-   Sugestão de código e snippets
+-   Testes automatizados
 
 **Sprint 3+:**
 
-- Integração com GitHub (comentários em PR)
-- Dashboard de produtividade
+-   Integração com GitHub (comentários em PR)
+-   Dashboard de produtividade
 
 ## Evolução
 
@@ -890,8 +890,8 @@ Passo 1: Criar tarefa
 | Estabelecer esquema de **on-call rotativo** e criar um runbook claro | ✓      |
 | Painel visual com os principais dados do time de engenharia\*        | ✓      |
 
-- **On-call** é quando um(a) desenvolvedor(a) fica de plantão, ou seja, responsável por responder rapidamente a incidentes
-- **Runbook** é um guia prático e direto com passo a passo do que fazer em caso de incidentes
+-   **On-call** é quando um(a) desenvolvedor(a) fica de plantão, ou seja, responsável por responder rapidamente a incidentes
+-   **Runbook** é um guia prático e direto com passo a passo do que fazer em caso de incidentes
 
 \*(Grafana/Looker)
 | Tipo de Métrica | Exemplo |
@@ -913,8 +913,8 @@ Passo 1: Criar tarefa
 | Entregar o quick-win em produção e medir impacto com métricas           | ✓      |
 | Iniciar coaching do sucessor e começar a delegação de responsabilidades | ✓      |
 
-- Quick-win: É uma melhoria simples e rápida de implementar
-- Dívida técnica é qualquer atalho ou escolha técnica feita para entregar mais rápido, mas que compromete a qualidade ou manutenção do código no futuro
+-   Quick-win: É uma melhoria simples e rápida de implementar
+-   Dívida técnica é qualquer atalho ou escolha técnica feita para entregar mais rápido, mas que compromete a qualidade ou manutenção do código no futuro
 
 ---
 
@@ -926,11 +926,11 @@ Desenvolvedor que é referência técnica para a equipe e que apoia o Gerente do
 
 **Responsabilidades:**
 
-- Planejar e manter os prazos relacionados ao desenvolvimento;
-- Garantir que os padrões arquiteturais, de código e de qualidade definidos pela Divisão de Desenvolvimento sejam seguidos no projeto;
-- Agregar a equipe em busca do bom andamento do projeto dentro dos prazos estabelecidos;
-- Contribuir com informações para o planejamento do projeto;
-- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+-   Planejar e manter os prazos relacionados ao desenvolvimento;
+-   Garantir que os padrões arquiteturais, de código e de qualidade definidos pela Divisão de Desenvolvimento sejam seguidos no projeto;
+-   Agregar a equipe em busca do bom andamento do projeto dentro dos prazos estabelecidos;
+-   Contribuir com informações para o planejamento do projeto;
+-   Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
 
 ---
 
@@ -940,14 +940,14 @@ Membro da Secretaria de Tecnologia da Informação especializado no desenvolvime
 
 **Responsabilidades:**
 
-- Desenhar e implementar o software, em conformidade com o Documento de Visão e o Documento de Apoio ao Desenvolvimento, seguindo os padrões arquiteturais e de codificação definidos pela Divisão de Desenvolvimento;
-- Realizar testes no software a ser entregue, seguindo os padrões de qualidade definidos pela Divisão de Desenvolvimento;
-- Disponibilizar o software desenvolvido em ambiente de homologação, seguindo os padrões DevOps definidos pela Divisão de Desenvolvimento;
-- Corrigir, no tempo adequado, os defeitos de codificação identificados em todas as fases do projeto;
-- Apoiar tecnicamente o Analista de Requisitos na elaboração do Documento de Visão, Documento de Apoio ao Desenvolvimento e/ou testes de verificação;
-- Seguir orientações definidas pelo Líder Técnico;
-- Contribuir com informações para o planejamento do projeto;
-- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+-   Desenhar e implementar o software, em conformidade com o Documento de Visão e o Documento de Apoio ao Desenvolvimento, seguindo os padrões arquiteturais e de codificação definidos pela Divisão de Desenvolvimento;
+-   Realizar testes no software a ser entregue, seguindo os padrões de qualidade definidos pela Divisão de Desenvolvimento;
+-   Disponibilizar o software desenvolvido em ambiente de homologação, seguindo os padrões DevOps definidos pela Divisão de Desenvolvimento;
+-   Corrigir, no tempo adequado, os defeitos de codificação identificados em todas as fases do projeto;
+-   Apoiar tecnicamente o Analista de Requisitos na elaboração do Documento de Visão, Documento de Apoio ao Desenvolvimento e/ou testes de verificação;
+-   Seguir orientações definidas pelo Líder Técnico;
+-   Contribuir com informações para o planejamento do projeto;
+-   Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
 
 ---
 
@@ -957,15 +957,15 @@ Pessoa ou grupo que traduz as necessidades do Fornecedor de Requisitos e do Dema
 
 **Responsabilidades:**
 
-- Coletar requisitos e elaborar o Documento de Visão;
-- Acompanhar e auxiliar o Demandante na aprovação do Documento de Visão;
-- Elaborar o Documento de Apoio ao Desenvolvimento;
-- Realizar testes em ambiente de homologação;
-- Liberar o software para homologação do Demandante;
-- Acompanhar e auxiliar o Demandante na homologação do software;
-- Auxiliar a Equipe do Projeto em relação ao escopo do projeto;
-- Contribuir com informações para o planejamento do projeto;
-- Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
+-   Coletar requisitos e elaborar o Documento de Visão;
+-   Acompanhar e auxiliar o Demandante na aprovação do Documento de Visão;
+-   Elaborar o Documento de Apoio ao Desenvolvimento;
+-   Realizar testes em ambiente de homologação;
+-   Liberar o software para homologação do Demandante;
+-   Acompanhar e auxiliar o Demandante na homologação do software;
+-   Auxiliar a Equipe do Projeto em relação ao escopo do projeto;
+-   Contribuir com informações para o planejamento do projeto;
+-   Comunicar o Gerente do Projeto sobre impedimentos e riscos identificados.
 
 ---
 
@@ -977,13 +977,379 @@ Segundo o PMBOK, o gerente de projetos é responsável e responsabilizável pelo
 
 **Responsabilidades:**
 
-- Gerenciar o projeto de acordo com esta metodologia;
-- Definir estratégias de execução do projeto;
-- Definir e gerenciar os recursos humanos, financeiros e materiais do projeto;
-- Relacionar-se com as partes interessadas no projeto, de forma a garantir um relacionamento saudável para o sucesso do projeto;
-- Coletar os indicadores de desempenho do projeto;
-- Corrigir desvios de planejamento identificados;
-- Reportar a situação do projeto ao Patrocinador do projeto e ao Escritório de Gestão de Projetos de TI.
+-   Gerenciar o projeto de acordo com esta metodologia;
+-   Definir estratégias de execução do projeto;
+-   Definir e gerenciar os recursos humanos, financeiros e materiais do projeto;
+-   Relacionar-se com as partes interessadas no projeto, de forma a garantir um relacionamento saudável para o sucesso do projeto;
+-   Coletar os indicadores de desempenho do projeto;
+-   Corrigir desvios de planejamento identificados;
+-   Reportar a situação do projeto ao Patrocinador do projeto e ao Escritório de Gestão de Projetos de TI.
 
 CICLO DE VIDA DO PROJETO DE DESENVOLVIMENTO
 PRINCIPAIS ARTEFATOS
+
+# Projetos profissionais:
+
+## Modelo em python:
+
+# 🚀 Arquitetura Python Escalável - Melhorias para Projetos Futuros
+
+## 📁 Estrutura Aprimorada para Escalabilidade
+
+```
+project_root/
+├── .env                          # Variáveis de ambiente
+├── .env.example                  # Template das variáveis
+├── .gitignore                    # Arquivos ignorados pelo Git
+├── docker-compose.yml            # Container orchestration
+├── Dockerfile                    # Imagem Docker
+├── requirements.txt              # Dependências de produção
+├── requirements-dev.txt          # Dependências de desenvolvimento
+├── pyproject.toml               # Configuração do projeto
+├── README.md                    # Documentação
+├── Makefile                     # Comandos automatizados
+├── alembic.ini                  # Configuração de migrations
+├── pytest.ini                  # Configuração de testes
+│
+├── app/
+│   ├── __init__.py
+│   ├── main.py                  # Entrada da aplicação
+│   ├── config/
+│   │   ├── __init__.py
+│   │   ├── settings.py          # Configurações centralizadas
+│   │   └── database.py          # Configuração do banco
+│   │
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── exceptions.py        # Exceções customizadas
+│   │   ├── middleware.py        # Middlewares customizados
+│   │   ├── security.py          # Autenticação e autorização
+│   │   ├── logging.py           # Configuração de logs
+│   │   └── events.py            # Sistema de eventos
+│   │
+│   ├── shared/
+│   │   ├── __init__.py
+│   │   ├── domain/
+│   │   │   ├── __init__.py
+│   │   │   ├── base_entity.py   # Entidade base
+│   │   │   ├── value_objects.py # Value Objects compartilhados
+│   │   │   └── events.py        # Domain Events
+│   │   ├── infrastructure/
+│   │   │   ├── __init__.py
+│   │   │   ├── base_repository.py
+│   │   │   ├── database/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── models.py    # Models SQLAlchemy
+│   │   │   │   └── migrations/  # Alembic migrations
+│   │   │   └── external/
+│   │   │       ├── __init__.py
+│   │   │       └── http_client.py
+│   │   └── application/
+│   │       ├── __init__.py
+│   │       ├── base_usecase.py
+│   │       └── dto/             # Data Transfer Objects
+│   │           └── __init__.py
+│   │
+│   ├── modules/
+│   │   ├── __init__.py
+│   │   ├── user/                # Módulo de usuários
+│   │   │   ├── __init__.py
+│   │   │   ├── domain/
+│   │   │   ├── application/
+│   │   │   ├── infrastructure/
+│   │   │   ├── presentation/
+│   │   │   └── container.py
+│   │   │
+│   │   └── task/                # Módulo de tarefas (exemplo existente)
+│   │       ├── __init__.py
+│   │       ├── domain/
+│   │       │   ├── __init__.py
+│   │       │   ├── entities/
+│   │       │   │   └── task.py
+│   │       │   ├── repositories/
+│   │       │   │   └── task_repository.py
+│   │       │   ├── services/    # Domain Services
+│   │       │   │   └── __init__.py
+│   │       │   └── events/      # Domain Events específicos
+│   │       │       └── __init__.py
+│   │       ├── application/
+│   │       │   ├── __init__.py
+│   │       │   ├── usecases/
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── create_task.py
+│   │       │   │   ├── update_task.py
+│   │       │   │   ├── delete_task.py
+│   │       │   │   └── list_tasks.py
+│   │       │   ├── dto/
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── request.py
+│   │       │   │   └── response.py
+│   │       │   └── handlers/    # Event Handlers
+│   │       │       └── __init__.py
+│   │       ├── infrastructure/
+│   │       │   ├── __init__.py
+│   │       │   ├── repositories/
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── task_repository.py
+│   │       │   └── external/    # Integrações externas
+│   │       │       └── __init__.py
+│   │       ├── presentation/
+│   │       │   ├── __init__.py
+│   │       │   ├── controllers/
+│   │       │   │   ├── __init__.py
+│   │       │   │   └── task_controller.py
+│   │       │   ├── schemas/     # Pydantic schemas
+│   │       │   │   ├── __init__.py
+│   │       │   │   ├── request.py
+│   │       │   │   └── response.py
+│   │       │   └── routes/
+│   │       │       ├── __init__.py
+│   │       │       └── task_routes.py
+│   │       └── container.py
+│   │
+│   └── container.py             # Container principal
+│
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py              # Fixtures do pytest
+│   ├── unit/                    # Testes unitários
+│   ├── integration/             # Testes de integração
+│   └── e2e/                     # Testes end-to-end
+│
+├── scripts/
+│   ├── start.sh                 # Script de inicialização
+│   ├── migrate.sh              # Script de migrations
+│   └── seed.py                 # Dados iniciais
+│
+└── docs/
+    ├── api/                     # Documentação da API
+    ├── architecture/            # Documentação da arquitetura
+    └── deployment/              # Guias de deploy
+```
+
+## Modelo em node:
+
+# 🚀 Arquitetura TypeScript Escalável - Melhorias para Projetos Futuros
+
+## 📁 Estrutura Aprimorada para Escalabilidade
+
+```
+project-root/
+├── .env                              # Variáveis de ambiente
+├── .env.example                      # Template das variáveis
+├── .gitignore                        # Arquivos ignorados
+├── .eslintrc.js                      # Configuração do ESLint
+├── .prettierrc                       # Configuração do Prettier
+├── jest.config.js                    # Configuração do Jest
+├── tsconfig.json                     # Configuração do TypeScript
+├── package.json                      # Dependências e scripts
+├── docker-compose.yml               # Container orchestration
+├── Dockerfile                       # Imagem Docker
+├── README.md                        # Documentação
+├── nodemon.json                     # Configuração do Nodemon
+├── Makefile                         # Scripts de automação
+│
+├── migrations/                       # Migrations do banco
+│   ├── 001_create_tables.sql
+│   ├── 002_add_indexes.sql
+│   └── migrate.ts
+│
+├── scripts/                          # Scripts utilitários
+│   ├── build.sh
+│   ├── start.sh
+│   ├── test.sh
+│   └── seed.ts
+│
+├── src/
+│   ├── index.ts                     # Entrada da aplicação
+│   ├── app.ts                       # Configuração do Express
+│   ├── server.ts                    # Servidor HTTP
+│   │
+│   ├── config/
+│   │   ├── index.ts                 # Configurações centralizadas
+│   │   ├── database.ts              # Configuração do PostgreSQL
+│   │   ├── redis.ts                 # Configuração do Redis
+│   │   ├── logger.ts                # Configuração de logs
+│   │   └── container.ts             # Container de dependências
+│   │
+│   ├── shared/
+│   │   ├── core/
+│   │   │   ├── AppError.ts          # ✅ Já existe - melhorar
+│   │   │   ├── Either.ts            # ✅ Já existe
+│   │   │   ├── Result.ts            # ✅ Já existe
+│   │   │   ├── IUseCase.ts          # ✅ Já existe - melhorar
+│   │   │   ├── BaseEntity.ts        # 🆕 Entidade base
+│   │   │   ├── BaseRepository.ts    # 🆕 Repository base
+│   │   │   ├── BaseController.ts    # 🆕 Controller base
+│   │   │   ├── BaseUseCase.ts       # 🆕 UseCase base
+│   │   │   ├── ValueObject.ts       # 🆕 Value Objects
+│   │   │   ├── AggregateRoot.ts     # 🆕 Aggregate Root
+│   │   │   ├── DomainEvent.ts       # 🆕 Domain Events
+│   │   │   ├── EventBus.ts          # 🆕 Event Bus
+│   │   │   └── Validator.ts         # 🆕 Sistema de validação
+│   │   │
+│   │   ├── utils/
+│   │   │   ├── crypto.ts            # Funções de criptografia
+│   │   │   ├── pagination.ts        # Utilidades de paginação
+│   │   │   ├── date.ts              # Manipulação de datas
+│   │   │   ├── string.ts            # Manipulação de strings
+│   │   │   ├── logger.ts            # Logger personalizado
+│   │   │   └── validators.ts        # Validadores customizados
+│   │   │
+│   │   ├── middleware/
+│   │   │   ├── auth.middleware.ts   # Autenticação JWT
+│   │   │   ├── cors.middleware.ts   # CORS personalizado
+│   │   │   ├── rate-limit.middleware.ts # Rate limiting
+│   │   │   ├── error.middleware.ts  # Tratamento global de erros
+│   │   │   ├── validation.middleware.ts # Validação de schemas
+│   │   │   ├── logging.middleware.ts # Logs de requisições
+│   │   │   ├── security.middleware.ts # Segurança (Helmet)
+│   │   │   └── transaction.middleware.ts # Transações DB
+│   │   │
+│   │   ├── types/
+│   │   │   ├── express.d.ts         # Extensões do Express
+│   │   │   ├── pagination.types.ts  # Tipos de paginação
+│   │   │   ├── response.types.ts    # Tipos de resposta padronizados
+│   │   │   ├── database.types.ts    # Tipos do banco
+│   │   │   ├── auth.types.ts        # Tipos de autenticação
+│   │   │   └── common.types.ts      # Tipos comuns
+│   │   │
+│   │   ├── constants/
+│   │   │   ├── http-status.ts       # Status HTTP
+│   │   │   ├── error-codes.ts       # Códigos de erro padronizados
+│   │   │   ├── pagination.ts        # Constantes de paginação
+│   │   │   ├── regex.ts             # Expressões regulares
+│   │   │   └── database.ts          # Constantes do banco
+│   │   │
+│   │   └── infrastructure/
+│   │       ├── database/
+│   │       │   ├── index.ts
+│   │       │   ├── IConnection.ts   # ✅ Já existe - melhorar
+│   │       │   ├── PostgresConnection.ts # 🔄 Melhorar o existente
+│   │       │   ├── QueryBuilder.ts  # 🆕 Query Builder personalizado
+│   │       │   ├── Transaction.ts   # 🆕 Gerenciador de transações
+│   │       │   └── migrations/
+│   │       │       ├── MigrationRunner.ts
+│   │       │       └── BaseMigration.ts
+│   │       ├── cache/
+│   │       │   ├── ICache.ts        # Interface de cache
+│   │       │   ├── RedisCache.ts    # Implementação Redis
+│   │       │   └── InMemoryCache.ts # Cache em memória
+│   │       ├── queue/
+│   │       │   ├── IQueue.ts        # Interface de filas
+│   │       │   ├── RedisQueue.ts    # Filas com Redis
+│   │       │   └── BullQueue.ts     # Bull.js implementation
+│   │       ├── external/
+│   │       │   ├── IHttpClient.ts   # Interface HTTP client
+│   │       │   ├── AxiosClient.ts   # Cliente HTTP
+│   │       │   └── EmailService.ts  # Serviço de email
+│   │       └── monitoring/
+│   │           ├── IMetrics.ts      # Interface de métricas
+│   │           ├── PrometheusMetrics.ts # Métricas Prometheus
+│   │           └── HealthCheck.ts   # Health checks
+│   │
+│   ├── modules/
+│   │   ├── auth/                    # 🆕 Módulo de autenticação
+│   │   │   ├── domain/
+│   │   │   │   ├── entities/
+│   │   │   │   │   └── User.ts
+│   │   │   │   ├── repositories/
+│   │   │   │   │   └── IUserRepository.ts
+│   │   │   │   ├── services/
+│   │   │   │   │   ├── AuthService.ts
+│   │   │   │   │   └── PasswordService.ts
+│   │   │   │   └── value-objects/
+│   │   │   │       ├── Email.ts
+│   │   │   │       └── Password.ts
+│   │   │   ├── application/
+│   │   │   │   ├── usecases/
+│   │   │   │   │   ├── LoginUseCase.ts
+│   │   │   │   │   ├── RegisterUseCase.ts
+│   │   │   │   │   └── RefreshTokenUseCase.ts
+│   │   │   │   └── dto/
+│   │   │   │       ├── LoginRequest.ts
+│   │   │   │       ├── LoginResponse.ts
+│   │   │   │       └── RegisterRequest.ts
+│   │   │   ├── infrastructure/
+│   │   │   │   └── repositories/
+│   │   │   │       └── UserRepository.ts
+│   │   │   ├── presentation/
+│   │   │   │   ├── controllers/
+│   │   │   │   │   └── AuthController.ts
+│   │   │   │   ├── routes/
+│   │   │   │   │   └── auth.routes.ts
+│   │   │   │   └── schemas/
+│   │   │   │       ├── LoginSchema.ts
+│   │   │   │       └── RegisterSchema.ts
+│   │   │   └── container.ts
+│   │   │
+│   │   └── task/                    # ✅ Já existe - melhorar
+│   │       ├── domain/
+│   │       │   ├── entities/
+│   │       │   │   └── Task.ts      # 🔄 Melhorar existente
+│   │       │   ├── repositories/
+│   │       │   │   └── ITaskRepository.ts # 🔄 Melhorar existente
+│   │       │   ├── services/
+│   │       │   │   ├── TaskValidationService.ts
+│   │       │   │   └── TaskNotificationService.ts
+│   │       │   ├── value-objects/
+│   │       │   │   ├── TaskStatus.ts
+│   │       │   │   ├── TaskPriority.ts
+│   │       │   │   └── TaskId.ts
+│   │       │   └── events/
+│   │       │       ├── TaskCreatedEvent.ts
+│   │       │       ├── TaskUpdatedEvent.ts
+│   │       │       └── TaskDeletedEvent.ts
+│   │       ├── application/
+│   │       │   ├── usecases/
+│   │       │   │   ├── CreateTaskUseCase.ts # 🔄 Melhorar existente
+│   │       │   │   ├── UpdateTaskUseCase.ts # 🔄 Melhorar existente
+│   │       │   │   ├── DeleteTaskUseCase.ts # 🔄 Melhorar existente
+│   │       │   │   ├── ListTasksUseCase.ts  # 🔄 Melhorar existente
+│   │       │   │   ├── GetTaskUseCase.ts    # 🆕 Buscar por ID
+│   │       │   │   └── BulkUpdateTasksUseCase.ts # 🆕 Operações em lote
+│   │       │   ├── dto/
+│   │       │   │   ├── CreateTaskRequest.ts
+│   │       │   │   ├── UpdateTaskRequest.ts
+│   │       │   │   ├── TaskResponse.ts
+│   │       │   │   └── TaskListResponse.ts
+│   │       │   └── handlers/
+│   │       │       ├── TaskCreatedHandler.ts
+│   │       │       └── TaskUpdatedHandler.ts
+│   │       ├── infrastructure/
+│   │       │   ├── repositories/
+│   │       │   │   └── TaskRepository.ts # 🔄 Melhorar existente
+│   │       │   └── external/
+│   │       │       ├── TaskNotificationClient.ts
+│   │       │       └── TaskAnalyticsClient.ts
+│   │       ├── presentation/
+│   │       │   ├── controllers/
+│   │       │   │   ├── TaskController.ts # 🔄 Unificar controllers
+│   │       │   │   └── TaskBulkController.ts # 🆕 Operações em lote
+│   │       │   ├── routes/
+│   │       │   │   └── task.routes.ts # 🔄 Melhorar existente
+│   │       │   ├── schemas/
+│   │       │   │   ├── CreateTaskSchema.ts
+│   │       │   │   ├── UpdateTaskSchema.ts
+│   │       │   │   └── TaskQuerySchema.ts
+│   │       │   └── validators/
+│   │       │       └── TaskValidator.ts
+│   │       ├── test/
+│   │       │   ├── unit/             # ✅ Já existe - expandir
+│   │       │   ├── integration/      # ✅ Já existe - expandir
+│   │       │   ├── e2e/              # 🆕 Testes end-to-end
+│   │       │   └── fixtures/         # 🆕 Dados de teste
+│   │       └── container.ts          # 🆕 Container do módulo
+│   │
+│   └── container.ts                  # 🆕 Container principal
+│
+├── tests/                            # 🆕 Testes globais
+│   ├── setup.ts                     # Configuração global
+│   ├── helpers/                     # Helpers de teste
+│   └── mocks/                       # Mocks compartilhados
+│
+└── docs/                            # 🆕 Documentação
+    ├── api/                         # Documentação da API
+    ├── architecture/                # Documentação da arquitetura
+    └── deployment/                  # Guias de deploy
+```

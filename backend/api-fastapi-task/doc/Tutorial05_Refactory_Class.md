@@ -232,3 +232,5 @@ Por padrão, o servidor vai rodar em:
 
 documentação:
 http://localhost:8000/docs
+
+# Claude - Melhorias
