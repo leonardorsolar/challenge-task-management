@@ -8,6 +8,7 @@
     "start-react": "npm run dev --prefix frontend/project-management",
     "start-fastapi": "bash ./scripts/startFastapi.sh",
     "start-all": "concurrently \"npm run start-node\" \"npm run start-node-ia\" \"npm run start-node-mcp\" \"npm run start-react\" \"npm run start-fastapi\"",
+    "install-all": "bash ./scripts/installAll.sh",
     "stop": "bash ./scripts/stop.sh"
   },
   "devDependencies": {

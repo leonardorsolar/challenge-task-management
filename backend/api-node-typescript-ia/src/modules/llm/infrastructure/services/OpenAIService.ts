@@ -43,86 +43,162 @@ Formato: **Verbo + Substantivo**
 ### 2. 📋 ANÁLISE DE REQUISITOS
 
 #### Requisitos Funcionais (RF)
+- Tipo: Requisito Funcional
+- Área: Frontend ou Backend 
+
+**Descrição::**
 - **Como** [persona], **eu quero** [funcionalidade] **para** [valor/objetivo]
-- Separar por Frontend e Backend
-- Incluir critérios de aceitação em formato BDD:
+
+**Critérios de Aceitação:**
   - **Dado** (contexto inicial)
   - **Quando** (ação executada)  
   - **Então** (resultado esperado)
-
-#### Requisitos Não-Funcionais (RNF)
-- Performance (tempo de resposta)
-- Segurança (autenticação/autorização)
-- Escalabilidade
-- Usabilidade
-
-### 3. 🎯 ÉPICOS E USER STORIES
-
-#### Frontend Stories
-\`\`\`
-📱 Como [usuário], eu quero [ação] para [benefício]
-
-**Critérios de Aceitação:**
-- Dado que [contexto]
-- Quando eu [ação]
-- Então eu [resultado esperado]
 
 **Definition of Done:**
 - [ ] Componente criado e testado
 - [ ] Responsivo para mobile
 - [ ] Validações implementadas
 - [ ] Testes unitários passando
-\`\`\`
 
-#### Backend Stories
-\`\`\`
-🔧 Como [sistema], eu preciso [funcionalidade] para [propósito]
-
-**Critérios de Aceitação:**
-- Dado que [estado inicial]
-- Quando [evento ocorre]
-- Então [resultado/resposta]
+#### Requisitos Não-Funcionais (RNF)
+- Performance (ex.:tempo de resposta)
+- Segurança (ex.: autenticação/autorização)
+- Escalabilidade: [ex: suporte a múltiplos usuários simultâneos]
+- Usabilidade: [ex: acessível em mobile, uso intuitivo]
 
 **Definition of Done:**
-- [ ] Endpoint implementado
-- [ ] Validações de entrada
-- [ ] Testes de integração
-- [ ] Documentação atualizada
+- [ ] Componente criado e testado
+- [ ] Responsivo para mobile
+- [ ] Validações implementadas
+- [ ] Testes unitários passando
+
+### 4. 📁 ARQUITETURA DE ARQUIVOS
+
+#### Backend (Clean Architecture)
+Exemplo de estrutura de pastas para um módulo de tarefas:
+#### Frontend (React + Clean Architecture)
+\`\`\`
+src/
+├── components/
+│   ├── ui/
+│   │   ├── Button/
+│   │   └── Input/
+│   └── features/
+│       └── tasks/
+│           ├── TaskForm/
+│           ├── TaskList/
+│           └── TaskItem/
+├── hooks/
+│   └── useTasks.ts
+├── services/
+│   └── api/
+│       └── taskService.ts
+├── types/
+│   └── Task.ts
+└── pages/
+    └── TasksPage.tsx
 \`\`\`
 
-### 4. ⚡ OBSERVAÇÕES E MELHORIAS
+\`\`\`
+src/
+├── domain/
+│   ├── entities/
+│   │   └── Task.ts
+│   ├── repositories/
+│   │   └── ITaskRepository.ts
+│   └── usecases/
+│       └── CreateTaskUseCase.ts
+├── infrastructure/
+│   ├── database/
+│   │   ├── migrations/
+│   │   └── TaskRepository.ts
+│   └── web/
+│       ├── controllers/
+│       │   └── TaskController.ts
+│       ├── middlewares/
+│       └── routes/
+│           └── taskRoutes.ts
+└── main/
+    ├── config/
+    ├── factories/
+    └── server.ts
+\`\`\`
+### 5. 📦 PAYLOADS DE EXEMPLO
 
-#### Pontos de Atenção
-- **Segurança:** Sanitizar inputs para prevenir XSS/SQL Injection
-- **Performance:** Implementar debounce nas validações em tempo real
-- **UX:** Loading states e feedback visual claro
-- **Acessibilidade:** Labels adequados, navegação por teclado
+#### Request (POST /api/tasks)
+\`\`\`json
+{
+    "title": "Implementar autenticação de usuários",
+    "description": "Adicionar funcionalidade de login com JWT, incluindo middleware de autenticação e proteção de rotas",
+    "priority": "high",
+    "dueDate": "2025-08-15"
+}
+\`\`\`
 
-#### Melhorias Futuras
-- Implementar sistema de tags/categorias
-- Adicionar funcionalidade de anexos
-- Sistema de comentários nas tarefas  
-- Notificações push para prazos
-- Dashboard com métricas e gráficos
-- Integração com calendário
-- Sistema de templates de tarefas
+#### Response Success (201)
+\`\`\`json
+{
+    "success": true,
+    "data": {
+        "id": 1,
+        "title": "Implementar autenticação de usuários", 
+        "description": "Adicionar funcionalidade de login com JWT, incluindo middleware de autenticação e proteção de rotas",
+        "priority": "high",
+        "status": "pending",
+        "dueDate": "2025-08-15",
+        "createdAt": "2025-07-21T22:30:00.000Z",
+        "updatedAt": "2025-07-21T22:30:00.000Z",
+        "createdBy": "user123"
+    },
+    "message": "Tarefa criada com sucesso"
+}
+\`\`\`
 
-#### Regras de Negócio
-- Tarefas não podem ser excluídas, apenas canceladas
-- Apenas o criador pode editar a tarefa
-- Prazo não pode ser anterior à data atual
-- Status deve seguir fluxo definido: pending → in_progress → completed/cancelled
+#### Response Error (400)
+\`\`\`json
+{
+    "success": false,
+    "error": {
+        "code": "VALIDATION_ERROR",
+        "message": "Dados inválidos fornecidos",
+        "details": [
+            {
+                "field": "title",
+                "message": "Título deve ter pelo menos 3 caracteres"
+            },
+            {
+                "field": "description", 
+                "message": "Descrição deve ter pelo menos 10 caracteres"
+            }
+        ]
+    }
+}
+\`\`\`
 
----
+### 6. 🔍 CHECKLIST DE IMPLEMENTAÇÃO
 
-**💡 Dica:** Este documento serve como especificação técnica completa. Cada seção pode ser implementada de forma independente seguindo a ordem sugerida no checklist.
+#### Backend
+- [ ] Criar entidade Task no domínio
+- [ ] Implementar repository pattern
+- [ ] Criar use case de criação
+- [ ] Implementar controller com validações
+- [ ] Configurar rota no Express
+- [ ] Implementar middleware de validação
+- [ ] Criar migration da tabela
+- [ ] Escrever testes unitários
+- [ ] Escrever testes de integração
 
-**INSTRUÇÕES PARA RESPOSTA:**
-1. Analise a tarefa fornecida nos campos "title" e "description"
-2. Use as informações do projeto (type, programmingLanguage, architecture, etc.) para contextualizar
-3. Gere TODOS os 10 outputs acima de forma detalhada e específica para a tarefa
-4. Mantenha consistência técnica entre todas as seções
-5. Responda sempre em formato Markdown bem estruturado
+#### Frontend  
+- [ ] Criar tipos TypeScript
+- [ ] Implementar hook customizado
+- [ ] Criar componente TaskForm
+- [ ] Implementar validações do formulário
+- [ ] Criar service de API
+- [ ] Implementar estados de loading
+- [ ] Adicionar tratamento de erros
+- [ ] Implementar feedback visual
+- [ ] Escrever testes dos componentes
+
 `;
 
       const finalPrompt = `
