@@ -374,10 +374,6 @@ Acessos ao arquivo:
 
 ## 9. Arquitetura e Decisões Técnicas
 
-Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **Projeto Completo**, mantendo alinhamento com os componentes do sistema:
-
----
-
 ### **9.1 Tecnologias e Justificativas**
 
 #### **Tecnologias do MVP**
@@ -511,13 +507,44 @@ Perfeito! Aqui está o texto reestruturado com a separação entre **MVP** e **P
 
 ## 10. Simulação de Distribuição de Tarefas na Equipe
 
-| Desenvolvedor                   | Responsabilidades Técnicas                                                                                                                                                                                                                                                                                                                                         | Entregas Principais                                                                                                                             |
-| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Dev A (Backend + Tech Lead)** | - API RESTful em **Node.js + Express**<br>- Modelagem e lógica de negócio<br>- Testes unitários com **Jest**<br>- Configuração de **CI/CD**<br>- **Documentação com Swagger**<br>- **Responsável por revisão de Pull Requests**<br>- **Garantia de qualidade (QA)**<br>- Suporte à integração entre frontend e backend<br>- Controle de versionamento e convenções | Endpoints documentados e testados, banco de dados configurado, CI/CD funcionando, revisões de código realizadas, qualidade de projeto garantida |
-| **Dev B (Backend)**             | - API RESTful em **Node - Firebase**<br>- Autenticação e gerenciamento de usuários<br>- Testes com **jest/libray**<br>- Documentação OpenAPI<br>- Integração com frontend                                                                                                                                                                                          | Endpoints de usuários, autenticação funcional, documentação gerada, cobertura de testes garantida                                               |
-| **Dev C (Frontend)**            | - Interface em **React**<br>- Consumo de APIs<br>- Interface responsiva com foco em usabilidade<br>- Validações no frontend<br>- Testes e2e com Playwright (com apoio do Dev A)                                                                                                                                                                                    | Funcionalidades completas de CRUD de tarefas com filtros, layout responsivo, testes básicos automatizados                                       |
+---
+
+## ✅ Tarefas do MVP
+
+| Desenvolvedor | Responsabilidades                                                                                                                                                                                                                     | Entregas Esperadas                                                                                                   |
+| ------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- |
+| **Dev A**     | - Backend principal (**Node.js + Express**)<br>- Modelagem de dados e lógica de negócio<br>- Testes unitários (**Jest**)<br>- Swagger/OpenAPI<br>- CI/CD (GitHub Actions)<br>- Integração com Firebase<br>- Revisão de PRs e QA geral | - API REST funcional e documentada<br>- Testes cobrindo regras de negócio<br>- Integração com Firebase e CI/CD ativo |
+| **Dev B**     | - Configuração do **Firebase Auth**<br>- Middleware de autenticação e autorização<br>- CRUD de usuários<br>- Integração da autenticação com o backend<br>- Suporte ao Dev A na arquitetura backend                                    | - Fluxo de autenticação funcional<br>- Rotas protegidas<br>- Documentação e testes básicos de autenticação           |
+| **Dev C**     | - Interface web em **React**<br>- Consumo de APIs REST<br>- CRUD de tarefas e usuários<br>- Layout responsivo e amigável<br>- Validações de formulário<br>- Testes e2e com Playwright                                                 | - Interface 100% funcional e responsiva<br>- Comunicação completa com backend<br>- Validações e testes automatizados |
 
 ---
+
+## 🚀 Tarefas Futuras (Pós-MVP)
+
+| Desenvolvedor | Responsabilidades                                                                                                                                                                                                 | Entregas Esperadas                                                                                                                 |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| **Dev A**     | - **Backend TaskGPT** (Node/Python): integração com OpenAI<br>- Criação de prompts e APIs inteligentes<br>- Testes com respostas da IA<br>- Documentação e fallback de erro<br>- Integração com backend principal | - Assistente inteligente operando<br>- Sugerir/resumir tarefas com IA<br>- APIs REST inteligentes com testes e docs                |
+| **Dev B**     | - **Backend GitHub Client**: integração com Webhooks/API GitHub<br>- Sincronização de tarefas com issues/pulls/commits<br>- Integração com backend principal<br>- Filtragem e notificações                        | - Tarefas geradas via GitHub<br>- Atualizações automáticas por webhook<br>- Relatórios de atividade do repositório                 |
+| **Dev A + B** | - **FastAPI Analytics**: microserviço de métricas<br>- **Java Service** para relatórios/notificações<br>- Integração com RabbitMQ<br>- Orquestração de serviços e monitoramento básico                            | - Painel de produtividade com métricas<br>- Envio de relatórios automáticos<br>- Comunicação entre serviços estabelecida           |
+| **Dev C**     | - Dashboards e gráficos em React<br>- Integração com FastAPI (produtividade)<br>- Exibição de relatórios/notificações<br>- Interface para sugestões do TaskGPT                                                    | - Visualização de dados e insights<br>- Integração frontend com IA e analytics<br>- Layouts dedicados a produtividade e relatórios |
+
+---
+
+## Resumo por Desenvolvedor
+
+| Dev       | Responsável por                                    | Tecnologias-chave                                       |
+| --------- | -------------------------------------------------- | ------------------------------------------------------- |
+| **Dev A** | Backend principal, TaskGPT, FastAPI + Java Service | Node.js, Express, OpenAI API, RabbitMQ, Swagger, Jest   |
+| **Dev B** | Firebase Auth, GitHub Sync, Microserviços          | Firebase, GitHub API, Webhooks, FastAPI, Java, RabbitMQ |
+| **Dev C** | Todo o Frontend                                    | React, Axios, Playwright, Chart.js/D3.js                |
+
+---
+
+Com as divisões de responsabilidades:
+
+-   Criar quadros Kanban\*\* (por Dev ou por Sprint)
+-   Criar um **cronograma de execução por semana**
+-   Gerar um documento técnico de planejamento
 
 **Obs.:** A adoção de uma arquitetura modular e desacoplada, baseada em princípios do Domain-Driven Design (DDD), facilita a escalabilidade da equipe, permitindo a inclusão de novos desenvolvedores de forma segura e com uma divisão de tarefas mais eficiente.
 
